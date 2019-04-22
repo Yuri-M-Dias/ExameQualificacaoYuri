@@ -39,7 +39,7 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 % etc.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\watermark{Revisão No. ##} %% use o comando \watermark para identificar a versão de seu documento
+\watermark{Revisão No. 0.1} %% use o comando \watermark para identificar a versão de seu documento
 %% comente este comando quando for gerar a versão final
 \usepackage{rotating}
 \usepackage{dsfont}
@@ -51,7 +51,7 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 \begin{document} %% início do documento %% não mexer
 
 %\marcaRegistrada{}	% comando opcional usado para informar abaixo da ficha catalográfica sobre marca registrada
-\marcaRegistrada{Informar aqui sobre marca registrada (a modificação desta linha deve ser feita no arquivo publicacao.tex).}
+\marcaRegistrada{\textbf{Informar aqui sobre marca registrada (a modificação desta linha deve ser feita no arquivo publicacao.tex).}}
 
 \maketitle  %% não alterar, gera páginas obrigatórias (folha de rosto, ficha catalográfica e folha de aprovação), automaticamente
 
@@ -73,18 +73,11 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 
 \inicioIntroducao %% não altere este comando
 
-\include{./docs/introducao_corr3} %% 1o capítulo, começo do texto
-
-%\include{./docs/turbulencia_e_caos_st_corr6} %% 2o capítulo
-
-%\include{./docs/tecnicas_utilizadas_corr3} %% 3o capítulo
-
-\include{./docs/dados_analisados_corr2} %% 4o capítulo
-
-\include{./docs/analise_e_resultados_corr7} %% 5o capítulo
-
-\include{./docs/conclusoes3} %% 6o capítulo
-
+\include{./chapters/01-introducao}
+\include{./chapters/02-fundamentacao}
+\include{./chapters/03-proposta}
+\include{./chapters/04-implementacao}
+\include{./chapters/05-conclusao}
 
 %% insira quantos capítulos desejar com o seguinte comando:
 %\include{_pasta_do_arquivo_/_meu_arquivo_} %%sem a extensão
@@ -98,14 +91,14 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 
 %\include{./docs/glossario} %% insira os termos do glossário no arquivo glossario.tex %% opcional
 
-\inicioApendice %% opcional, comente esta linha e a seguintes se não houver apendice(s)
-\include{./docs/apendice1} %% insira apendices tal qual capítulos acima
+%\inicioApendice %% opcional, comente esta linha e a seguintes se não houver apendice(s)
+%\include{./docs/apendice1} %% insira apendices tal qual capítulos acima
 
 
-\inicioAnexo
-\include{./docs/anexo}
-\include{./docs/anexo1}
-\include{./docs/anexo2}
+%\inicioAnexo
+%\include{./docs/anexo}
+%\include{./docs/anexo1}
+%\include{./docs/anexo2}
 
 \inicioIndice
 \include{./docs/contracapa}
