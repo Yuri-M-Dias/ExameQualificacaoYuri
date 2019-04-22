@@ -1,0 +1,53 @@
+\begin{table}[!ht]
+\footnotesize
+\centering
+\caption{Stiffness and damage percent values for each element}
+\label{tab:stiffness}
+    \pgfplotstableset{
+	    columns={element,real,integral,damage},
+	    create on use/damage/.style={
+create col/expr={1-1*(\thisrow{real}/\thisrow{integral})}},
+    }
+		
+    \pgfplotstabletypeset[
+        columns={element,integral,real,damage},
+        col sep=space,
+        display columns/0/.style={
+		    column name=Element,
+		    column type={c},/pgf/number format/fixed
+		    },
+        display columns/1/.style={
+		    column name=Undamaged Stiffness,
+		    column type={c},/pgf/number format/fixed
+		    },
+        display columns/2/.style={
+		    column name=Real Stiffness (damaged),
+		    column type={c},/pgf/number format/fixed
+		    },
+        display columns/3/.style={
+            column name=Damage percent,
+            column type={c},
+            preproc/expr={100*##1},
+            postproc cell content/.append code={%
+                \pgfkeysgetvalue{/pgfplots/table/@preprocessed cell content}\valueIn
+                \pgfmathfloatparsenumber{\valueIn}%
+                \pgfmathfloattofixed{\pgfmathresult}%
+                \let\value=\pgfmathresult
+                \ifdim \value pt > 0 pt%  if value is zero
+                    \begingroup\edef\temp{\endgroup\noexpand
+                    \pgfkeyssetvalue{/pgfplots/table/@cell content}{\noexpand\boldmath
+                    \pgfkeysvalueof{/pgfplots/table/@cell content}~\noexpand\textbf{\%}}}\temp
+                \else
+                    \begingroup\edef\temp{\endgroup\noexpand
+                    \pgfkeyssetvalue{/pgfplots/table/@cell content}{\pgfkeysvalueof{/pgfplots/table/@cell content}~\%}}\temp
+                \fi
+            },
+            fixed,
+        },
+        every head row/.style={
+		    before row={\hline},
+		    after row={\hline}
+		    },
+		every last row/.style={after row=\hline},
+    ]{./figuras/data.csv}
+\end{table}

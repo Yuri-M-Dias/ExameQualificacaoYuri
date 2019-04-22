@@ -1,0 +1,52 @@
+\begin{figure}[ht!]
+\centering
+
+\resizebox{0.70\columnwidth}{!}{
+\begin{tikzpicture}[node distance=1mm]
+
+\clip(0,1) rectangle (12.5,5);
+\coordinate (a) at (8,4) node[above=of a] {$A$};
+\coordinate (b) at (8,2) node[below=of b] {$B$};
+\coordinate (c) at (6,4);
+\coordinate (d) at (6,2);
+\coordinate (e) at (4,4);
+\coordinate (f) at (4,2);
+\coordinate (g) at (2,4);
+\coordinate (h) at (2,2);
+
+\node[hinge b,draw] (A) at (a){};
+\node[hinge b,draw] (C) at (c){};
+\node[hinge b,draw] (B) at (b){};
+\node[hinge b,draw] (D) at (d){};
+\node[hinge b,draw] (E) at (e){};
+\node[hinge b,draw] (F) at (f){};
+\node[hinge,draw,grounded=270,scale=1,transform shape] (G) at (g){};
+\node[hinge,draw,grounded=270,scale=1,transform shape] (H) at (h){};
+
+\draw[thick] (G) -- node[sloped, above, font= \footnotesize] {1} (E);
+\draw[thick, densely dashed] (E) -- node[sloped, above, font= \footnotesize] {2} (C);
+\draw[thick] (C) -- node[sloped, above, font= \footnotesize] {3} (A);
+\draw[thick, densely dashed] (A) -- node[sloped, above, font= \footnotesize] {4} (B);
+\draw[thick] (B) -- node[sloped, above, font= \footnotesize] {5} (D);
+\draw[thick] (D) -- node[sloped, above, font= \footnotesize] {6} (F);
+\draw[thick, densely dashed] (F) -- node[sloped, above, font= \footnotesize] {7} (H);
+\draw[thick] (H) -- node[sloped, above, font= \footnotesize] {8} (E);
+\draw[thick] (E) -- node[sloped, above, font= \footnotesize] {9} (F);
+\draw[thick, densely dashed] (F) -- node[sloped, above, font= \footnotesize] {10} (C);
+\draw[thick] (C) -- node[sloped, above, font= \footnotesize] {11} (D);
+\draw[thick, densely dashed] (D) -- node[sloped, above, font= \footnotesize] {12} (A);
+
+\draw [-latex, thick , gray] (A) -- +(1cm,0)
+	node [above] {$F_A$};
+\draw [-latex, thick , gray] (B) -- +(1cm,0)
+	node [above] {$F_B$};
+	
+%\draw[very thick,red] (5,7) -- (6,7) node[right] {damage};
+\draw[<->] (11,3.5) node[above] {$y$} -- (11,2.5) -- (12,2.5) node[below] {$x$};
+\draw [->] (11.75,2.75) node[sloped, left=0.15] {$+$} arc (0:90:0.5);
+\end{tikzpicture}
+}
+
+\caption{Three-bay truss structure (dashed lines represent damaged elements)}
+\label{fig:truss}
+\end{figure}

@@ -1,0 +1,49 @@
+\begin{figure}
+\centering
+
+\begin{tikzpicture}
+\tikzset{force/.style={->,ultra thick}}
+
+\draw [fill=white] (0.5,-3.5) rectangle (4.5,3.5);
+
+\filldraw[fill=lightgray,rounded corners] (1.9,-3) -- (1.9,1) -- (3.9,3) -- (3.9,-1) -- cycle;
+\filldraw[fill=lightgray,rounded corners] (2,-3) -- (2,1) -- (4,3) -- (4,-1) -- cycle;
+\draw[->] (1,2.5) -- (1,3)node[anchor=south] {\footnotesize $y$};
+\draw[->] (1,2.5) -- (1.25,2.75)node[anchor=south west] {\footnotesize $x$};
+\draw[->] (1,2.5) -- (1.5,2.5)node[anchor=west] {\footnotesize $z$};
+
+\fill (2.25,0.75) circle[radius=2pt] node[anchor=south] {};
+\fill (3,1.5) circle[radius=2pt] node[anchor=south] {};
+\fill (3.75,2.25) circle[radius=2pt] node[anchor=south] {};
+\fill (2.25,-0.75) circle[radius=2pt] node[anchor=south] {};
+\fill (3,0) circle[radius=2pt] node[anchor=south] {\footnotesize Sensors};
+\fill (3.75,0.75) circle[radius=2pt] node[anchor=south] {};
+\fill (2.25,-2.25) circle[radius=2pt] node[anchor=south] {};
+\fill (3,-1.5) circle[radius=2pt] node[anchor=south] {};
+\fill (3.75,-0.75) circle[radius=2pt] node[anchor=south] {};
+
+\draw ((2.5,-2.5)node[anchor=west, font=\footnotesize] {Structure};
+\draw ((1,-1) node[anchor=west, font=\footnotesize] {$\Theta_e$};
+\draw[force] (3,3) node[anchor=south] {\footnotesize $F$} -- (3.9,3);
+\draw[force] (1,-3) node[anchor=south] {\footnotesize $F$} -- (1.9,-3);
+\draw[force] (1,1) node[anchor=south] {\footnotesize $F$} -- (1.9,1);
+
+\coordinate (str) at (4.5,0);
+\node[draw, align=center, rectangle, right of=str, text width = 2cm, node distance=3cm] (residual) {Objective \\Function};
+\node[draw, align=center, rectangle, above of=residual, text width = 2.5cm, node distance=2.5cm] (data) {Structural model};
+\node[draw, align=center, rectangle, right of=residual, text width = 2.5cm, node distance=5cm] (algorithm) {Optimizer};
+\node[align=center, below of=algorithm, text width = 2cm, node distance=2cm] (damage) {Damages $\Theta_d$};
+
+\coordinate (A) at (data -| algorithm);
+
+\draw [->] (str) -- (residual) node [midway, above] {\footnotesize ${\bf{u}}(t)$};
+\draw [->] (residual) -- (algorithm) node [midway, above] {\footnotesize $J({\bf K})$};
+\draw [->] (algorithm.north) -- (A) -- (data.east) node [midway, above] {\footnotesize $\bf K$};
+\path [draw, -latex'] (data) -- node [right] {\footnotesize $\hat{{\bf u}}({\bf K}, t)$}(residual);
+\draw [->] (algorithm.south) -- (damage.north) node [midway, below, text width = 2.5cm] {\footnotesize };
+
+\end{tikzpicture}
+
+\caption{Damage identification (Environmental effects $\Theta_e$, excitation forces $F$)}
+\label{fig:solving}
+\end{figure}
