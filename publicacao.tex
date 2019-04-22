@@ -7,7 +7,7 @@
 %CitacaoNumerica, %% o padrão é citação tipo autor-data
 %PublicacaoDissOuTese, %% (é também o "default") com ficha catal. e folha de aprovação em branco. Caso tenha lista de símbolos e lista de siglas e abreviaturas retirar os comentários dos arquivos siglas.tex e abreviaturasesiglas.tex. Retirar também os comentários indicados nesse arquivo, nos includes
 %PublicacaoArtigoOuRelatorio, %% texto sequencial, sem quebra de páginas nem folhas em branco
-%PublicacaoProposta, %% igual tese/dissertação, mas sem ficha catal. e fol. de aprov.
+PublicacaoProposta, %% igual tese/dissertação, mas sem ficha catal. e fol. de aprov.
 %PublicacaoLivro, %% com capítulos
 %PublicacaoLivro,SemFormatacaoCapitulo, %% sem capítulos
 english,portuguese %% para os documentos em Português com abstract.tex em Inglês
@@ -56,9 +56,9 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 \maketitle  %% não alterar, gera páginas obrigatórias (folha de rosto, ficha catalográfica e folha de aprovação), automaticamente
 
 %%% Comente as linhas opcionais abaixo caso não as deseje
-\include{./docs/epigrafe} %% Opcional
-\include{./docs/dedicatoria} %% Opcional
-\include{./docs/agradecimentos} %% Opcional
+%\include{./docs/epigrafe} %% Opcional
+%\include{./docs/dedicatoria} %% Opcional
+%\include{./docs/agradecimentos} %% Opcional
 \include{./docs/resumo} %% obrigatório
 \include{./docs/abstract} %% obrigatório
 
@@ -109,4 +109,5 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 
 \inicioIndice
 \include{./docs/contracapa}
+
 \end{document}
