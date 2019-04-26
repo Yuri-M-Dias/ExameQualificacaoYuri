@@ -17,3 +17,7 @@ trim_trailing_whitespace = false
 # R files should end with a newline
 [*.R]
 insert_final_newline = true
+
+[*.tex]
+indent_style = space
+indent_size = 2
