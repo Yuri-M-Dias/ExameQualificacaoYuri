@@ -1,10 +1,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{TRABALHOS CORRELATOS}
+\label{ch:corr}
 
 \section{Cubo de Dados}
+\label{ch:corr:cube}
+
+\subsection{FragCubing}
+\label{ch:corr:cube:frag}
 
 \section{Outros Operadores}
+\label{ch:corr:ops}
 
 A tabela \ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}, como demonstrado pelos artigos publicados.
 
@@ -27,15 +33,15 @@ A tabela \ref{table:bigdataoperators} mostra uma revisão feita em artigos recen
 	  \hline
 	  \cite{dischnerCYGNSSMOCMeeting2016} & SwRI + NOAA & CYGNSS MOC & SFTP, - \\
 	  \hline
-	  \cite{edwardsDealingBigData2018} & EUMETSAT & MASIF & FTP, RESTful service, JMS Messague Quee, PostgreSQL \\
+	  \cite{edwardsDealingBigData2018} & EUMETSAT & MASIF & FTP, RESTful service, JMS Messague Queue, PostgreSQL \\
 	  \hline
-	  \cite{evansDataMiningDrastically2016} & S.A.T.E + ESA/ESOC & - & Java, CSV, algoritmos \\
+	  \cite{evansDataMiningDrastically2016} & S.A.T.E + ESA/ESOC & - & Java, CSV \\
 	  \hline
-	  \cite{fenManagementOperationCommunication2016} & CSMT\& (China) & - & não menciona as tecnologias \\
+	  \cite{fenManagementOperationCommunication2016} & CSMT (China) & - & não menciona as tecnologias \\
 	  \hline
-	  \cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT & CHART & algoritmos, estudo de caso \\
+	  \cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT & CHART & algoritmos ad-hoc, estudo de caso \\
 	  \hline
-	  \cite{gillesFlyingLargeConstellations2016} & L-3 & InControl & Amazon EC2, LXC, Nagios, repetição do primeiro \\
+	  \cite{gillesFlyingLargeConstellations2016} & L-3 & InControl & Amazon EC2, LXC, Nagios \\
 	  \hline
 	  \cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
 	  \hline
@@ -51,10 +57,13 @@ A tabela \ref{table:bigdataoperators} mostra uma revisão feita em artigos recen
   \label{table:bigdataoperators}
 \end{table}
 
-Os objetivos em comum desses trabalhos são geralmente facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de limites dos valores das telemetrias. Alguns dos operadores dessa lista estão responsáveis pela operação de constelações de satélites complexos, que faz necessário um certo nível de automação ou a operação contínua teria um custo inviável.
+Os objetivos em comum desses trabalhos são facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de verificação dos limites nos valores das telemetrias. Alguns dos operadores dessa lista estão responsáveis pela operação de constelações de satélites complexos, como constelações de sensoriamento remoto, que faz necessário um certo nível de automação ou a operação contínua teria um custo inviável.
 
-É notável que o uso dessas tecnologias é voltado apenas para os operadores, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
+É bom frisar que o uso dessas tecnologias é apenas para os operadores, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
 
+Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos conforme foram necessários, não mostrando uma integração dos dados, como é o caso de~\cite{yvernesCopernicusGroundSegment2018}.
+
+O trabalho de~\cite{yvernesCopernicusGroundSegment2018} é mais interessante que utilizam de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados.
 
 \section{No INPE}
 

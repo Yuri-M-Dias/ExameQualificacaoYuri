@@ -1,16 +1,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{IMPLEMENTAÇÃO}
+\chapter{IMPLEMENTAÇÃO E RESULTADOS}
+\label{ch:impl}
 
-[O que já foi feito aqui?]
+Para a implementação da arquitetura, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados. Para esse estágio da pesquisa, foram utilizados dados do SCD-2 fornecidos pelo CCS, porém alguns softwares foram implementados como parte da pesquisa sobre o cubo de dados e como resultados da análise dos dados.
 
-Essa seção apresenta os trabalhos e os resultados feitos até o momento.
+\section{Dashboard}
+\label{ch:impl:dash}
 
 \section{RFragCubing}
+\label{ch:impl:rfrag}
 
-[RFragCubing]
+O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube:frag}, foi disponibilizado em forma compilada via código de C++. Porém, ele tinha uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento considerável antes. Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, ela já tinha os resultados de fácil comparação, portanto o seu uso contínuo seria interessante.
+
+Para isso, foi criado um pacote no ecosistema R de programação, que permitia integração com o código feito em C++. Esse pacote faz a interface com o código já utilizado pelo FragCubing, permitindo importar os dados, executar as queries e retornar os resultados das mesmas, bem como algumas adições de medidade de memória e tempo de processamento com a nova interface.
 
 \section{Medida de Similaridade}
+\label{ch:impl:similarity}
 
 [SimilarityMeasure?]
 
