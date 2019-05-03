@@ -42,8 +42,8 @@ A tabela \ref{table:bigdataoperators} mostra uma revisão feita em artigos recen
 	  \cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT & CHART & algoritmos ad-hoc, estudo de caso \\
 	  \hline
 	  \cite{gillesFlyingLargeConstellations2016} & L-3 & InControl & Amazon EC2, LXC, Nagios \\
-	  \hline
-	  \cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
+	  %\hline
+	  %\cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
 	  \hline
 	  \cite{hennionBigdataSatelliteYearly2018} & Thales Alenia & AGYR & Logstash, Kafka, InfluxDB, ElasticSearch, Kibana, Grafana \\
 	  \hline
@@ -61,7 +61,7 @@ Os objetivos em comum desses trabalhos são facilitar as atividades dos operador
 
 É bom frisar que o uso dessas tecnologias é apenas para os operadores, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
 
-Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos conforme foram necessários, não mostrando uma integração dos dados, como é o caso de~\cite{yvernesCopernicusGroundSegment2018}.
+Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos conforme foram necessários, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas na ferramenta utilizada para análise pontual, ao contrário de~\cite{yvernesCopernicusGroundSegment2018}.
 
 O trabalho de~\cite{yvernesCopernicusGroundSegment2018} é mais interessante que utilizam de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados.
 
@@ -69,9 +69,9 @@ O trabalho de~\cite{yvernesCopernicusGroundSegment2018} é mais interessante que
 
 O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.
 Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
-Um exemplo está no trabalho~\cite{Magalhães:2012:EsAvTé} feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
-A motivação principal dos trabalhos da tabela \ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTé}.
+Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe} feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
+A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
 
 Para os outros setores, isso comumente se dá na análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e estão classificados como Big Data.
-~\cite{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos; ~\cite{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e ~\cite{SimõesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais.
+~\cite{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\cite{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\cite{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais.
 

@@ -13,7 +13,7 @@ Para a implementação da arquitetura, é necessário conhecimento sobre o domí
 
 O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube:frag}, foi disponibilizado em forma compilada via código de C++. Porém, ele tinha uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento considerável antes. Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, ela já tinha os resultados de fácil comparação, portanto o seu uso contínuo seria interessante.
 
-Para isso, foi criado um pacote no ecosistema R de programação, que permitia integração com o código feito em C++. Esse pacote faz a interface com o código já utilizado pelo FragCubing, permitindo importar os dados, executar as queries e retornar os resultados das mesmas, bem como algumas adições de medidade de memória e tempo de processamento com a nova interface.
+Para isso, foi criado um pacote na linguagem R\cite{rcoreteamLanguageEnvironmentStatistical2018}, que permitia integração com o código feito em C++. Esse pacote faz a interface com o código já utilizado pelo FragCubing, permitindo importar os dados, executar as queries e retornar os resultados das mesmas, bem como algumas adições de medidade de memória e tempo de processamento com a nova interface.
 
 \section{Medida de Similaridade}
 \label{ch:impl:similarity}
