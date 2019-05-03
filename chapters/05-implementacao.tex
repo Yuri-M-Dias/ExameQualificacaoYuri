@@ -3,20 +3,87 @@
 \chapter{IMPLEMENTAÇÃO E RESULTADOS}
 \label{ch:impl}
 
-Para a implementação da arquitetura, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados. Para esse estágio da pesquisa, foram utilizados dados do SCD-2 fornecidos pelo CCS, porém alguns softwares foram implementados como parte da pesquisa sobre o cubo de dados e como resultados da análise dos dados.
+Para a implementação da arquitetura, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados.
+Para esse estágio da pesquisa, foram utilizados dados do SCD-2 fornecidos pelo CCS, porém alguns softwares foram implementados como parte da pesquisa sobre o cubo de dados e como resultados da análise dos dados.
 
-\section{Dashboard}
+\section{SCD-Dashboard}
 \label{ch:impl:dash}
+
+Os dados vindos do SCD2 possuem 135 dimensões e estão distribuídos em um período de 4 anos, tornando a sua análise não trivial.
+Durante atividades de \textit{Data Science} era necessário criar muitos gráficos e visualizações com períodos e dimensões variadas, e com tantas dimensões isso levava vários pedaços de código copiados para criar relatórios sobre os dados e dimensões.
+
+Para facilitar essa análise e resolver esse problema, foi criado um software chamada de \textbf{SCD-dashboard} para facilitar na visualização dos dados de telemetria.
+Ele foi implementado utilizando o pacote Shiny~\cite{} da linguagem R~\cite{rcoreteamLanguageEnvironmentStatistical2018}, que já estava sendo utilizada para criar as visualizações, a interface permite apenas criar as visualizações e aplicar os outros algoritmos relacionados de uma interface amigável e sem ter a necessidade de escrever código.
+
+Ele funciona sobre um banco de dados PostgreSQL que possui o histórico das telemetrias já importadas e propriamente transformadas por outro script feito só para os dados do SCD2, porém devem funcionar para qualquer dado exportado via CSV pelo SatCS.
+
+Essa ferramenta também pode ser vista como um piloto para implementar algo semelhante as \textit{dashboards} criadas por outras agências, sendo que tem um precedente na ferramenta MARTE utilizada pela NASA~\cite{fernandezTelemetryAnomalyDetection2017}, que utiliza das mesmas tecnologias e conceitos, porém focada no algoritmo de detecção de anomalias.
+Ferramentas mais parecidas, e mais completas, estão no CHART e nas dashboard criadas usando o Kibana em~\cite{mateikUsingBigData2017} e~\cite{zhangBigDataFramework2017}.
+
+\begin{figure}[ht]
+	\caption{\color{red} Aparência do SCD-Dashboard [TODO]}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+	\end{center}
+	\vspace{4mm}
+	\legenda{}
+	\label{fig:scddashboard}
+	\FONTE{Autor (2019)}
+\end{figure}
+
+Essa ferramenta foi utilizada extensamente para visualização dos dados e para análise exploratória, sendo que foi melhorada durante as disciplinas de \textit{Data Science} e Algoritmos de \textit{Data Mining}, com apresentações da mesma feitas ao vivo.
 
 \section{RFragCubing}
 \label{ch:impl:rfrag}
 
-O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube:frag}, foi disponibilizado em forma compilada via código de C++. Porém, ele tinha uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento considerável antes. Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, ela já tinha os resultados de fácil comparação, portanto o seu uso contínuo seria interessante.
+O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube:frag}, foi disponibilizado em forma compilada via código de C++, porém, ele foi feito com uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento não trivial antes.
+Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, os resultados possuem histórico de comparação facilitada, portanto o seu uso contínuo seria interessante.
 
-Para isso, foi criado um pacote na linguagem R\cite{rcoreteamLanguageEnvironmentStatistical2018}, que permitia integração com o código feito em C++. Esse pacote faz a interface com o código já utilizado pelo FragCubing, permitindo importar os dados, executar as queries e retornar os resultados das mesmas, bem como algumas adições de medidade de memória e tempo de processamento com a nova interface.
+Para isso, foi criado um pacote na linguagem R chamado de \textbf{RFragCubing}, que permite a integração com o algoritmo implementado em C++.
+Esse pacote faz a interface com o código do FragCubing, permitindo importar os dados, executar as queries e retornar os resultados das mesmas, bem como algumas adições de medidação de memória e tempo de processamento.
+Uma das vantagens do pacote está na distribuição facilitada, com uma interface que permite a execução da mesma consulta em outros algoritmos de construção do cubo, uma das razões para fazer a implementação, para facilitar a comparação entre os algoritmos.
+
+\begin{figure}[ht]
+	\caption{\color{red} Aparência da interface Shiny do RFragCubing [TODO]}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+	\end{center}
+	\vspace{4mm}
+	\legenda{}
+	\label{fig:shinyrfrag}
+	\FONTE{Autor (2019)}
+\end{figure}
 
 \section{Medida de Similaridade}
 \label{ch:impl:similarity}
 
-[SimilarityMeasure?]
+Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de exploração de dados que envolvia realizar consultas multidimensionais baseadas no conceito do cubo de dados, um padrão foi notado entre as telemetrias: quando uma medida de agregação por contagem era executada sobre telemetrias que se sabia ter algum tipo de relacionamento entre elas, elas possuiam uma curva característica, como da figura~\ref{fig:scdsimilaritygraph}.
+
+\begin{figure}[ht]
+	\caption{\color{red} Curva de de agregação gerada pela SCD-Dashboard [TODO]}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+	\end{center}
+	\vspace{4mm}
+	\legenda{}
+	\label{fig:scdsimilaritygraph}
+	\FONTE{Autor (2019)}
+\end{figure}
+
+Essa curva foi utilizada para desenvolver um algoritmo de classificação do relacionamento entre as telemetrias, pois possuia algumas vantagens: a medida de contagem dos valores que se repetem é independente do tipo dos valores em si, permitindo comparar um valor contínuo com um discreto bem como discretos com discretos e contínuos com contínuos, de equipamentos diferentes e com características diferentes; é uma medida que funciona com qualquer número de dimensões, sendo uma operação $\Theta(D)$, com $D$ sendo o número de dimensões; 
+
+\begin{figure}[ht]
+	\caption{\color{red} Interface de Medição de Relacionamento [TODO]}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+	\end{center}
+	\vspace{4mm}
+	\legenda{}
+	\label{fig:similarityshiny}
+	\FONTE{Autor (2019)}
+\end{figure}
 
