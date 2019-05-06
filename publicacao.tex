@@ -6,7 +6,7 @@
 %SemImagens,
 %CitacaoNumerica, %% o padrão é citação tipo autor-data
 %PublicacaoDissOuTese, %% (é também o "default") com ficha catal. e folha de aprovação em branco. Caso tenha lista de símbolos e lista de siglas e abreviaturas retirar os comentários dos arquivos siglas.tex e abreviaturasesiglas.tex. Retirar também os comentários indicados nesse arquivo, nos includes
-%PublicacaoArtigoOuRelatorio, %% texto sequencial, sem quebra de páginas nem folhas em branco
+PublicacaoArtigoOuRelatorio, %% texto sequencial, sem quebra de páginas nem folhas em branco
 PublicacaoProposta, %% igual tese/dissertação, mas sem ficha catal. e fol. de aprov.
 %PublicacaoLivro, %% com capítulos
 %PublicacaoLivro,SemFormatacaoCapitulo, %% sem capítulos
@@ -64,7 +64,7 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 %\include{./docs/dedicatoria} %% Opcional
 %\include{./docs/agradecimentos} %% Opcional
 \include{./docs/resumo} %% obrigatório
-\include{./docs/abstract} %% obrigatório
+%\include{./docs/abstract} %% obrigatório
 
 \includeListaFiguras %% obrigatório caso haja mais de 3 figuras, gerado automaticamente
 \includeListaTabelas %% obrigatório caso haja mais de 3 tabelas, gerado automaticamente
@@ -72,7 +72,7 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 \include{./docs/abreviaturasesiglas} %% opcional %% altere o arquivo siglaseabreviaturas.tex
 
 %\include{./docs/simbolos} %% opcional %% altere o arquivo simbolos.tex
-    
+
 \includeSumario  %% obrigatório, gerado automaticamente
 
 \inicioIntroducao %% não altere este comando
