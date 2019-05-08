@@ -8,19 +8,34 @@ Essa abordagem utiliza de conceitos de \textit{Big Data} para orientar a execuç
 Uma revisão da literatura de arquiteturas de \textit{Big Data} é apresentada, demonstrando que tipos de tecnologias e abordagens estão em uso por outros operadores de satélite, bem como uma revisão sobre os conceitos e abordagens de cubo de dados.
 
 São apresentados resultados intermediários de análises dos dados de telemetria, bem como os produtos de software utilizados para realizar as análises e algumas descobertas desse processo.
+Esses resultados mostram que a aplicação do cubo é interessante para os dados disponíveis, bem como que é possível implementar algumas etapas do fluxo de dados, propriamente adequadas para lidar com \textit{Big Data}.
 
-\textbf{Como essa arquitetura é melhor(diferente?) da utilizada por outros operadores? O que o Cubo de Dados traz de diferente?}
+{\color{red}
+\bfseries Como essa arquitetura é melhor(diferente?) da utilizada por outros operadores? O que o Cubo de Dados traz de diferente?
+}
 
-\section{Planos Futuros}
-\label{ch:concl:future}
+\section{Planejamento}
+\label{ch:concl:planning}
 
-\textbf{Planos futuros, o que vai ser implementado daqui para frente}
+Para o trabalho da dissertação, os passos seguintes são:
 
-\textbf{Queries interessantes dos operadores?}
+\begin{enumerate}
+\item Formalizar quais são as consultas relevantes para os operadores de satélite, e quais são as atividades de análise que podem ser expressas como consultas;
+\item Criar uma representação dimensional do cubo de dados apropriada para as consultas identificadas, mapeando as medidas que são necessárias e quais os seus tipos;
+\item Implementar a representação com as medidas em vários algoritmos da literatura recente, mais notadamente os revisados no capítulo~\ref{ch:corr:cube} e coletar os resultados da execução das consultas relevantes para os operadores;
+\item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
+\end{enumerate}
 
-\textbf{Implementação do cubo de dados para testes}
+O passo \textit{c} está parcialmente implementado no pacote mostrado na seção~\ref{ch:impl:rfrag}, porém precisa de trabalho significativo de implementação para executar outros algoritmos e realizar os testes das consultas relevantes.
 
-\textbf{Execução nos dados reais}
+Como resultado esperados da dissertação, teríamos o mapeamento das consultas que são relevantes para os operadores de satélite, e a sua representação em um cubo de dados, que teria resultados de implementações diferentes para conseguir avaliar qual dos algortimos disponíveis é o mais adequado para o cenário de operação.
 
-\textbf{Execução em dados de cubesats?}
+\subsection{Trabalhos futuros}
+\label{ch:concl:planning:future}
+
+Como trabalhos futuros, a arquitetura do fluxo de dados mostrada na seção~\ref{ch:prop:dataflow} pode ser implementado nos moldes das outras agências a exemplo de~\ref{ch:corr:ops}, numa arquitetura que permita a inclusão de todos os tipos de dados elecandos neste trabalho na seção~\ref{ch:prop:data}.
+Também seria interessante expandir os tipos de algoritmos que serão testados para esse trabalho.
+
+Expandir o uso dos dados para a abordagem de cubo seria relevante, pois existem desafios diferentes quando se lida com um satélite de tamanho grande (ex. GEO) e uma constelação de satélites menores, porém com um volume de dados comparável.
+Alguma abordagem para lidar com dados de CubeSats seria relevante para o momento, principalmente se forem de diferentes cubesats e/ou de constelações.
 
