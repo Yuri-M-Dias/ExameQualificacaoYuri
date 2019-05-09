@@ -44,7 +44,8 @@ Por exemplo, um cubo de dados textual poderia ser feito sobre os documentos asso
 Um cubo multimídia poderia ser gerado sobre os dados multimídia tirados pelas câmeras do satélite para correlacionar com os dados gerados pelos sensores, e assim em diante.
 Alguns exemplos de cubos possíveis de serem feitos estão em~\cite{silva:2015:abordagensParaCubo}.
 
-Esta lista não é exaustiva, e pode incluir dados da carga útil caso sejam relevantes para a análise em questão, como ajudar na georeferênciação de imagens tiradas pelo satélite, bem como outros dados que os operadores acharem necessários e tiverem acesso a eles. Isso vai depender diretamente do fluxo de dados que é adotado, pois esses dados precisam ser coletados e preparados para serem utilizados.
+Esta lista não é exaustiva, e pode incluir dados da carga útil caso sejam relevantes para a análise em questão, como ajudar na georeferênciação de imagens tiradas pelo satélite, bem como outros dados que os operadores acharem necessários e tiverem acesso a eles.
+Isso vai depender diretamente do fluxo de dados que é adotado, pois esses dados precisam ser coletados e preparados para serem utilizados.
 
 \section{Fluxo dos Dados de Operação}
 \label{ch:prop:dataflow}
@@ -63,7 +64,7 @@ Baseado nos trabalhos correlatos e nos dados levantados na seção~\ref{ch:prop:
 	\label{fig:bigdataflow}
 \end{figure}
 
-Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos, porém adaptado para a realidade do INPE considerando um fluxo ideal.
+Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos, porém adaptado para a realidade do INPE.
 
 {\color{red}
 	TODO: Descrição do fluxo, o que é composto de cada etapa
@@ -72,7 +73,8 @@ Este fluxo está separado em cinco etapas que vão desde a origem dos dados até
 \section{Arquitetura de um Cubo de Dados}
 \label{ch:prop:cubearch}
 
-A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura de Cubo de Dados. Essas camadas demonstram tudo o que é necessário para a implementação de um Cubo de Dados, não sendo necessário que uma camada esteja atrelada fortemente a outra.
+A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura de Cubo de Dados.
+Essas camadas demonstram tudo o que é necessário para a implementação de um Cubo de Dados, não sendo necessário que uma camada esteja fortemente atrelada a outra.
 
 \begin{figure}[ht]
 	\caption{Arquitetura de um cubo de dados}
@@ -86,7 +88,8 @@ A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura d
 	\label{fig:cubearch}
 \end{figure}
 
-Para esta proposta, vamos nos concentrar apenas na proposição de um algoritmo de computação do cubo de dados mais apropriado, utilizando das outras seções quando elas vão se tornando necessárias. Os detalhes, algoritmos e conceitos listados na figura estão majoritariamente descritos na seção~\ref{ch:fun:cube} e não serão repetidos aqui.
+Para esta proposta, vamos nos concentrar apenas na proposição de um algoritmo de computação do cubo de dados mais apropriado, utilizando das outras seções quando elas vão se tornando necessárias.
+Os detalhes, algoritmos e conceitos listados na figura estão majoritariamente descritos na seção~\ref{ch:fun:cube}.
 
 Uma informação interessante é que esta estrutura mostra o uso de pelo menos duas linguagens de computação sobre os dados: uma é a Cube Query Language que será utilizada pelo usuário para realizar as operações sobre o cubo (Drill-Down, Roll-up, etc), e outra é a linguagem que será utilizada pelo cubo para realizar essas operações, e elas podem ser independentes, por exemplo, pode-se utilizar SQL extendida com vocabulário de OLAP, porém o algoritmo de cubo de dados internamente pode consultar uma estrutura feita com MapReduce para o cálculo das medidas e das agregações.
 
@@ -96,10 +99,14 @@ Deste modo, é interessante manter a mesma linguagem ao longo da estrutura, apen
 
 Com isso se torna necessário resaltar o último nível, a Base de Dados: a escolha de banco de dados vai impactar como o algoritmo funciona, visto que existem diferentes sistemas de arquivos e como eles são atingidos, bem como o estilo do banco vai mudar como o algoritmo deve gerar o cubo, pois a base pode utilizar diferentes paradigmas de banco de dados~\cite{cuzzocreaDataWarehousingOLAP2013}.
 
+Uma das necessidades de usar algoritmos diferentes de cubo de dados está no número de dimensões que um certo cubo consegue realizar pesquisas: devido a maldiação de dimensionalidade, consultas com mais que 15 dimensões não são nem comuns, nem possíveis de serem executadas em alguns algoritmos, como a tabela em~\cite{silva:2015:abordagensParaCubo} demonstra.
+
+{\color{red} Adicionar a tabela do Rodrigo aqui?!}
+
 \section{Discussão}
 \label{ch:prop:discussao}
 
 {\color{red}
-	TODO: Descrição do que seria feito? Estou achando melhor deixar isso no final, nas conclusões...
+	TODO: Passos do que seria feito? Estou achando melhor deixar isso no final, nas conclusões...
 }
 

@@ -24,12 +24,12 @@ Ferramentas mais parecidas, e mais completas, estão no CHART e nas dashboard cr
 	\caption{\color{red} Aparência do SCD-Dashboard [TODO]}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
 	\label{fig:scddashboard}
-	\FONTE{Autor (2019)}
+	\FONTE{Produção dos autores}
 \end{figure}
 
 Essa ferramenta foi utilizada extensamente para visualização dos dados e para análise exploratória, sendo que foi melhorada durante as disciplinas de \textit{Data Science} e Algoritmos de \textit{Data Mining}, com apresentações da mesma feitas utilizando ela.
@@ -45,15 +45,15 @@ Esse pacote faz a interface com o código do FragCubing, permitindo importar os 
 Uma das vantagens do pacote está na distribuição, com uma interface que permite a execução da mesma consulta em outros algoritmos de construção do cubo, uma das razões para fazer a implementação, para facilitar a comparação entre os algoritmos.
 
 \begin{figure}[ht]
-	\caption{\color{red} Aparência da interface Shiny do RFragCubing [TODO]}
+	\caption{Carregando dados de telemetria no RFragCubing}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/RFragInit.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
 	\label{fig:shinyrfrag}
-	\FONTE{Autor (2019)}
+	\FONTE{Produção dos autores}
 \end{figure}
 
 \section{Medida de Similaridade}
@@ -65,12 +65,12 @@ Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de explo
 	\caption{\color{red} Curva de de agregação gerada pela SCD-Dashboard [TODO]}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
 	\label{fig:scdsimilaritygraph}
-	\FONTE{Autor (2019)}
+	\FONTE{Produção dos autores}
 \end{figure}
 
 Essa curva foi utilizada para desenvolver um algoritmo de classificação do relacionamento entre as telemetrias, pois possuia algumas vantagens: a medida de contagem dos valores que se repetem é independente do tipo dos valores em si, permitindo comparar um valor contínuo com um discreto bem como discretos com discretos e contínuos com contínuos, de equipamentos diferentes e com características diferentes; e é uma medida que funciona com qualquer número de dimensões, sendo uma operação $\Theta(D)$, com $D$ sendo o número de dimensões, tornando a sua integração, e subsequente otimização, com um algoritmo de construção de cubo de dados simplificada.
@@ -79,12 +79,12 @@ Essa curva foi utilizada para desenvolver um algoritmo de classificação do rel
 	\caption{\color{red} Resultados da Medição de Relacionamento [TODO]}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/mapalbacorr.png}}
+		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
 	\label{fig:similarityresults}
-	\FONTE{Autor (2019)}
+	\FONTE{Produção dos autores}
 \end{figure}
 
 O algortimo está sujeito a Maldição de Dimensionalidade, pois ele verifica a relação entre um número $n$ de telemetrias definida pelo usuário, tendo $2^D$ possíveis combinações para $D$ dimensões, assim ele atualmente só foi executado para todas as combinações de 2 dimensões dos dados do SCD.
@@ -95,6 +95,7 @@ O algoritmo está sendo revisado atualmente, mas o objetivo é implementar o res
 
 Isto também abre espaço para um algoritmo de detecção de anomalias: caso durante uma passagem um relacionamento que antes era tido como forte muda para um relacionamento fraco ou perde o relacionamento, isso pode ser um sinal de que alguma coisa está de errado com esse grupo de telemetrias.
 Isso pode ajudar no conhecimento dos operadores, pois os relacionamentos entre grupos de telemetrias são difíceis de serem visualizados e apenas os operadores com mais experiência em um dado satélite conseguem visualizar alguns desses relacionamentos.
+{\color{red} Citação?}
 
 Existem alguns trabalhos de visualização dos relacionamentos, porém estes geralmente utilizam algoritmos de indução de regras, cuja saída é de difícil interpretação, como demonstrado em~\cite{kannanMiningSatelliteTelemetry2016}.
 A abordagem aqui proposta tem potencial de ter respostas mais relevantes para os operadores, porém precisa ser avaliada por um operador ainda, um dos próximos passos deste trabalho.
