@@ -13,7 +13,7 @@ Os dados vindos do SCD2 possuem 135 dimensões e estão distribuídos em um per�
 Durante atividades de \textit{Data Science} era necessário criar muitos gráficos e visualizações com períodos e dimensões variadas, e com tantas dimensões isso levava vários pedaços de código copiados para criar relatórios sobre os dados e dimensões.
 
 Para facilitar essa análise e automatizar esse problema, foi criado um software chamado \textbf{SCD-dashboard} para facilitar na visualização dos dados de telemetria.
-Ele foi implementado utilizando o pacote Shiny~\cite{} da linguagem R~\cite{rcoreteamLanguageEnvironmentStatistical2018}, que já estava sendo utilizada para criar as visualizações, a interface permite apenas criar as visualizações e aplicar os outros algoritmos relacionados de uma interface amigável e sem ter a necessidade de escrever código.
+Ele foi implementado utilizando o pacote Shiny~\cite{changShinyWebApplication2019} da linguagem R~\cite{rcoreteamLanguageEnvironmentStatistical2018}, que já estava sendo utilizada para criar as visualizações, a interface permite apenas criar as visualizações e aplicar os outros algoritmos relacionados de uma interface amigável e sem ter a necessidade de escrever código.
 
 Ele funciona sobre um banco de dados PostgreSQL que possui o histórico das telemetrias já importadas e propriamente transformadas por outro script feito só para os dados do SCD2, porém devem funcionar para qualquer dado exportado via CSV pelo SatCS.
 
