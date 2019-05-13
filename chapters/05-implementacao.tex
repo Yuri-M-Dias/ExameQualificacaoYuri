@@ -21,10 +21,10 @@ Essa ferramenta também pode ser vista como um piloto para implementar algo seme
 Ferramentas mais parecidas, e mais completas, estão no CHART e nas dashboard criadas usando o Kibana em~\cite{mateikUsingBigData2017} e~\cite{zhangBigDataFramework2017}.
 
 \begin{figure}[ht]
-	\caption{\color{red} Aparência do SCD-Dashboard [TODO]}
+	\caption{Aparência do SCD-Dashboard}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/Dashboardview.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
@@ -62,13 +62,13 @@ Uma das vantagens do pacote está na distribuição, com uma interface que permi
 Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de exploração de dados que envolvia realizar consultas multidimensionais baseadas no conceito do cubo de dados, um padrão foi notado entre as telemetrias: quando uma medida de agregação por contagem era executada sobre telemetrias que se sabia ter algum tipo de relacionamento entre elas, elas possuiam uma curva característica, como da figura~\ref{fig:scdsimilaritygraph}.
 
 \begin{figure}[ht]
-	\caption{\color{red} Curva de de agregação gerada pela SCD-Dashboard [TODO]}
+	\caption{Curva de de agregação gerada pela SCD-Dashboard}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/SimilarityCurve.png}}
 	\end{center}
 	\vspace{4mm}
-	\legenda{}
+	\legenda{Agregação das telemetrias TM003 e TM004 ao longo de 01/2018}
 	\label{fig:scdsimilaritygraph}
 	\FONTE{Produção dos autores}
 \end{figure}
@@ -76,13 +76,13 @@ Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de explo
 Essa curva foi utilizada para desenvolver um algoritmo de classificação do relacionamento entre as telemetrias, pois possuia algumas vantagens: a medida de contagem dos valores que se repetem é independente do tipo dos valores em si, permitindo comparar um valor contínuo com um discreto bem como discretos com discretos e contínuos com contínuos, de equipamentos diferentes e com características diferentes; e é uma medida que funciona com qualquer número de dimensões, sendo uma operação $\Theta(D)$, com $D$ sendo o número de dimensões, tornando a sua integração, e subsequente otimização, com um algoritmo de construção de cubo de dados simplificada.
 
 \begin{figure}[ht]
-	\caption{\color{red} Resultados da Medição de Relacionamento [TODO]}
+	\caption{Resultados preliminares da Medição de Relacionamento}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{10.5cm}{!}{\includegraphics{Figuras/Amazonia-1.png}}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/SimilarityGraph.png}}
 	\end{center}
 	\vspace{4mm}
-	\legenda{}
+	\legenda{Um grupo de telemetrias com relacionamento forte}
 	\label{fig:similarityresults}
 	\FONTE{Produção dos autores}
 \end{figure}
