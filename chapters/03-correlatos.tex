@@ -8,25 +8,30 @@ Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta. Eles po
 \section{Computação do Cubo de Dados}
 \label{ch:corr:cube}
 
-O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que são relevantes, bem como apresenta uma comparação de resultados de algumas das que vamos apresentar aqui.
+O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que obtiveram sucessos na litetura, bem como apresenta uma comparação de resultados de algumas das que vamos apresentar aqui. Dentre este trabalho, podemos citar:
 
-{\color{red}
+\begin{itemize}
+	\item O \textit{FragCubing}~\cite{liHighDimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
+	\item \textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
+	\item \textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
 
-Acho que isso pode ser feito igual na tese do rodrigo, ao invés dessas seções específicas. Não é para detalhar cada algoritmo, de qualquer forma...
+	\item A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
+\end{itemize}
 
-\subsection{FragCubing}
-\label{ch:corr:cube:frag}
+Não testados por este trabalho, porém também relvantes:
 
-\subsection{HIC}
-\label{ch:corr:cube:HIC}
+Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
 
-\subsection{QCubing}
-\label{ch:corr:cube:HIC}
+\cite{heinePopUpCubingAlgorithmEfficiently2017} apresenta o \textit{PopUp-Cubing}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
+Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo-real, de especial interesse para a operação.
 
-\subsection{HFrag}
-\label{ch:corr:cube:HIC}
+Com foco em \textit{Big Data} e utilizando como base o esquema \textit{MapReduce},~\cite{wangScalableDataCube2013} apresenta o algoritmo \textit{HaCube} para computação do cubo em paralelo.
+Este trabalho apresenta um balanço entre computação do cubo em paralelo por vários nós de \textit{MapReduce}, que permite algumas atualizações e computação incremental de medidas.
+Devido a própria natureza distribuída, ele precisa de mecanismos de tolerância a falha, e também os testes foram executados com no máximo apenas 5 dimensões, porém com até 2,4 bilhões de tuplas.
+Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demonstra a computação de medidas holísticas apresentando o \textit{Multi-RegionCube}, porém realizando menos testes que o \textit{HaCube}.
 
-}
+Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
+Essa abordagem é interessante por utilizar de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
 
 \section{Outros Operadores}
 \label{ch:corr:ops}
