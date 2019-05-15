@@ -1,10 +1,38 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{INTRODUÇÃO}
+\label{ch:intro}
 
-\textbf{[Resto da introdução]}
+O Centro de Controle de Satélites (CCS) localizado no Instituto Nacional de Pesquisas Espaciais (INPE) atualmente monitora e controla alguns satélites: a família do Satélite de Coleta de Dados (SCD), composta de dois satélites SCD-1 e SCD-2, e o Satélite Sino-Brasileiro de Recursos Terrestres (CBERS), com o quinto satélite em operação atualmente, o CBERS-4.
+Estes satélites realizam passagens sobre as estações terrenas do INPE, durante o qual o CCS recebe dados de telemetria e envia telecomando, bem como realiza atividades de manutenção e estimativa, como medidas de velocidade e posição~\cite{AzevedoAmbr:2010:ArSaTe}.
+
+Dados de telemetria geralmente carregam medidas de sensores e verificações de saúde dos instrumentos, como temperatura das baterias, corrente de algum subsistema, se um dado equipamento está ativo ou não, bem como dados que os operadores e engenheiros acham necessários para a operação, entre outros~\cite{AzevedoAmbr:2010:ArSaTe}.
+Estes dados precisam ser guardados por toda a vida do satélite, sendo que para satélites que estão funcionando por vários anos, eles adquirem um volume considerável, que não pode ser descartado, como é o caso dos satélites da família SCD, com o SCD-1 já estando operacional por mais de 25 anos, e continuando a gerar dados.
+
+Para satélites complexos como os da família CBERS, que possuem mais de 4 mil telemetrias sendo rastreadas múltiplas vezes por dia, temos um grande volume de dados cuja análise não é trivial, e só pode ser propriamente feita pela engenharia do satélite qualificados e com experiência para isso.
+Com os lançamentos futuros do CBERS-4A e do Amazônia-1, o volume de dados e a complexidade da análise dos mesmos deve aumentar, criando novas necessidades de operação.  {\color{red} Não tenho citação pra isso!}
+
+\section{Problemas}
+%%%%
+These data are used by the satellite operators to check the operational capacity of the satellites, see the health of the subsystems and if they're working properly, and that the satellite will continue to perform its duties properly in the near future.
+In the case of an emergency they might need to check old telemetry data to see if a situation has occured before, and check whether that might prove a danger to the satellite or not [@AzevedoAmbrVieiEsSoTe].
+
+The historical analysis is very important for satellite operations, as it might unearth rare phenomena and can serve as an early warning that some issue might appear in the future.
+One example is in the case of CBERS-2, which had the phenomenon of thermal breakdown happening to one of its batteries [@Magalhaes:2012:EsAvTe], and having the historical telemetries was fundamental in the analysis of the phenomenon, and to the lessons learned with it by the operations team.
+
+In this work, we present a data structure called data cubes to make the analysis on satellite telemetry data easier to be performed.
+Since that a Data Warehouse hasn't been implemented yet for the telemetry data, doing analysis is quite a slow process that involves a lot of manual steps and the creation of complex, not easy to generalize, queries and custom code.
+The aim of this structure is to make the analysis an action that is easy to perform for the operation of current and future satellites, with good average response times, thus aiming to improve INPE's satellite operations capabilities.
+%%
+
+\section{Objetivos}
+
+{\color{red} ?}
+
+\section{Organização da proposta}
 
 Os capítulos restantes desta dissertação estão organizados da seguinte maneira:
+
 \begin{itemize}
 	\item{Capítulo 2}: Este capítulo apresenta os conceitos e fundamentos teóricos, como apresentando os conceitos do Cubo de Dados, as definições utilizadas de \textit{Big Data}, a definição do problema para a operação.
 	\item{Capítulo 3}: Neste capítulo os trabalhos correlatos de Cubo de Dados são apresentados, bem como outros operadores de satélite estão resolvendo os problemas identificados.
