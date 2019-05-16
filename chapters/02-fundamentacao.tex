@@ -40,7 +40,7 @@ Uma das dimensões é sempre temporal para permitir a análise do assunto ao lon
 \section{OLAP}
 \label{ch:fun:olap}
 
-\textit{On-line Analytical Processing} (OLAP) é um termo que se refere a um conjunto de ferramentas que são utilizadas para resumir, consolidar, visualizar, aplicar formulações e sintetizar dados de acordo com múltiplas dimensões (CODD et al, 1993).
+\textit{On-line Analytical Processing} (OLAP) é um termo que se refere a um conjunto de ferramentas que são utilizadas para resumir, consolidar, visualizar, aplicar formulações e sintetizar dados de acordo com múltiplas dimensões~\cite{coddProvidingOlapUseranalysts1998}.
 
 Um sistema OLAP permite a resposta de consultas multidimensionais usando dados armazenados no \textit{Data Warehouse}~\cite{kimballDataWarehouseToolkit2013}, sendo que as características principais são~\cite{bimonteOpenIssuesBig2016}:
 
@@ -51,12 +51,14 @@ Um sistema OLAP permite a resposta de consultas multidimensionais usando dados a
 	\item \textbf{Exploratórias}: as consultas são utilizadas em carácter exploratório, pois geralmente os usuários não conhecem de antemão todos os dados disponíveis para consultas.
 \end{itemize}
 
-Cada ferramenta OLAP deve manipular um novo tipo abstrato de dados (TAD), chamado de cubo de dados, utilizando estratégias específicas devido ao modo de como os dados são armazenados, sendo classificadas em (MOREIRA; LIMA, 2012):
+Cada ferramenta OLAP deve manipular um novo tipo abstrato de dados (TAD), chamado de cubo de dados, utilizando estratégias específicas devido ao modo de como os dados são armazenados, sendo classificadas em~\cite{moreiraFullPartialData2012}:
 
 \begin{itemize}
-	\item \textit{Relational OLAP} (ROLAP): utilizam Sistemas de Gerenciamento de Banco de Dados (Data base Management System - DBMS) relacionais para o gerenciamento e armazenamento dos cubos de dados. Ferramentas ROLAP incluem otimizações para cada DBMS, implementação da lógica de navegação em agregações, serviços e ferramentas adicionais;
-	\item \textit{Multidimensional} OLAP (MOLAP): implementam estruturas de dados multidimensionais para armazenar cubo de dados em memória principal ou em memória externa. Não há utilização de repositórios relacionais para armazenar dados multidimensionais e a lógica de navegação já é integrada a estrutura proposta;
-	\item \textit{Hybrid} OLAP (HOLAP): combinam técnicas ROLAP e MOLAP, onde normalmente os dados detalhados são armazenados em base de dados relacionais (ROLAP), e as agregações são armazenadas em estruturas de dados multidimensionais (MOLAP).
+	\item \textbf{\textit{Relational OLAP} (ROLAP)}: utilizam Sistemas de Gerenciamento de Banco de Dados (\textit{Data base Management System} - DBMS) relacionais para o gerenciamento e armazenamento dos cubos de dados.
+Ferramentas ROLAP incluem otimizações para cada DBMS, implementação da lógica de navegação em agregações, serviços e ferramentas adicionais;
+	\item \textbf{\textit{Multidimensional} OLAP (MOLAP)}: implementam estruturas de dados multidimensionais para armazenar cubo de dados em memória principal ou em memória externa.
+Não há utilização de repositórios relacionais para armazenar dados multidimensionais e a lógica de navegação já é integrada a estrutura proposta;
+	\item \textbf{\textit{Hybrid} OLAP (HOLAP)}: combinam técnicas ROLAP e MOLAP, onde normalmente os dados detalhados são armazenados em base de dados relacionais (ROLAP), e as agregações são armazenadas em estruturas de dados multidimensionais (MOLAP).
 \end{itemize}
 
 Além desses, existem sistemas OLAP voltados para um domínio ou estilo de dados específico, como é o caso do \textit{Spatial OLAP} (SOLAP), voltado para consultas espaciais~\cite{viswanathanUsercentricSpatialData2014}.
@@ -70,36 +72,46 @@ Além desses, existem sistemas OLAP voltados para um domínio ou estilo de dados
 
 O Cubo de Dados originalmente foi criado como um operador relacional que gera todas as combinações possíveis de seus atributos de acordo com uma medida~\cite{grayDataCubeRelational1996}.
 
-The Data Cube structure allows for data to be modelled and viewed in multiple dimensions, and it is characterized by dimensions and measures.
-A dimension is made of the entities in which we keep our records, like the columns of a table and relevant attributes of a model.
-A measure, also called a fact, is the quantity by which the relationship between dimensions will be analyzed, and they are generally numerical values.
-And a *fact table* is the representation of those measures with the dimensions, working as the representation of the relationships between them.
+Um cubo de dados consiste em um conjunto de medidas para análise e um conjunto de dimensões que provêm o contexto das medidas.
+Uma medida é um atributo cujos valores definem os fatos de interesse na análise e em cujos valores são aplicadas as funções de agregação (soma, quantidade, média, sentimento, união, interseção de geo-objetos, etc.).
+Uma dimensão é um elemento que participa de um fato e que determina o contexto de um assunto de negócios, sendo que podem ser compostas por membros que podem conter hierarquias.
+Membros são as possíveis divisões ou classificações de uma dimensão~\cite{silva:2015:abordagensParaCubo}.
+Por exemplo, uma dimensão de tempo pode ser dividida em: década, ano, mês, dia e hora.
 
-Apesar do nome, o cubo de dados não é uma estrutura 3-D, mas sim uma estrutura n-dimensional~\cite{hanDataMiningConcepts2011}.
-Um cubo com 2 dimensões, por exemplo, é simplesmente uma tabela comum.
-Porém, acima de 3 dimensões a visualização fica mais difícil, porém a ideia geral é a mesma: cada dimensão torna os dados mais profundos, e assim, mais complexos.
+A organização de um cubo de dados possibilita ao usuário a flexibilidade de visualização dos dados a partir de diferentes perspectivas, já que o operador gera combinações através do conceito do valor \textit{ALL}, onde este conceito representa a agregação de todas as combinações possíveis de um conjunto de valores de atributos.
+Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{silva:2015:abordagensParaCubo}.
 
-\cite{hanDataMiningConcepts2011}
+Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
+O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}~\cite{silva:2015:abordagensParaCubo}.
+
+A computação do cubo de dados é um problema exponencial em relação ao tempo de execução e ao consumo de memória, portando dada uma relação de entrada R com tuplas de tamanho $n$, a saída é $2^n$, onde $n$ é o número de dimensões de um cubo.
+
+{\color{red} Traduzir exemplo do rodrigo do curso p/ satélites?!}
 
 \subsection{Modelagem dimensional}
+\label{ch:fun:cube:dimm}
 
 \subsubsection{Esquema estrela}
+\label{ch:fun:cube:dimm:star}
 
 {\color{red} Imagem}
 
 \subsubsection{Esquema Floco de Neve}
+\label{ch:fun:cube:dimm:snow}
 
 {\color{red} Imagem}
 
 \subsubsection{Esquema Constelação de Fatos}
+\label{ch:fun:cube:dimm:constellation}
 
 {\color{red} Imagem}
 
 \subsection{Hierarquias de conceito}
+\label{ch:fun:cube:concept}
 
-A concept hierarchy is used to define a sequence of mappings from a set of low-level concepts to higher-level, more general concepts.
-It is a form of grouping and discretization, since that it groups values in a way to reduce the cardinality of a dimension [@hanDataMiningConcepts2011].
-They are helpful in making the analysis easier to understand, as they do operations like translating the time dimensions in figure [\@ref(fig:datacube)] to a hierarchy of *day-month-year*, making the queries on the desired level of abstraction easier to be performed and understood.
+Uma hierarquia de conceitos é utilizada para definir uma sequência de mapeamento entre um conjunto de conceitos de baixo nível para um conjunto de conceitos de alto nível, mais gerais.
+É um estilo de agrupamento e discretização, pois agrupa os valores de modo a reduzir a cardinalidade de uma dimensão~\cite{hanDataMiningConcepts2011}.
+Elas ajudam a tornar a análise mais fácil de ser entendida, pois as operações traduzem os dados de baixo nível em uma representação que é mais fácil para o usuário final, assim facilitando a execução das consultas e o seu subsequente uso.
 
 \subsection{Medidas}
 
@@ -151,7 +163,7 @@ O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho 
 	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
 É importante ressaltar que isso não se trata apenas do armazenamento dos dados, mas também do seu processamento~\cite{boussoufBigDataBased2018}.
 Usar um grande volume de dados geralmente implica em modelos melhores, que então produzem análises melhores, justificando a coleta de uma grande quantidade de dados.
-	\item \textbf{Variedade}: dados são provenientes de fontes diferentes, com formatos diferentes, sem um esquema de modelagem padronizado, como dados advindos de \textit{logs} de computadores, dados de sensores, dados multimídia e etc.
+	\item \textbf{Variedade}: dados são provenientes de fontes diferentes, com formatos diferentes, sem um esquema de modelagem padronizado, como dados advindos de \textit{logs} de computadores, dados de sensores, dados multimídia, etc.
 Como consequência, esses dados devem ser utilizados da forma mais transparente o possível na análise.
 	\item \textbf{Velocidade}: dados são disponibilizados de uma forma muito rápida, e devem ser analisados da forma mais rápida o possível.
 Isso implica que os dados podem ser guardados e analisados até em tempo real.
@@ -160,6 +172,5 @@ Isso implica que os dados podem ser guardados e analisados até em tempo real.
 \end{itemize}
 
 Estes V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
-Em especial, existe um certo relacionamento com a ideia de "\textit{NoSQL}" ("Não apenas SQL", em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor e etc~\cite{bimonteOpenIssuesBig2016}.
-Porém isso não quer dizer que os dados 
+Em especial, existe um certo relacionamento com a ideia de "\textit{NoSQL}" ("Não apenas SQL", em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
 
