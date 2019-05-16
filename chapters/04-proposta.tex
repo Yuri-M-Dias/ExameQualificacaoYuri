@@ -12,7 +12,7 @@ A tabela \ref{table:bigdatasattypes} mostra os tipos de dados relevantes para a 
 
 \begin{table}[!ht]
 	\begin{center}
-		\caption{Dados de Operação}
+		\caption{Dados de Operação}\label{table:bigdatasattypes}
 		\begin{tabular}{|c|C{5cm}|c|}
 			\hline
 			\bfseries Tipo de Dado         & \bfseries Origem           & \bfseries Formato      \\
@@ -34,7 +34,6 @@ A tabela \ref{table:bigdatasattypes} mostra os tipos de dados relevantes para a 
 		\end{tabular}
 	\end{center}
 	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}
-	\label{table:bigdatasattypes}
 \end{table}
 
 Para este trabalho, apenas os dados vindos de sensores de bordo serão considerados.
@@ -53,7 +52,7 @@ Isso vai depender diretamente do fluxo de dados que é adotado, pois esses dados
 Baseado nos trabalhos correlatos e nos dados levantados na seção~\ref{ch:prop:data}, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
 
 \begin{figure}[ht]
-	\caption{Fluxo de dados em uma arquitetura de Big Data}
+	\caption{Fluxo de dados em uma arquitetura de Big Data}\label{fig:bigdataflow}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
@@ -61,7 +60,6 @@ Baseado nos trabalhos correlatos e nos dados levantados na seção~\ref{ch:prop:
 	\vspace{2mm}
 	\legenda{}
 	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}.
-	\label{fig:bigdataflow}
 \end{figure}
 
 Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos.
@@ -91,15 +89,14 @@ A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura d
 Essas camadas demonstram tudo o que é necessário para a implementação de um Cubo de Dados, não sendo necessário que uma camada esteja fortemente atrelada a outra.
 
 \begin{figure}[ht]
-	\caption{Arquitetura de um cubo de dados}
+	\caption{Estruturado Cubo de dados}\label{fig:cubearch}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{10cm}{!}{\includegraphics{Figuras/DataCubeArchitecture.pdf}}
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
-	\FONTE{Autor (2019)}.
-	\label{fig:cubearch}
+	\FONTE{Produção dos autores}.
 \end{figure}
 
 Para esta proposta, vamos nos concentrar apenas na proposição de um algoritmo de computação do cubo de dados mais apropriado, utilizando das outras seções quando elas vão se tornando necessárias.
