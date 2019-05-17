@@ -1,9 +1,11 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{FUNDAMENTAÇÃO}
 \label{ch:fun}
 
+{\color{red}
 Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pelo básico de operação dos satélites, apresentando os conceito de \textit{Data Warehouse}, \textit{OLAP} e Cubo de Dados, e por fim a definição de \textit{Big Data} utilizada no trabalho.
+}
 
 \section{Operação de Satélites}
 \label{ch:fun:operations}
@@ -11,6 +13,26 @@ Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta,
 {\color{red}
 \textbf{Dataflow? Explicar a operação de satélites bem por cima}
 }
+
+\section{Big Data}
+\label{ch:fun:bigdata}
+
+O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}~\cite{bimonteOpenIssuesBig2016}: Volume, Variedade, Velocidade, Valor e Veracidade. Em detalhes:
+
+\begin{itemize}
+	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
+É importante ressaltar que isso não se trata apenas do armazenamento dos dados, mas também do seu processamento~\cite{boussoufBigDataBased2018}.
+Usar um grande volume de dados geralmente implica em modelos melhores, que então produzem análises melhores, justificando a coleta de uma grande quantidade de dados.
+	\item \textbf{Variedade}: dados são provenientes de fontes diferentes, com formatos diferentes, sem um esquema de modelagem padronizado, como dados advindos de \textit{logs} de computadores, dados de sensores, dados multimídia, etc.
+Como consequência, esses dados devem ser utilizados da forma mais transparente o possível na análise.
+	\item \textbf{Velocidade}: dados são disponibilizados de uma forma muito rápida, e devem ser analisados da forma mais rápida o possível.
+Isso implica que os dados podem ser guardados e analisados até em tempo real.
+	\item \textbf{Valor}: os dados devem ser armazenados para criar algum valor para os seus usuários, seja ele econômico, científico, social, organizacional, etc.
+	\item \textbf{Veracidade}: os dados não possuem garantias quanto a sua qualidade, como inconsistências e falta de acurácia, porém a análise deve ser de alta qualidade de qualquer forma.
+\end{itemize}
+
+Estes V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
+Em especial, existe um certo relacionamento com a ideia de "\textit{NoSQL}" ("Não apenas SQL", em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
 
 \section{Data Warehouse}
 \label{ch:fun:dw}
@@ -30,7 +52,7 @@ Por exemplo, pode se querer saber de dados de dias, meses ou anos atrás.
 	\item \textbf{Não volátil}: uma vez dentro do DW, os dados não são removidos ou atualizados, sendo um requisito para a consulta de dados históricos.
 \end{itemize}
 
-Essas características diferem o \textit{Data Warehouse} de outros sistemas de repositório, como sistemas de banco de dados, sistemas de processamento de transações e sistemas de arquivos~\cite{silva:2015:abordagensParaCubo,bimonteOpenIssuesBig2016}.
+Essas características diferem o \textit{Data Warehouse} de outros sistemas de repositório, como sistemas de banco de dados, sistemas de processamento de transações e sistemas de arquivos~\cite{hanDataMiningConcepts2011}.
 
 Um DW é geralmente representado por um modelo dimensional que permite eficiência na organização dos dados e na recuperação de informações gerenciais~\cite{kimballDataWarehouseToolkit2013}.
 Neste modelo são definidos fatos, dimensões e medidas.
@@ -64,7 +86,7 @@ Não há utilização de repositórios relacionais para armazenar dados multidim
 Além desses, existem sistemas OLAP voltados para um domínio ou estilo de dados específico, como é o caso do \textit{Spatial OLAP} (SOLAP), voltado para consultas espaciais~\cite{viswanathanUsercentricSpatialData2014}.
 
 É importante ressaltar a diferença entre OLAP e \textit{Online Transaction Processing} (OLPT), visto que sistemas comuns de banco de dados utilizam apenas OLTP, que tem o objetivo de realizar transações e processar consultas online.
-Isso cobre a grande maioria das operações do dia-a-dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
+Isso cobre a grande maioria das operações do dia a dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
 Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo voltado para decisões de mais alto nível na organização~\cite{hanDataMiningConcepts2011}.
 
 \section{Cubo de Dados}
@@ -72,11 +94,10 @@ Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo vo
 
 O Cubo de Dados originalmente foi criado como um operador relacional que gera todas as combinações possíveis de seus atributos de acordo com uma medida~\cite{grayDataCubeRelational1996}.
 
-Um cubo de dados consiste em um conjunto de medidas para análise e um conjunto de dimensões que provêm o contexto das medidas.
-Uma medida é um atributo cujos valores definem os fatos de interesse na análise e em cujos valores são aplicadas as funções de agregação (soma, quantidade, média, sentimento, união, interseção de geo-objetos, etc.).
-Uma dimensão é um elemento que participa de um fato e que determina o contexto de um assunto de negócios, sendo que podem ser compostas por membros que podem conter hierarquias.
-Membros são as possíveis divisões ou classificações de uma dimensão~\cite{silva:2015:abordagensParaCubo}.
-Por exemplo, uma dimensão de tempo pode ser dividida em: década, ano, mês, dia e hora.
+A estrutura do cubo de dados permite que os dados sejam modelados e visualizados em múltiplas dimensões, e ele é caracterizado por dimensões e medidas.
+Uma medida é um atributo cujos valores são calculados pelo relacionamento entre as dimensões, sendo que esse é calculado utilizando funções de agragação como soma, quantidade, média, moda, mediana, etc.
+Uma dimensão é feita pelas entidades que compõe os nossos dados, determinando o contexto do assunto em questão~\cite{hanDataMiningConcepts2011}.
+Uma dimensão pode ainda ser dividida em membros, que podem ter uma hierarquia, como uma divisão da dimensão tempo em dia, mês e ano.
 
 A organização de um cubo de dados possibilita ao usuário a flexibilidade de visualização dos dados a partir de diferentes perspectivas, já que o operador gera combinações através do conceito do valor \textit{ALL}, onde este conceito representa a agregação de todas as combinações possíveis de um conjunto de valores de atributos.
 Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{silva:2015:abordagensParaCubo}.
@@ -84,17 +105,47 @@ Operações em cubos de dados existem a fim de materializar estas diferentes vis
 Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
 O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}~\cite{silva:2015:abordagensParaCubo}.
 
-A computação do cubo de dados é um problema exponencial em relação ao tempo de execução e ao consumo de memória, portando dada uma relação de entrada R com tuplas de tamanho $n$, a saída é $2^n$, onde $n$ é o número de dimensões de um cubo.
-
 {\color{red} Traduzir exemplo do rodrigo do curso p/ satélites?!}
+
+\subsection{Células do Cubo de Dados}
+\label{ch:fun:cube:cells}
+
+{\color{red} Cubóides?! Imagem to lattice tem que vir aqui também}
+
+Diversos subcubos compõe um cubo de dados e cada subcubo é composto por diversas células base e células agregadas.
+Deste modo uma célula em um subcubo base é uma célula base.
+Da mesma maneira uma célula em um subcubo não base é uma célula agregada.
+Uma célula agregada agrega sobre uma ou mais dimensões, onde cada dimensão agregada é indicada pelo valor especial ALL ("*") na notação da célula (LIMA, 2009).
+
+Caso exista um cubo de dados n-dimensional.
+Seja a = (a 1 , a 2 , a 3 , ..., a n , medidas) uma célula de um dos subcubos que constituem um cubo de dados qualquer.
+A célula a é uma célula m-dimensional, se exatamente m (m ≤ n) valores entre (a 1 , a 2 , a 3 , ..., a n ) não são "*".
+Se m = n, então a é uma célula base, caso contrário, ela é uma célula agregada.
+
+Considere o cubo de dados da Figura 2.1, com as dimensões tempo, departamento e disciplina, e a medida nota.
+As células (T1, *, *, 78.9) e (*, Ciência da Comp., *, 81.3) são células de 1 dimensão, (T1, *, Calc1, 76.3) é uma célula de 2 dimensões, e (T1, Ciência da Comp., Calc1, 78.8) é uma célula de 3 dimensões.
+Aqui todas as células base possuem 3 dimensões, enquanto que as células com 1 e 2 dimensões são células agregadas.
+Um relacionamento de descendente-ancestral pode existir entre células.
+Em um cubo de dados n-dimensional, uma célula a = (a 1 , a 2 , a 3 , ..., a n , medidas) de nível i é um ancestral de uma célula b = (b 1 , b 2 , b 3 , ..., b n , medidas) de nível j, e b é um descendente de a, se e somente se i < j e 1 ≤ m ≤ n, onde a m = b m sempre que a m ≠ *.
+Em particular, uma célula a é chamada de pai de uma célula b, e b de filho de a, se e somente se j = i+1 e b for um descendente de a (HAN; KAMBER, 2006).
+Com base no mesmo exemplo, uma célula a = (T1, *, *, 78.9) com um membro e uma célula b (T1, *, Calc1, 76.3) com dois membros são ancestrais da célula c = (T1, Ciência da Comp., Calc1, 78.8) que possui três membros, e c é descendente de a e b, onde b é pai de c.
 
 \subsection{Modelagem dimensional}
 \label{ch:fun:cube:dimm}
+
+Existem três esquemas principais para a modelagem dimensional de um cubo de dados: Esquema Estrela (\textit{Star Schema}), Esquema Floco de Neve (\textit{Snowflake Schema}) e Constelação de Fatos (\textit{Fact Constellation Schema}).
 
 \subsubsection{Esquema estrela}
 \label{ch:fun:cube:dimm:star}
 
 {\color{red} Imagem}
+
+Idealizado e criado por Ralph Kimball, o Esquema Estrela é uma forma de dispor as
+tabelas do modelo relacional para o modelo dimensional (KIMBALL; ROSS, 2002).
+
+Conforme ilustra a Figura 2.5, o Esquema Estrela é uma estrutura com tabelas e ligações bem definidas, baseado no formato de uma estrela.
+É formado por uma tabela central, denominada tabela de fatos, a qual possui os dados principais da visão da análise, ou seja, o assunto que está sendo analisado, por exemplo, as vendas em dólar, as unidades vendidas, o custo do dólar, etc.
+Nela ficam ligadas as tabelas de dimensão, que possuem os aspectos pelos quais se deseja observar as medidas relativas ao processo que se está analisando.
 
 \subsubsection{Esquema Floco de Neve}
 \label{ch:fun:cube:dimm:snow}
@@ -113,22 +164,49 @@ Uma hierarquia de conceitos é utilizada para definir uma sequência de mapeamen
 É um estilo de agrupamento e discretização, pois agrupa os valores de modo a reduzir a cardinalidade de uma dimensão~\cite{hanDataMiningConcepts2011}.
 Elas ajudam a tornar a análise mais fácil de ser entendida, pois as operações traduzem os dados de baixo nível em uma representação que é mais fácil para o usuário final, assim facilitando a execução das consultas e o seu subsequente uso.
 
+{\color{red} Han, figura 4.10}
+
 \subsection{Medidas}
+\label{ch:fun:cube:measures}
 
-According to [@hanDataMiningConcepts2011], measures can be classified into three different types: *distributive*, *algebraic* and *holistic*. A **distributive** measure is a measure whose calculation can be partitioned and later joined, and the result would be the same as if the executing the calculation with all the available data at once. In figure [\@ref(fig:datacube)], the *mean* is a distributive measure.
-An **algebraic** measure is a measure whose calculation can be made from two or more distributive measures, like an *average* operation, which can be performed with an *sum* and an *count* measures.
-A measure is **holistic** if it can only be computed without a distributive measure, meaning that it can't be divided into smaller operations and must be computed for all the data, like the measure *standard deviation* in figure [\@ref(fig:datacube)].
+Cada célula de um cubo é definida como um par $\langle (d_1, d_2, ..., d_n), medidas\rangle$, onde $(d_1, d_2, ..., d_n)$ representam as combinações possíveis de valores de atributos sobre as dimensões.
+Uma medida é calculada para uma certa célula agregando os dados correspondentes a combinação de dimensões e valores~\cite{hanDataMiningConcepts2011}.
+Medidas podem ser classificadas em três tipos: distributiva, algébrica e holística.
 
-Holistic measures are the hardest to calculate, and so it's an area with increased research attention [@silva:2015:abordagensParaCubo].
+Uma medida distributiva é uma medida cujo cálculo pode ser particionado e depois combinado, e o resultado seria o mesmo se o cálculo fosse executado em todo o conjunto de dados.
+Por exemplo, a função de soma é distributiva: dividindo os dados $N$ em conjuntos $n$, e fazendo a soma de cada conjunto $n$, teremos o mesmo resultado que se a fosse feita diretamente sobre $N$.
+
+Uma medida algébrica é uma medida cujo cálculo pode ser feito sobre duas ou mais medidas distributivas.
+Por exemplo, uma medida de média pode ser calculada com a divisão da medida \textit{soma} pela a medida \textit{contagem}, que são ambas distributivas.
+
+Uma medida é holística se não existe uma medida algébrica com $M$ argumentos que caracterize a computação.
+Isso quer dizer que a computação não pode ser particionada, com valores exatos obtidos apenas se a medida for aplicada em todos os dados.
+Alguns exemplos são as medidas de moda, desvio padrão e mediana~\cite{hanDataMiningConcepts2011}.
 
 \subsection{Operações OLAP}
-\label{ch:fun:olap:ops}
+\label{ch:fun:cube:olapops}
 
-Since that the focus is on analysis, an OLAP architecture generally needs to support some common operators: *rollup*, which increases the level of aggregation or climbs a concept hierarchy; *drill-down*, which decreases the level of aggregation, going from more general data to more specific data, sometimes along one or more dimension hierarchies; *slice and dice*, which create selections and projections on the data; and *pivot*, which re-orients the visualization of the data.
+Para realizar consultas no \textit{Data Warehouse}, é necessário utilizar de algumas operações sobre o cubo de dados para obter os resultados adequados.
+Essas consultas também devem conseguir passar na hierarquia de conceitos de cada dimensão, bem como seguir o modelo dimensional do cubo definido, para conseguir oferecer uma interface amigável com o usuário para análise interativa~\cite{hanDataMiningConcepts2011}.
+Algumas operações comuns são:
 
-There are other operators, like *drill-across* and *drill-through*, but the support and existence of these will depend on the type of OLAP that is necessary [@hanDataMiningConcepts2011].
+\begin{itemize}
+	\item \textit{Roll-up}: realiza agregação no cubo de dados, seja navegando na hierarquia de conceitos de nível específico para um mais genérico, ou reduzindo uma dimensão.
+	\item \textit{Drill-down}: o inverso da operação \textit{roll-up}, navega na hierarquia de conceitos do nível mais genérico para o nível mais específico, ou adiciona dimensões ao cubo atual.
+Essa operação visa aumentar o nível de detalhes dos dados.
+	\item \textit{Slice}: ou "fatiamento", realiza uma seleção em uma dimensão do cubo, resultando em um subcubo.
+	\item \textit{Dice}: define um subcubo realizando uma seleção (\textit{slice}) em duas ou mais dimensões.
+	\item \textit{Pivot}: também chamada de rotação, permite mudar a posição das dimensões na visualização, portanto alterando linhas por colunas e vice-versa.
+\end{itemize}
+
+{\color{red} Rodrigo, figura 2.1}
+
+Dependendo do sistema OLAP, é possível que outras operações sejam possíveis, como \textit{drill-across} que passa por mais do que uma tabela de fatos, e \textit{drill-through} que permite executar consultas direto na representação em baixo nível do cubo~\cite{hanDataMiningConcepts2011}.
 
 \subsection{Computação do cubo de dados}
+\label{ch:fun:cube:comp}
+
+A computação do cubo de dados é um problema exponencial em relação ao tempo de execução e ao consumo de memória, portando dada uma relação de entrada \textbf{R} com tuplas de tamanho $n$, a saída é $2^n$, onde $n$ é o número de dimensões de um cubo.
 
 To properly calculate a data cube for some measures and dimensions, you have to count the cardinality of each dimension against the cardinality of all other dimensions.
 While manageable for a few dimensions, this computation becomes almost impossible for cubes with high dimensions as the number of combinations becomes too much for a single computer to handle.
@@ -153,24 +231,4 @@ Top-down is the inverse: it starts from the least specific cuboid, called the ap
 Most of these are tested and overviewed in [@silva:2015:abordagensParaCubo], and won't be repeated here for brevity.
 
 [BUC, Top-down, Bottom-up]
-
-\section{Big Data}
-\label{ch:fun:bigdata}
-
-O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}~\cite{bimonteOpenIssuesBig2016}: Volume, Variedade, Velocidade, Valor e Veracidade. Em detalhes:
-
-\begin{itemize}
-	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
-É importante ressaltar que isso não se trata apenas do armazenamento dos dados, mas também do seu processamento~\cite{boussoufBigDataBased2018}.
-Usar um grande volume de dados geralmente implica em modelos melhores, que então produzem análises melhores, justificando a coleta de uma grande quantidade de dados.
-	\item \textbf{Variedade}: dados são provenientes de fontes diferentes, com formatos diferentes, sem um esquema de modelagem padronizado, como dados advindos de \textit{logs} de computadores, dados de sensores, dados multimídia, etc.
-Como consequência, esses dados devem ser utilizados da forma mais transparente o possível na análise.
-	\item \textbf{Velocidade}: dados são disponibilizados de uma forma muito rápida, e devem ser analisados da forma mais rápida o possível.
-Isso implica que os dados podem ser guardados e analisados até em tempo real.
-	\item \textbf{Valor}: os dados devem ser armazenados para criar algum valor para os seus usuários, seja ele econômico, científico, social, organizacional, etc.
-	\item \textbf{Veracidade}: os dados não possuem garantias quanto a sua qualidade, como inconsistências e falta de acurácia, porém a análise deve ser de alta qualidade de qualquer forma.
-\end{itemize}
-
-Estes V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
-Em especial, existe um certo relacionamento com a ideia de "\textit{NoSQL}" ("Não apenas SQL", em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
 
