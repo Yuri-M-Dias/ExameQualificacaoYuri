@@ -45,7 +45,7 @@ Uma das dimensões é sempre temporal para permitir a análise do assunto ao lon
 Um sistema OLAP permite a resposta de consultas multidimensionais usando dados armazenados no \textit{Data Warehouse}~\cite{kimballDataWarehouseToolkit2013}, sendo que as características principais são~\cite{bimonteOpenIssuesBig2016}:
 
 \begin{itemize}
-	\item \textbf{Consultas Online}: as consultas devem ser rápidas para os tomadores de decisão, tipicamente em menos de 10s{\color{red} (Minsky, 1993)}
+	\item \textbf{Consultas Online}: as consultas devem ser feitas \textit{Online}, isto é, em tempo real para o usuário.
 	\item \textbf{Consultas Multidimensionais}: Consultas são definidas utilizando as dimensões e medidas providas pelo \textit{Data Warehouse}, que esperam dados de alta qualidade.
 	\item \textbf{Representação simples}: os resultados das consultas devem ser representados utilizando tabelas e gráficos, pois os usuários finais geralmente são tomadores de decisão que precisam de visualizações relevantes.
 	\item \textbf{Exploratórias}: as consultas são utilizadas em carácter exploratório, pois geralmente os usuários não conhecem de antemão todos os dados disponíveis para consultas.
@@ -63,9 +63,9 @@ Não há utilização de repositórios relacionais para armazenar dados multidim
 
 Além desses, existem sistemas OLAP voltados para um domínio ou estilo de dados específico, como é o caso do \textit{Spatial OLAP} (SOLAP), voltado para consultas espaciais~\cite{viswanathanUsercentricSpatialData2014}.
 
-{\color{red}
-[Diferença entre OLAP e OLPT?]
-}
+É importante ressaltar a diferença entre OLAP e \textit{Online Transaction Processing} (OLPT), visto que sistemas comuns de banco de dados utilizam apenas OLTP, que tem o objetivo de realizar transações e processar consultas online.
+Isso cobre a grande maioria das operações do dia-a-dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
+Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo voltado para decisões de mais alto nível na organização~\cite{hanDataMiningConcepts2011}.
 
 \section{Cubo de Dados}
 \label{ch:fun:cube}

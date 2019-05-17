@@ -1,9 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{IMPLEMENTAÇÃO E RESULTADOS PRELIMINARES}
+\chapter{RESULTADOS PRELIMINARES}
 \label{ch:impl}
 
+{\color{red}
 Para a implementação da arquitetura, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados.
+}
 Para esse estágio da pesquisa, foram utilizados dados do SCD-2 fornecidos pelo CCS, porém alguns softwares foram implementados como parte da pesquisa sobre o cubo de dados e como resultados da análise dos dados.
 
 \section{SCD-Dashboard}
@@ -21,14 +23,13 @@ Essa ferramenta também pode ser vista como um piloto para implementar algo seme
 Ferramentas mais parecidas, e mais completas, estão no CHART e nas dashboard criadas usando o Kibana em~\cite{mateikUsingBigData2017} e~\cite{zhangBigDataFramework2017}.
 
 \begin{figure}[ht]
-	\caption{Aparência do SCD-Dashboard}
+	\caption{Aparência do SCD-Dashboard}\label{fig:scddashboard}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{15cm}{!}{\includegraphics{Figuras/Dashboardview.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
-	\label{fig:scddashboard}
 	\FONTE{Produção dos autores}
 \end{figure}
 
@@ -37,7 +38,7 @@ Essa ferramenta foi utilizada extensamente para visualização dos dados e para 
 \section{RFragCubing}
 \label{ch:impl:rfrag}
 
-O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube:frag}, foi disponibilizado em forma compilada via código de C++, porém, ele foi feito com uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento não trivial antes.
+O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube}, foi disponibilizado em forma compilada via código de C++, porém, ele foi feito com uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento não trivial antes.
 Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, os resultados possuem histórico para comparação, portanto o seu uso contínuo seria interessante.
 
 Para isso, foi criado um pacote na linguagem R chamado de \textbf{RFragCubing}, que permite a integração com o algoritmo implementado em C++.
@@ -45,14 +46,13 @@ Esse pacote faz a interface com o código do FragCubing, permitindo importar os 
 Uma das vantagens do pacote está na distribuição, com uma interface que permite a execução da mesma consulta em outros algoritmos de construção do cubo, uma das razões para fazer a implementação, para facilitar a comparação entre os algoritmos.
 
 \begin{figure}[ht]
-	\caption{Carregando dados de telemetria no RFragCubing}
+	\caption{Carregando dados de telemetria no RFragCubing}\label{fig:shinyrfrag}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{10.5cm}{!}{\includegraphics{Figuras/RFragInit.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{}
-	\label{fig:shinyrfrag}
 	\FONTE{Produção dos autores}
 \end{figure}
 
@@ -62,14 +62,13 @@ Uma das vantagens do pacote está na distribuição, com uma interface que permi
 Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de exploração de dados que envolvia realizar consultas multidimensionais baseadas no conceito do cubo de dados, um padrão foi notado entre as telemetrias: quando uma medida de agregação por contagem era executada sobre telemetrias que se sabia ter algum tipo de relacionamento entre elas, elas possuiam uma curva característica, como da figura~\ref{fig:scdsimilaritygraph}.
 
 \begin{figure}[ht]
-	\caption{Curva de de agregação gerada pela SCD-Dashboard}
+	\caption{Curva de de agregação gerada pela SCD-Dashboard}\label{fig:scdsimilaritygraph}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{15cm}{!}{\includegraphics{Figuras/SimilarityCurve.png}}
 	\end{center}
 	\vspace{4mm}
 	\legenda{Agregação das telemetrias TM003 e TM004 ao longo de 01/2018}
-	\label{fig:scdsimilaritygraph}
 	\FONTE{Produção dos autores}
 \end{figure}
 
