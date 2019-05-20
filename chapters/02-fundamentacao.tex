@@ -10,6 +10,19 @@ Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta,
 \section{Operação de Satélites}
 \label{ch:fun:operations}
 
+The main characteristic of satellite telemetry data is its high dimensionality in the form of having many telemetries for a given time frame, thus making it a time series.
+
+Telemetry data is measured across all the equipments of the satellite, which can measure widly different values like battery voltage, magnetometer influences and payload healthchecks among others, and is therefore highly complex in nature.
+Some satellites can have thousands of telemetries, with some being received per second continuously during its lifetime, like the Hubble telescope that generated terabytes of telemetry data per year [@miebachHubbleSpaceTelescope1998].
+
+Telemetry data
+
+Telemetry data is obtained from the satellites via telecommunication with the ground stations.
+For SCC, the data is delivered as raw binary data, which is then converted to a human readable format by SATellite Control System (SATCS), a software system developed by the Ground Systems Development Division (DSS) of coordination of Space Engineering and Technology at INPE [@JulioFoAmbrFerrLour:2017:ChImSp].
+
+SATCS also provides means to send telecommand and some basic data visualization, but these only use recent telemetry data and not the full historical database.
+The system is very useful for daily satellite operations, but it lacks the big data analysis that is necessary for a more comprehensive data mining effort, which lead to the proposal of a data mining architecture for telemetry data at INPE [@AzevedoAmbr:2010:ArSaTe].
+
 {\color{red}
 \textbf{Dataflow? Explicar a operação de satélites bem por cima}
 }
@@ -100,10 +113,10 @@ Uma dimensão é feita pelas entidades que compõe os nossos dados, determinando
 Uma dimensão pode ainda ser dividida em membros, que podem ter uma hierarquia, como uma divisão da dimensão tempo em dia, mês e ano.
 
 A organização de um cubo de dados possibilita ao usuário a flexibilidade de visualização dos dados a partir de diferentes perspectivas, já que o operador gera combinações através do conceito do valor \textit{ALL}, onde este conceito representa a agregação de todas as combinações possíveis de um conjunto de valores de atributos.
-Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{silva:2015:abordagensParaCubo}.
+Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{hanDataMiningConcepts2011}.
 
 Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
-O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}~\cite{silva:2015:abordagensParaCubo}.
+O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}.
 
 {\color{red} Traduzir exemplo do rodrigo do curso p/ satélites?!}
 
@@ -112,50 +125,70 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 
 {\color{red} Cubóides?! Imagem to lattice tem que vir aqui também}
 
-Diversos subcubos compõe um cubo de dados e cada subcubo é composto por diversas células base e células agregadas.
-Deste modo uma célula em um subcubo base é uma célula base.
-Da mesma maneira uma célula em um subcubo não base é uma célula agregada.
-Uma célula agregada agrega sobre uma ou mais dimensões, onde cada dimensão agregada é indicada pelo valor especial ALL ("*") na notação da célula (LIMA, 2009).
+Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
+Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} ($"*"$) para demonstrar que está agregando valores em uma ou mais dimensões.
+Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
 
-Caso exista um cubo de dados n-dimensional.
-Seja a = (a 1 , a 2 , a 3 , ..., a n , medidas) uma célula de um dos subcubos que constituem um cubo de dados qualquer.
-A célula a é uma célula m-dimensional, se exatamente m (m ≤ n) valores entre (a 1 , a 2 , a 3 , ..., a n ) não são "*".
-Se m = n, então a é uma célula base, caso contrário, ela é uma célula agregada.
+Formalmente, supondo um cubo de dados $n$-dimensional, uma célula $a$ de qualquer subcubo é definida por $a = (a_1, a_2, a_3, ..., a_n, medidas)$.
+A célula é m-dimensional (de um subcubo com $m$ dimensões), se exatamente $m$, com $(m \leq n)$, valores entre $(a_1, a_2, a_3, ..., a_n)$ não são $"*"$.
+Se $m = n$, então $a$ é uma célula base, caso contrário $(m < n)$, ela é uma célula agregada.
 
-Considere o cubo de dados da Figura 2.1, com as dimensões tempo, departamento e disciplina, e a medida nota.
-As células (T1, *, *, 78.9) e (*, Ciência da Comp., *, 81.3) são células de 1 dimensão, (T1, *, Calc1, 76.3) é uma célula de 2 dimensões, e (T1, Ciência da Comp., Calc1, 78.8) é uma célula de 3 dimensões.
-Aqui todas as células base possuem 3 dimensões, enquanto que as células com 1 e 2 dimensões são células agregadas.
-Um relacionamento de descendente-ancestral pode existir entre células.
-Em um cubo de dados n-dimensional, uma célula a = (a 1 , a 2 , a 3 , ..., a n , medidas) de nível i é um ancestral de uma célula b = (b 1 , b 2 , b 3 , ..., b n , medidas) de nível j, e b é um descendente de a, se e somente se i < j e 1 ≤ m ≤ n, onde a m = b m sempre que a m ≠ *.
-Em particular, uma célula a é chamada de pai de uma célula b, e b de filho de a, se e somente se j = i+1 e b for um descendente de a (HAN; KAMBER, 2006).
-Com base no mesmo exemplo, uma célula a = (T1, *, *, 78.9) com um membro e uma célula b (T1, *, Calc1, 76.3) com dois membros são ancestrais da célula c = (T1, Ciência da Comp., Calc1, 78.8) que possui três membros, e c é descendente de a e b, onde b é pai de c.
+{\color{red} exemplo}
+
+Um relacionamento de descendente-ancestral pode existir entre células. 
+Em um cubo de dados $n$-dimensional, uma célula $a = (a_1, a_2, a_3, ..., a_n, medidas_a)$ de nível $i$ é um ancestral de uma célula $b = (b_1, b_2, b_3, ..., b_n, medidbs_b)$ de nível $j$, e $b$ é um descendente de $a$, se e somente se $i < j$ e $1 \leq m \leq n$, onde $a_m = b_m$ sempre que $a_m \neq *$.
+Em particular, uma célula $a$ é chamada de pai de uma célula $b$, e $b$ de filho de $a$, se e somente se $j = i+1$ e $b$ for um descendente de $a$~\cite{hanDataMiningConcepts2011}.
+
+{\color{red} exemplo}
 
 \subsection{Modelagem dimensional}
 \label{ch:fun:cube:dimm}
 
 Existem três esquemas principais para a modelagem dimensional de um cubo de dados: Esquema Estrela (\textit{Star Schema}), Esquema Floco de Neve (\textit{Snowflake Schema}) e Constelação de Fatos (\textit{Fact Constellation Schema}).
 
-\subsubsection{Esquema estrela}
-\label{ch:fun:cube:dimm:star}
+O esquema estrela é o mais utilizado, sendo que ele contém uma tabela central chamada de tabela de fatos, onde reside a maior parte dos dados, com um conjunto menor de tabelas, chamadas de tabelas de dimensão, para as outras dimensões.
+A figura~\ref{fig:starschema} mostra um exemplo de esquema estrela.
 
-{\color{red} Imagem}
+\begin{figure}[!htb]
+	\caption{Esquema estrela}\label{fig:starschema}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{4cm}{!}{\includegraphics{Figuras/starSchema.png}}
+	\end{center}
+	\vspace{1mm}
+	\legenda{}
+	\FONTE{Produção do autor}.
+\end{figure}
 
-Idealizado e criado por Ralph Kimball, o Esquema Estrela é uma forma de dispor as
-tabelas do modelo relacional para o modelo dimensional (KIMBALL; ROSS, 2002).
+O esquema floco de neve é uma variação do esquema estrela, onde algumas dimensões são normalizadas, dividindo os dados das tabelas de dimensão em outras tabelas.
+Isso possui vantagens de eliminar redundâncias nas tabelas de dimensão, porém cria problemas durante a execução de consultas, visto que é necessário realizar operações de \textit{join} com as novas tabelas.
+A figura~\ref{fig:snowflakeschema} mostra um exemplo de esquema floco de neve.
 
-Conforme ilustra a Figura 2.5, o Esquema Estrela é uma estrutura com tabelas e ligações bem definidas, baseado no formato de uma estrela.
-É formado por uma tabela central, denominada tabela de fatos, a qual possui os dados principais da visão da análise, ou seja, o assunto que está sendo analisado, por exemplo, as vendas em dólar, as unidades vendidas, o custo do dólar, etc.
-Nela ficam ligadas as tabelas de dimensão, que possuem os aspectos pelos quais se deseja observar as medidas relativas ao processo que se está analisando.
+\begin{figure}[!htb]
+	\caption{Esquema floco de neve}\label{fig:snowflakeschema}
+	\vspace{2mm}
+	\begin{center}
+		\resizebox{5cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
+	\end{center}
+	\vspace{1mm}
+	\legenda{}
+	\FONTE{Produção do autor}.
+\end{figure}
 
-\subsubsection{Esquema Floco de Neve}
-\label{ch:fun:cube:dimm:snow}
+O esquema constelação de fatos utiliza de múltiplas tabelas de fato, como se fossem várias tabelas no esquema estrela que compartilham tabelas de dimensão.
+Isso leva ao seu nome, como um conjunto de estrelas.
+A figura~\ref{fig:factconstschema} mostra um exemplo de constelação de fatos.
 
-{\color{red} Imagem}
-
-\subsubsection{Esquema Constelação de Fatos}
-\label{ch:fun:cube:dimm:constellation}
-
-{\color{red} Imagem}
+\begin{figure}[!htb]
+	\caption{Esquema constelação de fatos}\label{fig:factconstschema}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{7cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{Produção do autor}.
+\end{figure}
 
 \subsection{Hierarquias de conceito}
 \label{ch:fun:cube:concept}
