@@ -3652,21 +3652,6 @@ Page Version ID: 794305871}
   note = {00000}
 }
 
-@inproceedings{andCCubingEfficientComputation2006,
-  title = {C-{{Cubing}}: {{Efficient Computation}} of {{Closed Cubes}} by {{Aggregation}}-{{Based Checking}}},
-  shorttitle = {C-{{Cubing}}},
-  abstract = {It is well recognized that data cubing often produces huge outputs. Two popular efforts devoted to this problem are (1) iceberg cube, where only significant cells are kept, and (2) closed cube, where a group of cells which preserve roll-up/drill-down semantics are losslessly compressed to one cell. Due to its usability and importance, efficient computation of closed cubes still warrants a thorough study. In this paper, we propose a new measure, called closedness, for efficient closed data cubing. We show that closedness is an algebraic measure and can be computed efficiently and incrementally. Based on closedness measure, we develop an an aggregation-based approach, called C-Cubing (i.e., Closed-Cubing), and integrate it into two successful iceberg cubing algorithms: MM-Cubing and Star-Cubing. Our performance study shows that C-Cubing runs almost one order of magnitude faster than the previous approaches. We further study how the performance of the alternative algorithms of C-Cubing varies w.r.t the properties of the data sets.},
-  booktitle = {22nd {{International Conference}} on {{Data Engineering}} ({{ICDE}}'06)},
-  doi = {10/fgmfwh},
-  author = {{and} and {and}},
-  month = apr,
-  year = {2006},
-  keywords = {Relational databases,Data engineering,Usability},
-  pages = {4-4},
-  file = {/home/yuri/Zotero/storage/L2BS4SXP/and_and_2006_C-Cubing.pdf;/home/yuri/Zotero/storage/76R54SYT/1617372.html},
-  note = {00000}
-}
-
 @misc{PDFContrastSubgraph,
   title = {(7) ({{PDF}}) {{Contrast Subgraph Mining}} from {{Coherent Cores}}},
   abstract = {ResearchGate is a network dedicated to science and research. Connect, collaborate and discover scientific publications, jobs and conferences. All for free.},
@@ -3842,23 +3827,6 @@ Page Version ID: 794305871}
   keywords = {Data mining,data mining,data warehouses,data warehousing,Aggregates,data cube computation,Data analysis,Sorting,Costs,a priori pruning,bottom-up integration,Data warehouse,Database systems,iceberg cube computation,Multidimensional systems,multiway array cube algorithm,online analytical processing (OLAP).,Partitioning algorithms,Regression analysis,star-tree structure,starcubing approach,top-down integration,Warehousing},
   pages = {111-126},
   file = {/home/yuri/Zotero/storage/JZNIVYHZ/Xin et al_2007_Computing Iceberg Cubes by Top-Down and Bottom-Up Integration.pdf;/home/yuri/Zotero/storage/NV5RKBXA/4016519.html},
-  note = {00000}
-}
-
-@article{andRegressionCubesLossless2006,
-  title = {Regression {{Cubes}} with {{Lossless Compression}} and {{Aggregation}}},
-  volume = {18},
-  issn = {1041-4347},
-  abstract = {As OLAP engines are widely used to support multidimensional data analysis, it is desirable to support in data cubes advanced statistical measures, such as regression and filtering, in addition to the traditional simple measures such as count and average. Such new measures allow users to model, smooth, and predict the trends and patterns of data. Existing algorithms for simple distributive and algebraic measures are inadequate for efficient computation of statistical measures in a multidimensional space. In this paper, we propose a fundamentally new class of measures, compressible measures, in order to support efficient computation of the statistical models. For compressible measures, we compress each cell into an auxiliary matrix with a size independent of the number of tuples. We can then compute the statistical measures for any data cell from the compressed data of the lower-level cells without accessing the raw data. Time- and space-efficient lossless aggregation formulae are derived for regression and filtering measures. Our analytical and experimental studies show that the resulting system, regression cube, substantially reduces the memory usage and the overall response time for statistical analysis of multidimensional data},
-  number = {12},
-  journal = {IEEE Transactions on Knowledge and Data Engineering},
-  doi = {10/c4x2bb},
-  author = {{and} and {and} and {and}},
-  month = dec,
-  year = {2006},
-  keywords = {Predictive models,data analysis,data mining,data warehouses,statistical analysis,data compression,Data analysis,data cubes,Distributed computing,Extraterrestrial measurements,lossless compression,Aggregation,Engines,regression analysis,Multidimensional systems,compression,Delay,Filtering,Loss measurement,lossless aggregation,multidimensional data analysis,OLAP engines,OLAP.,regression cubes,Size measurement},
-  pages = {1585-1599},
-  file = {/home/yuri/Zotero/storage/7NDLAMX8/and et al_2006_Regression Cubes with Lossless Compression and Aggregation.pdf;/home/yuri/Zotero/storage/5BJBM6V9/1717417.html},
   note = {00000}
 }
 
@@ -4739,9 +4707,13 @@ deployed in the same orbit.},
 
 @article{silvaComputingBIGData2016,
   title = {Computing {{BIG}} Data Cubes with Hybrid Memory},
+  volume = {11},
   abstract = {Nowadays, analysis data volumes are reaching critical sizes challenging traditional data warehousing approaches. Cubing methods based on inverted indices, such as Frag-Cubing, are efficient alternatives to conventional approaches of computing OLAP data cubes over Big Data. However, similar to other memory-based cube solutions, the efficiency of such methods is constrained by available dynamic random-access memory (DRAM). In this paper, we implement and test the hybrid inverted cubing (HIC) method, which adopts a hybrid memory system, with main goal of able to compute and update BIG data cubes (with high dimensionality and high number of tuples). HIC stores the most frequent attribute values in DRAM; the remaining attribute values are retained in external memory. Tests using a relation with 480 dimensions and 107 tuples show that HIC is three times slower than Frag-Cubing when computing a data cube, and approximately 13 times faster than Frag-Cubing when answering complex cube queries. A BIG data cube with 60 dimensions and 109 tuples was computed by HIC using 110 GB of RAM and 286 GB of external memory, while Frag-Cubing could not compute such a cube in same machine.},
   language = {en},
+  number = {1},
+  journal = {Journal of Convergence Information Technology},
   author = {Silva, Rodrigo Rocha and Hirata, Celso Massaki and Lima, Joubert de Castro},
+  month = jan,
   year = {2016},
   keywords = {⛔ No DOI found},
   pages = {18},
@@ -5034,6 +5006,99 @@ deployed in the same orbit.},
   year = {2009},
   keywords = {⛔ No DOI found},
   file = {/home/yuri/Zotero/storage/97BNQYVM/Lima - SEQUENTIAL AND PARALLEL APPROACHES TO REDUCE THE D.PDF}
+}
+
+@misc{PDFComputingBIG,
+  title = {(1) ({{PDF}}) {{Computing BIG Data Cubes}} with {{Hybrid Memory}}},
+  abstract = {ResearchGate is a network dedicated to science and research. Connect, collaborate and discover scientific publications, jobs and conferences. All for free.},
+  language = {en},
+  journal = {ResearchGate},
+  howpublished = {https://www.researchgate.net/publication/292964073\_Computing\_BIG\_Data\_Cubes\_with\_Hybrid\_Memory},
+  file = {/home/yuri/Zotero/storage/764967LD/292964073_Computing_BIG_Data_Cubes_with_Hybrid_Memory.html}
+}
+
+@article{silvaComputingDataCubes2018,
+  title = {Computing Data Cubes over {{GPU}} Clusters.},
+  copyright = {open access},
+  abstract = {O cubo de dados \'e um operador relacional fundamental para sistemas de suporte \`a tomada de decis\~ao, dessa forma \'util para a an\'alise de Big Data. O problema apresentando nesse trabalho \'e: como reduzir os tempos de resposta de consultas multidimensionais complexas? Tal problema se torna ainda mais agravado se atualiza{\c c}\~oes recorrentes nos dados de entrada acontecem e se existe um grande volume de dados de alta dimensionalidade a ser analisado. A hip\'otese deste trabalho \'e que uso de clusters de dispositivos CPU-GPU acelerar\'a consultas em cubos de dados hol\'isticos de alta dimens\~ao que s\~ao constantemente atualizados. A solu{\c c}\~ao alternativa proposta neste trabalho, chamada de JCL-GPU-Cubing, particiona a base de dados em m\'ultiplas representa{\c c}\~oes de cubos parciais sem introduzir redund\^ancia de dados. Tais cubos parciais s\~ao usados para executar consultas em CPU ou CPU-GPU de maneira eficiente. As avalia{\c c}\~oes experimentais preliminares demonstraram que a vers\~ao baseada em clusters de CPU escala bem quando ambos os dados de entrada e o tamanho do cluster aumentam.},
+  language = {en\_US},
+  author = {Silva, Lucas Henrique Moreira},
+  year = {2018},
+  keywords = {⛔ No DOI found},
+  file = {/home/yuri/Zotero/storage/G3RNI2E8/Silva_2018_Computing data cubes over GPU clusters.pdf}
+}
+
+@inproceedings{beyerBottomupComputationSparse1999,
+  address = {New York, NY, USA},
+  series = {{{SIGMOD}} '99},
+  title = {Bottom-up {{Computation}} of {{Sparse}} and {{Iceberg CUBE}}},
+  isbn = {978-1-58113-084-3},
+  abstract = {We introduce the Iceberg-CUBE problem as a reformulation of the datacube (CUBE) problem. The Iceberg-CUBE problem is to compute only those group-by partitions with an aggregate value (e.g., count) above some minimum support threshold. The result of Iceberg-CUBE can be used (1) to answer group-by queries with a clause such as HAVING COUNT(*) {$>$}= X, where X is greater than the threshold, (2) for mining multidimensional association rules, and (3) to complement existing strategies for identifying interesting subsets of the CUBE for precomputation.
+We present a new algorithm (BUC) for Iceberg-CUBE computation. BUC builds the CUBE bottom-up; i.e., it builds the CUBE by starting from a group-by on a single attribute, then a group-by on a pair of attributes, then a group-by on three attributes, and so on. This is the opposite of all techniques proposed earlier for computing the CUBE, and has an important practical advantage: BUC avoids computing the larger group-bys that do not meet minimum support. The pruning in BUC is similar to the pruning in the Apriori algorithm for association rules, except that BUC trades some pruning for locality of reference and reduced memory requirements. BUC uses the same pruning strategy when computing sparse, complete CUBEs.
+We present a thorough performance evaluation over a broad range of workloads. Our evaluation demonstrates that (in contrast to earlier assumptions) minimizing the aggregations or the number of sorts is not the most important aspect of the sparse CUBE problem. The pruning in BUC, combined with an efficient sort method, enables BUC to outperform all previous algorithms for sparse CUBEs, even for computing entire CUBEs, and to dramatically improve Iceberg-CUBE computation.},
+  booktitle = {Proceedings of the 1999 {{ACM SIGMOD International Conference}} on {{Management}} of {{Data}}},
+  publisher = {{ACM}},
+  doi = {10.1145/304182.304214},
+  author = {Beyer, Kevin and Ramakrishnan, Raghu},
+  year = {1999},
+  pages = {359--370},
+  file = {/home/yuri/Zotero/storage/MXPZ8HAI/Beyer_Ramakrishnan_1999_Bottom-up Computation of Sparse and Iceberg CUBE.pdf}
+}
+
+@article{yixinchenRegressionCubesLossless2006,
+  title = {Regression {{Cubes}} with {{Lossless Compression}} and {{Aggregation}}},
+  volume = {18},
+  issn = {1041-4347},
+  abstract = {As OLAP engines are widely used to support multidimensional data analysis, it is desirable to support in data cubes advanced statistical measures, such as regression and filtering, in addition to the traditional simple measures such as count and average. Such new measures allow users to model, smooth, and predict the trends and patterns of data. Existing algorithms for simple distributive and algebraic measures are inadequate for efficient computation of statistical measures in a multidimensional space. In this paper, we propose a fundamentally new class of measures, compressible measures, in order to support efficient computation of the statistical models. For compressible measures, we compress each cell into an auxiliary matrix with a size independent of the number of tuples. We can then compute the statistical measures for any data cell from the compressed data of the lower-level cells without accessing the raw data. Time- and space-efficient lossless aggregation formulae are derived for regression and filtering measures. Our analytical and experimental studies show that the resulting system, regression cube, substantially reduces the memory usage and the overall response time for statistical analysis of multidimensional data},
+  number = {12},
+  journal = {IEEE Transactions on Knowledge and Data Engineering},
+  doi = {10.1109/TKDE.2006.196},
+  author = {{Yixin Chen} and {Guozhu Dong} and {Jiawei Han} and {Jian Pei} and {Benjamin W. Wah} and {Jianyong Wang}},
+  month = dec,
+  year = {2006},
+  pages = {1585-1599},
+  file = {/home/yuri/Zotero/storage/7NDLAMX8/Yixin Chen et al_2006_Regression Cubes with Lossless Compression and Aggregation.pdf;/home/yuri/Zotero/storage/T4KBC9I9/Yixin Chen et al_2006_Regression Cubes with Lossless Compression and Aggregation.pdf;/home/yuri/Zotero/storage/5BJBM6V9/1717417.html;/home/yuri/Zotero/storage/WMEXDKAZ/1717417.html}
+}
+
+@inproceedings{dongxinCCubingEfficientComputation2006,
+  title = {C-{{Cubing}}: {{Efficient Computation}} of {{Closed Cubes}} by {{Aggregation}}-{{Based Checking}}},
+  shorttitle = {C-{{Cubing}}},
+  abstract = {It is well recognized that data cubing often produces huge outputs. Two popular efforts devoted to this problem are (1) iceberg cube, where only significant cells are kept, and (2) closed cube, where a group of cells which preserve roll-up/drill-down semantics are losslessly compressed to one cell. Due to its usability and importance, efficient computation of closed cubes still warrants a thorough study. In this paper, we propose a new measure, called closedness, for efficient closed data cubing. We show that closedness is an algebraic measure and can be computed efficiently and incrementally. Based on closedness measure, we develop an an aggregation-based approach, called C-Cubing (i.e., Closed-Cubing), and integrate it into two successful iceberg cubing algorithms: MM-Cubing and Star-Cubing. Our performance study shows that C-Cubing runs almost one order of magnitude faster than the previous approaches. We further study how the performance of the alternative algorithms of C-Cubing varies w.r.t the properties of the data sets.},
+  booktitle = {22nd {{International Conference}} on {{Data Engineering}} ({{ICDE}}'06)},
+  doi = {10.1109/ICDE.2006.31},
+  author = {{Dong Xin} and {Zheng Shao} and {Jiawei Han} and {Hongyan Liu}},
+  month = apr,
+  year = {2006},
+  keywords = {Data engineering,Relational databases,Usability},
+  pages = {4-4},
+  file = {/home/yuri/Zotero/storage/47LPJ6CD/Dong Xin et al_2006_C-Cubing.pdf;/home/yuri/Zotero/storage/L2BS4SXP/Dong Xin et al_2006_C-Cubing.pdf;/home/yuri/Zotero/storage/76R54SYT/1617372.html;/home/yuri/Zotero/storage/RXMDQVWA/1617372.html}
+}
+
+@inproceedings{lakshmananQuotientCubeHow2002,
+  series = {{{VLDB}} '02},
+  title = {Quotient {{Cube}}: {{How}} to {{Summarize}} the {{Semantics}} of a {{Data Cube}}},
+  shorttitle = {Quotient {{Cube}}},
+  abstract = {Partitioning a data cube into sets of cells with "similar behavior" often better exposes the semantics in the cube. E.g., if we find that average boots sales in the West 10th store of Walmart was the same for winter as for the whole year, it signifies something interesting about the trend of boots sales in that location in that year. In this paper, we are interested in finding succinct summaries of the data cube, exploiting regularities present in the cube, with a clear basis. We would like the summary: (i) to be as concise as possible, (ii) to itself form a lattice preserving the rollup/drilldown semantics of the cube, and (iii) to allow the original cube to be fully recovered. We illustrate the utility of solving this problem and discuss the inherent challenges. We develop techniques for partitioning cube cells for obtaining succinct summaries, and introduce the quotient cube. We give efficient algorithms for computing it from a base table. For monotone aggregate functions (e.g., COUNT, MIN, MAX, SUM on non-negative measures, etc.), our solution is optimal (i.e., quotient cube of the least size). For nonmonotone functions (e.g., AVG), we obtain a locally optimal solution. We experimentally demonstrate the efficacy of our ideas and techniques and the scalability of our algorithms.},
+  booktitle = {Proceedings of the 28th {{International Conference}} on {{Very Large Data Bases}}},
+  publisher = {{VLDB Endowment}},
+  doi = {10.1016/B978-155860869-6/50074-3},
+  author = {Lakshmanan, Laks V. S. and Pei, Jian and Han, Jiawei},
+  year = {2002},
+  pages = {778--789},
+  file = {/home/yuri/Zotero/storage/YLXY34CQ/Lakshmanan et al_2002_Quotient Cube.pdf}
+}
+
+@book{larsonSpaceMissionAnalysis1999,
+  address = {El Segundo, Calif. : Dordrecht ; Boston},
+  edition = {3rd edition},
+  title = {Space {{Mission Analysis}} and {{Design}}, 3rd Edition},
+  isbn = {978-1-881883-10-4},
+  abstract = {This practical handbook for Space Mission Engineering draws on leading aerospace experts to carry readers through mission design, from orbit selection to ground ops. SMAD III updates the technology, provides greater emphasis on small spacecraft design and the cost-reduction process, and includes more detail on multi-satellite manufacturing, space computers, payload design and autonomous systems.},
+  language = {English},
+  publisher = {{Microcosm}},
+  editor = {Larson, Wiley J. and Wertz, James R.},
+  month = oct,
+  year = {1999}
 }
 
 

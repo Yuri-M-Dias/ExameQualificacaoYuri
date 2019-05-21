@@ -11,7 +11,7 @@ Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta. Eles po
 O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que obtiveram sucessos na litetura, bem como apresenta uma comparação de resultados de algumas das que vamos apresentar aqui. Dentre este trabalho, podemos citar:
 
 \begin{itemize}
-	\item O \textit{FragCubing}~\cite{liHighDimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
+	\item O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
 	\item \textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
 	\item \textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
 
@@ -33,7 +33,7 @@ Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demon
 Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
 Essa abordagem é interessante por utilizar de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
 
-\section{Outros Operadores}
+\section{Análise de Dados em Outros Operadores}
 \label{ch:corr:ops}
 
 A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}, como demonstrado pelos artigos publicados.
@@ -89,7 +89,7 @@ Alguns desses trabalhos não utilizam de estruturas completas que seguem um flux
 
 O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
 
-\section{Análise de Dados no INPE}
+\subsection{Análise de Dados no INPE}
 \label{ch:corr:inpe}
 
 O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.

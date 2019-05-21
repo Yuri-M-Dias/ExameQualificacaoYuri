@@ -10,6 +10,24 @@ Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta,
 \section{Operação de Satélites}
 \label{ch:fun:operations}
 
+???
+
+Um satélite é dividido em dois módulos: o módulo de serviço e a carga útil.
+O módulo de serviço compõe tudo necessário para o funcionamento dos equipamentos de bordo, como o sistema de geração de energia, o sistema de comunicação com os solo, o computador de bordo, etc.
+A carga útil compõe todos os equipamentos necessários para cumprir a missão, sendo esses sensores, câmeras, telescópios, etc.
+
+Um satélite gera dois tipos diferentes de dados: dados da carga útil e dados de telemetria.
+Os dados da carga útil são os dados gerados para cumprir a missão do satélite, sendo que eles podem ser fotos tiradas para o sensoriamento remoto, fotos tiradas por telescópios, dados de comunicação caso este seja o foco da missão entre outros~\cite{larsonSpaceMissionAnalysis1999}.
+Os dados de telemetria são os dados de monitoramento do estado de saúde e do funcionamento dos equipamentos do satélite.
+Esses dados são coletados pelo computador de bordo do satélite, e são enviados para as estações de solo via sistemas de telecomunicação.
+
+É importante ressaltar que os dados de telemetria compõe usualmente medidas de sensores nos equipamentos do satélite, informações coletadas pelo computador de bordo (como se um instrumento está ligado ou não), e outros dados cuja coleta foi definida como relevante para a operação do satélite.
+Porém, dependendo da missão, outras medidas podem ser classificadas como telemetria, como por exemplo câmeras voltadas para o satélites, radares para a prevenção de colisão, e etc.{\color{red} Citação da câmera dentro do Sentinel?}
+
+Esses dados, diversos como são, devem ser analisados pelos operadores em solo.
+
+Neste trabalho, vamos utilizar apenas dados de telemetria de satélite para a análise.
+
 The main characteristic of satellite telemetry data is its high dimensionality in the form of having many telemetries for a given time frame, thus making it a time series.
 
 Telemetry data is measured across all the equipments of the satellite, which can measure widly different values like battery voltage, magnetometer influences and payload healthchecks among others, and is therefore highly complex in nature.
@@ -22,10 +40,6 @@ For SCC, the data is delivered as raw binary data, which is then converted to a 
 
 SATCS also provides means to send telecommand and some basic data visualization, but these only use recent telemetry data and not the full historical database.
 The system is very useful for daily satellite operations, but it lacks the big data analysis that is necessary for a more comprehensive data mining effort, which lead to the proposal of a data mining architecture for telemetry data at INPE [@AzevedoAmbr:2010:ArSaTe].
-
-{\color{red}
-\textbf{Dataflow? Explicar a operação de satélites bem por cima}
-}
 
 \section{Big Data}
 \label{ch:fun:bigdata}
@@ -123,7 +137,7 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 \subsection{Células do Cubo de Dados}
 \label{ch:fun:cube:cells}
 
-{\color{red} Cubóides?! Imagem to lattice tem que vir aqui também}
+{\color{red} Imagem do lattice?}
 
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} ($"*"$) para demonstrar que está agregando valores em uma ou mais dimensões.
@@ -239,29 +253,80 @@ Dependendo do sistema OLAP, é possível que outras operações sejam possíveis
 \subsection{Computação do cubo de dados}
 \label{ch:fun:cube:comp}
 
-A computação do cubo de dados é um problema exponencial em relação ao tempo de execução e ao consumo de memória, portando dada uma relação de entrada \textbf{R} com tuplas de tamanho $n$, a saída é $2^n$, onde $n$ é o número de dimensões de um cubo.
+{\color{red} Qual a definição de uma tarefa "essencial"?}
 
-To properly calculate a data cube for some measures and dimensions, you have to count the cardinality of each dimension against the cardinality of all other dimensions.
-While manageable for a few dimensions, this computation becomes almost impossible for cubes with high dimensions as the number of combinations becomes too much for a single computer to handle.
-This lead to the development of data cube algorithms that optimize for the most relevant measures in the data cube [@silva:2015:abordagensParaCubo].
+A computação do cubo de dados é uma tarefa {\color{red} essencial}, pois a pré-computação de todo ou parte de um cubo de dados pode aumentar significativamente o desempenho do DW.
+Porém, essa tarefa possui complexidade exponencial em relação ao número de dimensões, sendo chamada de materialização, com a materialização completa exigindo uma grande quantidade de células, e portanto um elevado consumo de memória e tempo~\cite{hanDataMiningConcepts2011}.
 
-A *cuboid* is a part of a data cube. For example, if you have three dimensions: temperature, tension and time, a 2-D cuboid could be made from the dimensions temperature and tension, and a 3-D cuboid would be the same as the full data cube, like figure [\@ref(fig:datacube)].
-The data cube algorithms focus on the computation of cuboids, as the every cube is composed of these smaller cuboids.
-This leads to the existence of the *curse of dimensionality*, as for $n$ of dimensions there will be $2^n$ possible cuboid computations, making full materialization very difficult after a few dimensions [@hanDataMiningConcepts2011;@silva:2015:abordagensParaCubo].
+O cálculo original da computação do cubo de dados foi proposta por~\cite{grayDataCubeRelational1996}, sendo: dada uma relação de relação de entrada $R$ com tuplas de tamanho $n$, o número de subcubos que podem ser gerados é $2^n$, onde $n$ é o número de dimensões do cubo.
+Por exemplo, supondo um cubo com três dimensões \textit{Satélite, Telemetria, Valor}, teremos $2^3 = 8$ subcubos possíveis: $\{(satélite, telemetria, valor), (satélite, valor), (satélite, telemetria),$ $(telemetria, valor), (telemetria), (valor), (satélite), () \}$, com $()$ denotando o agrupamento vazio (célula base, as dimensões não estão agrupadas).
+% Weird latex thing here...
 
-For the algorithms, they can be in three different categories: Computing all the cuboids for the data cube leads to a fully materialized data cube; not computing any cuboid beforehand leads to a non-materialized data cube, and partially computing some cuboids leads to partial materialization.
+Porém, na prática, as dimensões podem possuir hierarquias de conceito associadas, como para a dimensão tempo: "dia<mês<trimestre<semestre<ano".
+Para um cubo com $n$ dimensões com múltiplas hierarquias de conceito, o número total de subcubos é apresentado na equação~\ref{eq:conceptcuboids}.
 
-The non-materialized cube has the lowest amount of required memory, but the highest query response time.
-The fully materialized cube leads to the lowest query response times, as all combinations are already computed, but it needs the highest amount of memory and is thus very hard to compute.
-As for the partially materialized cube, it is the main issue for most of the algorithms: how to materialize only the most relevant cuboids, and thus achieve a good compromise between memory usage and query performance?
+\begin{equation}
+	subcubos = \prod_{i=1}^n (L_i + 1)
+\label{eq:conceptcuboids}
+\end{equation} 
 
-There's some different types of partially materialized cubes, like the *iceberg*, which is a cube with only cells that have passed a certain condition; *shell fragments* compute only cubes with a few dimensions (from 3 to 5) and aggregate those cubes when a bigger number of dimensions is required and *closed cubes* are cubes whose cells with identical measures are grouped into a single abstraction, also called *closed cells*.
+Onde $L_i$ é o número de níveis de conceito da dimensão $i$.
+É necessário adicionar um a equação~\ref{eq:conceptcuboids} para denotar o nível virtual \textit{ALL}.
+O tamanho de cada subcubo também depende da cardinalidade de cada dimensão, isto é, o número de valores distintos.
+Enquanto o número de dimensões, hierarquias de conceito e cardinalidade do cubo aumenta, também aumentam os seus requisitos de espaço de forma exponencial, sendo conhecida como a \textbf{maldição de dimensionalidade} na computação do cubo~\cite{hanDataMiningConcepts2011}.
 
-To choose which cuboids to materialize, there's a plethora of different algorithms.
-Two of the classical ones are *Bottom-up* or *Top-down* strategies.
-Bottom-up starts from the most specific cuboid, called the base cuboid, and goes to the less specific cuboid.
-Top-down is the inverse: it starts from the least specific cuboid, called the apex cuboid, and goes to the base cuboid.
-Most of these are tested and overviewed in [@silva:2015:abordagensParaCubo], and won't be repeated here for brevity.
+Para conseguir responder as consultas de maneira apropriada, é necessário escolher um método para a computação dos subcubos: a não materialização, a materialização completa e a materialização parcial.
 
-[BUC, Top-down, Bottom-up]
+Na não materialização, os subcubos agregados não são pré-computados, assim as agregações são computadas imediatamente, que podem ser extremamente lentas, porém tem o menor consumo de memória.
+
+A materialização completa computa todos as agregações possíveis do cubo, gerando um cubo de dados completo.
+Esse método gera os melhores tempos de resposta, pois as agregações já foram computadas, porém necessita de uma grande quantidade de espaço de memória.
+
+A materialização parcial computa apenas um subconjunto selecionado de subcubos, sendo que existem diversas técnicas diferentes de seleção dos subcubos que serão computados.
+Uma delas é computar todos os subcubos que contém apenas células que satisfazem um dado critério, especificado pelo usuário.
+Esses cubos são chamados de \textit{iceberg}~\cite{beyerBottomupComputationSparse1999}.
+
+Outra técnica é computar cubos pequenos, geralmente entre 3 e 5 dimensões, para formar cubos completos.
+Para responder consultas com mais dimensões, as combinações entre os subcubos pequenos são agregadas.
+Esta técnica é chamada de \textit{shell fragment}, e o cubo é chamado de \textit{cube shell}~\cite{liHighdimensionalOLAPMinimal2004}.
+Um cubo de dados onde as células com medidas idênticas são encapsuladas em uma única abstração, chamada de célular fechada (\textit{closed cell}) é chamado de cubo fechado, ou cubo quociente.
+Esta técnica foi apresentada com o cubo fechado (\textit{closed cube})~\cite{dongxinCCubingEfficientComputation2006} e com o cubo quociente (\textit{quotient cube})~\cite{lakshmananQuotientCubeHow2002}.
+
+A escolha da materialização parcial depende do equilíbrio necessário entre tempo de resposta e espaço de armazenamento.
+Porém, a computação do cubo completo continua sendo relevante, sendo que os avanços na computação dos cubos parciais são geralmente adotados na computação do cubo completo.
+Existe ainda o problema de atualização do cubo, pois cada atualização pode causar uma recomputação parcial ou completa do cubo para manter as medidas corretas.
+
+A partir de um cubo base, a computação do cubo de dados pode utilizar a estratégia \textit{Top-down} ou \textit{Bottom-up} para a geração dos subcubos remanescentes~\cite{hanDataMiningConcepts2011}.
+
+A figura~\ref{fig:topdown} mostra a geração de um cubo de dados de quatro dimensões pela estratégia \textit{Top-down}.
+Sendo ABCD um cubo base, os subcubos de três dimensões são: ABC, ABD, ACD e BCD; que podem utilizar os resultados do cubo base para serem computados.
+Os resultados da computação do subcubo ACD pode ser utilizado para computar AD, que consequentemente pode ser utilizado para computar A.
+Essa computação compartilhada permite que a estratégia \textit{Top-down} compute agregações em múltiplas dimensões.
+Os valores agregados intermediários podem ser reutilizados para a computação de subcubos descendentes sucessivos.
+
+\begin{figure}[!htb]
+	\caption{Computação de cubo de dados através da estratégia \textit{Top-Down}}\label{fig:topdown}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{8cm}{!}{\includegraphics{Figuras/topdown.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{~\cite{silva:2015:abordagensParaCubo}}.
+\end{figure}
+
+Na Figura~\ref{fig:bottomup}, é ilustrada a geração de um cubo de dados de 4 dimensões por meio da estratégia \textit{Bottom-up}.
+Subcubos de poucas dimensões tornam-se pais de subcubos com mais dimensões.
+Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top-down}, não pode ser aplicada quando utilizada a estratégia \textit{Bottom-up}, então cada subcubo descendente necessita ser computado do início.
+
+\begin{figure}[!htb]
+	\caption{Computação de cubo de dados através da estratégia \textit{Bottom-up}}\label{fig:bottomup}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{10cm}{!}{\includegraphics{Figuras/bottomup.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{~\cite{silva:2015:abordagensParaCubo}}.
+\end{figure}
 
