@@ -4,13 +4,25 @@
 \label{ch:intro}
 
 O Centro de Controle de Satélites (CCS) localizado no Instituto Nacional de Pesquisas Espaciais (INPE) atualmente monitora e controla alguns satélites: a família do Satélite de Coleta de Dados (SCD), composta de dois satélites SCD-1 e SCD-2, e o Satélite Sino-Brasileiro de Recursos Terrestres (CBERS), com o quinto satélite em operação atualmente, o CBERS-4.
-Estes satélites realizam passagens sobre as estações terrenas do INPE, durante o qual o CCS recebe dados de telemetria e envia telecomando, bem como realiza atividades de manutenção e estimativa, como medidas de velocidade e posição~\cite{AzevedoAmbr:2010:ArSaTe}.
+Estes satélites realizam passagens sobre as estações terrenas do INPE, durante o qual o CCS recebe dados do estado do satélite, chamados de telemetrias, e envia telecomando, utilizados para controlar o satélite, bem como realiza atividades de manutenção e estimativa, como medidas de velocidade e posição de cada satélite~\cite{AzevedoAmbr:2010:ArSaTe}.
 
-Dados de telemetria geralmente carregam medidas de sensores e verificações de saúde dos instrumentos, como temperatura das baterias, corrente de algum subsistema, se um dado equipamento está ativo ou não, bem como dados que os operadores e engenheiros acham necessários para a operação, entre outros~\cite{AzevedoAmbr:2010:ArSaTe}.
-Estes dados precisam ser guardados por toda a vida do satélite, sendo que para satélites que estão funcionando por vários anos, eles adquirem um volume considerável, que não pode ser descartado, como é o caso dos satélites da família SCD, com o SCD-1 já estando operacional por mais de 25 anos, e continuando a gerar dados.
+Dados de telemetria geralmente carregam medidas de sensores e verificações de saúde dos instrumentos, como temperatura das baterias, corrente de algum subsistema, se um dado equipamento está ativo ou não, bem como dados que os operadores e engenheiros acham necessários para a operação, entre outros~\cite{larsonSpaceMissionAnalysis1999}.
+Estes dados precisam ser guardados por toda a vida do satélite, sendo que para satélites que estão funcionando por vários anos, eles adquirem um volume considerável, que não pode ser descartado.
+No caso dos satélites da família SCD, o SCD-1 já estando operacional por mais de 25 anos, e continuando a gerar dados, com um volume aproximado de 7GB por ano.
 
 Para satélites complexos como os da família CBERS, que possuem mais de 4 mil telemetrias sendo rastreadas múltiplas vezes por dia, temos um grande volume de dados cuja análise não é trivial, e só pode ser propriamente feita pela engenharia do satélite qualificados e com experiência para isso.
-Com os lançamentos futuros do CBERS-4A e do Amazônia-1, o volume de dados e a complexidade da análise dos mesmos deve aumentar, criando novas necessidades de operação.  {\color{red} Não tenho citação pra isso!}
+Com os lançamentos futuros do CBERS-4A e do Amazônia-1, o volume de dados e a complexidade da análise dos mesmos deve aumentar, criando novas necessidades de operação~\cite{JulioFoAmbrFerrLour:2017:ChImSp}.
+
+Considerando as necessidades do CCS, esses dados entram na definição de \textit{Big Data}: possuem um grande volume, são gerados continuamente, possuem formatos diversos, sua análise é de alto valor e existe uma incerteza quanto a qualidade dos dados devido a problemas de comunicação e degradação dos instrumentos.
+Esses características são denotadas pelos cinco Vs do \textit{Big Data}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}.
+
+Deste modo, é necessário criar uma estrutura que permita a análise e consulta desses dados de uma forma estrutura e que tenha desempenho satisfatório.
+As tecnologias de \textit{Data Warehouse} (DW) e \textit{Online Analytical Processing} (OLAP) tem demonstrado capacidade e experiência para atingir esses objetivos~\cite{bimonteOpenIssuesBig2016}, inclusive na área espacial~\cite{yvernesCopernicusGroundSegment2018}.
+Essas tecnologias executam a generalização de dados agregando enormes quantidade de dados em vários níveis de abstração, assim tornam elementos essenciais de apoio à decisão e atraem a atenção tanto da indústria como das comunidades de pesquisa.
+Sistemas OLAP, que são tipicamente dominados por consultas complexas que envolvem operadores \textit{group-by} e operadores de agregações, são as principais características entre essas ferramentas.
+
+???
+
 
 \section{Problemas}
 %%%%
@@ -34,9 +46,9 @@ The aim of this structure is to make the analysis an action that is easy to perf
 Os capítulos restantes deste trabalho estão organizados da seguinte maneira:
 
 \begin{itemize}
-	\item{Capítulo 2}: Este capítulo apresenta os conceitos e fundamentos teóricos, como apresentando os conceitos do Cubo de Dados, \textit{Big Data} e operação de satélites.
+	\item{Capítulo 2}: Este capítulo apresenta os conceitos e fundamentos teóricos desta proposta, como os conceitos relevantes de operação de satélites, \textit{Data Warehouse}, \textit{Big Data} e do Cubo de Dados.
 	\item{Capítulo 3}: Neste capítulo os trabalhos correlatos de Cubo de Dados são apresentados, bem como outros operadores de satélite estão resolvendo os problemas identificados.
-	\item{Capítulo 4}: Neste capítulo a arquitetura proposta é apresentada e seus conceitos principais explicados, bem como o fluxo de dados atual do CCS e como a nova arquitetura vai melhorá-lo.
+	\item{Capítulo 4}: {\color{red} Neste capítulo a proposta é apresentada e seus conceitos principais explicados, bem como o fluxo de dados atual do CCS e como a nova arquitetura vai melhorá-lo.}
 	\item{Capítulo 5}: Esse capítulo apresenta os resultados alcançados até o momento.
 	\item{Capítulo 6}: Com base nos resultados intermediários alcançados, esse capítulo apresentará as conclusões obtidas, bem como as direções de implementação para o resto do trabalho.
 \end{itemize}
