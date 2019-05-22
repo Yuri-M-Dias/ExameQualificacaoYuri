@@ -3,48 +3,31 @@
 \chapter{FUNDAMENTAÇÃO}
 \label{ch:fun}
 
-{\color{red}
-Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pelo básico de operação dos satélites, apresentando os conceito de \textit{Data Warehouse}, \textit{OLAP} e Cubo de Dados, e por fim a definição de \textit{Big Data} utilizada no trabalho.
-}
+Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pela operação dos satélites na seção~\ref{ch:fun:operations}, apresentando a definição de \textit{Big Data} na seção~\ref{ch:fun:bigdata}, e os os conceito de \textit{Data Warehouse} na seção~\ref{ch:fun:dw}, \textit{OLAP} na seção~\ref{ch:fun:olap} e Cubo de Dados na seção~\ref{ch:fun:cube}.
 
 \section{Operação de Satélites}
 \label{ch:fun:operations}
 
-???
-
 Um satélite é dividido em dois módulos: o módulo de serviço e a carga útil.
-O módulo de serviço compõe tudo necessário para o funcionamento dos equipamentos de bordo, como o sistema de geração de energia, o sistema de comunicação com os solo, o computador de bordo, etc.
-A carga útil compõe todos os equipamentos necessários para cumprir a missão, sendo esses sensores, câmeras, telescópios, etc.
+O módulo de serviço compõe tudo necessário para o funcionamento dos equipamentos de bordo, como o sistema de geração de energia, o sistema de comunicação com o solo, o computador de bordo, etc.
+A carga útil compõe todos os equipamentos necessários para cumprir os objetivos da missão, sendo esses sensores, câmeras, telescópios, etc~\cite{larsonSpaceMissionAnalysis1999}.
 
 Um satélite gera dois tipos diferentes de dados: dados da carga útil e dados de telemetria.
 Os dados da carga útil são os dados gerados para cumprir a missão do satélite, sendo que eles podem ser fotos tiradas para o sensoriamento remoto, fotos tiradas por telescópios, dados de comunicação caso este seja o foco da missão entre outros~\cite{larsonSpaceMissionAnalysis1999}.
 Os dados de telemetria são os dados de monitoramento do estado de saúde e do funcionamento dos equipamentos do satélite.
 Esses dados são coletados pelo computador de bordo do satélite, e são enviados para as estações de solo via sistemas de telecomunicação.
 
-É importante ressaltar que os dados de telemetria compõe usualmente medidas de sensores nos equipamentos do satélite, informações coletadas pelo computador de bordo (como se um instrumento está ligado ou não), e outros dados cuja coleta foi definida como relevante para a operação do satélite.
-Porém, dependendo da missão, outras medidas podem ser classificadas como telemetria, como por exemplo câmeras voltadas para o satélites, radares para a prevenção de colisão, e etc.{\color{red} Citação da câmera dentro do Sentinel?}
+Os dados de telemetria compõe usualmente medidas de sensores nos equipamentos do satélite, informações coletadas pelo computador de bordo (como se um instrumento está ligado ou não), e outros dados cuja coleta foi definida como relevante para a operação do satélite.
+Dependendo da missão, outras medidas podem ser classificadas como telemetria, como por exemplo câmeras voltadas para o satélites, radares para a detecção de possíveis colisões, etc~\cite{kragCmSpaceDebris2017}.
 
-Esses dados, diversos como são, devem ser analisados pelos operadores em solo.
-
-Neste trabalho, vamos utilizar apenas dados de telemetria de satélite para a análise.
-
-The main characteristic of satellite telemetry data is its high dimensionality in the form of having many telemetries for a given time frame, thus making it a time series.
-
-Telemetry data is measured across all the equipments of the satellite, which can measure widly different values like battery voltage, magnetometer influences and payload healthchecks among others, and is therefore highly complex in nature.
-Some satellites can have thousands of telemetries, with some being received per second continuously during its lifetime, like the Hubble telescope that generated terabytes of telemetry data per year [@miebachHubbleSpaceTelescope1998].
-
-Telemetry data
-
-Telemetry data is obtained from the satellites via telecommunication with the ground stations.
-For SCC, the data is delivered as raw binary data, which is then converted to a human readable format by SATellite Control System (SATCS), a software system developed by the Ground Systems Development Division (DSS) of coordination of Space Engineering and Technology at INPE [@JulioFoAmbrFerrLour:2017:ChImSp].
-
-SATCS also provides means to send telecommand and some basic data visualization, but these only use recent telemetry data and not the full historical database.
-The system is very useful for daily satellite operations, but it lacks the big data analysis that is necessary for a more comprehensive data mining effort, which lead to the proposal of a data mining architecture for telemetry data at INPE [@AzevedoAmbr:2010:ArSaTe].
+Esses dados devem ser analisados pelos operadores de satélite em solo após recebimento no centro de controle.
+Essa análise visa garantir que o satélite está executando suas tarefas como deveria, e que o seu estado de saúde permite a continuação da missão.
+Neste trabalho, vamos utilizar da análise feita pelos operadores de satélite somente nos dados de telemetria.
 
 \section{Big Data}
 \label{ch:fun:bigdata}
 
-O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}~\cite{bimonteOpenIssuesBig2016}: Volume, Variedade, Velocidade, Valor e Veracidade. Em detalhes:
+O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}~\cite{kacfahemaniUnderstandableBigData2015}: Volume, Variedade, Velocidade, Valor e Veracidade. Em detalhes:
 
 \begin{itemize}
 	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
@@ -132,12 +115,21 @@ Operações em cubos de dados existem a fim de materializar estas diferentes vis
 Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
 O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}.
 
-{\color{red} Traduzir exemplo do rodrigo do curso p/ satélites?!}
+\begin{figure}[!htb]
+	\caption{Exemplo de um cubo de dados \color{red}Substituir pelo exemplo do rodrigo}\label{fig:cubeexample}
+	\vspace{2mm}
+	\begin{center}
+		\resizebox{9cm}{!}{\includegraphics{Figuras/DataCube-Fig1.png}}
+	\end{center}
+	\vspace{1mm}
+	\legenda{}
+	\FONTE{Produção do autor}.
+\end{figure}
 
 \subsection{Células do Cubo de Dados}
 \label{ch:fun:cube:cells}
 
-{\color{red} Imagem do lattice?}
+{\color{red} Imagem do lattice}
 
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} ($"*"$) para demonstrar que está agregando valores em uma ou mais dimensões.
@@ -289,6 +281,7 @@ Esses cubos são chamados de \textit{iceberg}~\cite{beyerBottomupComputationSpar
 Outra técnica é computar cubos pequenos, geralmente entre 3 e 5 dimensões, para formar cubos completos.
 Para responder consultas com mais dimensões, as combinações entre os subcubos pequenos são agregadas.
 Esta técnica é chamada de \textit{shell fragment}, e o cubo é chamado de \textit{cube shell}~\cite{liHighdimensionalOLAPMinimal2004}.
+
 Um cubo de dados onde as células com medidas idênticas são encapsuladas em uma única abstração, chamada de célular fechada (\textit{closed cell}) é chamado de cubo fechado, ou cubo quociente.
 Esta técnica foi apresentada com o cubo fechado (\textit{closed cube})~\cite{dongxinCCubingEfficientComputation2006} e com o cubo quociente (\textit{quotient cube})~\cite{lakshmananQuotientCubeHow2002}.
 
