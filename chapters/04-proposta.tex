@@ -2,17 +2,55 @@
 
 \chapter{PROPOSTA}\label{ch:prop}
 
-{\color{red}
-Nesta seção apresentamos os dados que serão utilizados e são relevantes para a operação, bem como apresentamos o fluxo de dados utilizado nos trabalhos correlatos e a arquitetura proposta, por fim explicando o cubo de dados que será implementado.
-}
-
+Nesta seção apresentamos os objetivos do trabalho, bem exploramos a problemática dos dados disponíveis atualmente, e explicamos quais partes da estrutura do cubo de dados serão implementadas para resolver o problema.
 \section{Objetivos}\label{ch:prop:obj}
 
-{\color{red} Research questions?!}
+O objeitvo principal deste trabalho é modelar os dados de telemetria de satélites em uma estrutura de cubo de dados, avaliando o uso da estrutura como uma abordagem para \textit{Big data}, assim permitindo a execução de análises e respostas a consultas que não seriam realísticas de outro modo. Como objetivos secundários, este trabalho visa:
+
+\begin{enumerate}
+\item Formalizar quais são as consultas relevantes para os operadores de satélite, e quais são as atividades de análise que podem ser expressas como consultas;
+\item Criar uma representação dimensional do cubo de dados apropriada para as consultas identificadas, mapeando as medidas que são necessárias e quais os seus tipos;
+\item Implementar a representação com as medidas em algoritmos da literatura e coletar os resultados da execução das consultas relevantes para os operadores;
+\item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
+\end{enumerate}
+
+Assim, nas próximas seções, é necessário qualificar o volume dos dados e porque uma abordagem tradicional não é adequada.
 
 \section{Dados no INPE}\label{ch:prop:data}
 
-{\color{red} Estimativa dos dados, crescimento deles no INPE utilizando do disponível pro SCD e estimativas do CBERS+Amazônia}
+Utilizando de uma estivativa sobre os dados já disponibilizados para este trabalho, a tabela~\ref{fig:datagenest} mostra a geração por ano de dados no CCS.
+Essa estimativa foi feita utilizando dos dados não compressos a partir da disponibilidade dos mesmos.
+Ela também assume que o Amazônia-1 vai gerar um volume de dados de telemetria similar ao gerado do CBERS.
+
+\begin{figure}[!htb]
+	\caption{Estimativa de geração anual de dados pelos satélites do INPE}\label{fig:datagenest}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/DataGenSatYear.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{Produção dos autores.}
+\end{figure}
+
+Dessa estimativa, podemos obter o total de dados de telemetria disponíveis para a análise no CCS, apresentados na figura~\ref{fig:totaldatagen}.
+É importante ressaltar que a grande maioria desses dados não está disponível para consulta pelo usuário, visto que somente os dados de alguns poucos anos da operação estão disponíveis para os operadores e engenheiros, necessitando de trabalho significativo para analisar dados do passado.
+
+\begin{figure}[!htb]
+	\caption{Estimativa do volume de dados históricos de telemetria}\label{fig:totaldatagen}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/VolumeToYear.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{Produção dos autores.}
+\end{figure}
+
+Essa oportunidade de pesquisa deve ser aproveitada para que os dados não virem ``\textit{dark data}'', que denota quaisquer tipo de dados que não são de fácil acesso para os usuários em potencial~\cite{heidornSheddingLightDark2008}.
+
+Considerando que todos os dados já estivessem no banco de dados, propriamente formatados e prontos para a análise, ainda teríamos grandes problemas: com um banco de dados na ordem dos \textit{terabytes}, consultas multidimensionais ou que precisem de dados de vários anos poderiam demorar dias, ou mais, para serem executadas.
+Para conseguir responder a consultas com desempenho satisfatório, propomos o uso de uma estrutura de cubo de dados neste trabalho.
 
 \section{Cubo de Dados}\label{ch:prop:cubearch}
 
@@ -27,7 +65,7 @@ Essas camadas demonstram tudo o que é necessário para a implementação de um 
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
-	\FONTE{Produção dos autores}.
+	\FONTE{Produção dos autores.}
 \end{figure}
 
 Para esta proposta, vamos nos concentrar apenas na proposição de um algoritmo de computação do cubo de dados mais apropriado, utilizando das outras seções quando elas vão se tornando necessárias.
@@ -51,7 +89,6 @@ Como estabelecido na seção~\ref{ch:prop:data}, os dados de telemetria de inter
 Esse problema é geralmente resolvido pela modelagem dimensional, como em~\cite{AzevedoAmbr:2010:ArSaTe}, porém isso transforma os dados de um formato ``largo'' para um formato ``longo'', aumentando o número de tuplas.
 
 Deste modo é necessário investigar as abordagens de construção de cubo que funcionem com muitas dimensões, e que permitam o cálculo das medidas necessárias para a operação.
-Neste trabalho, iremos investigar algumas dessas abordagens e como elas se comparam para a análise.
 
 {\color{red} Desenvolver mais sobre o algoritmos?}
 

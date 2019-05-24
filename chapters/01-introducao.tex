@@ -40,11 +40,23 @@ Supondo uma cardinalidade, o número de valores diferentes em cada telemetria, c
 
 Dessa forma, conseguir computar e manter um cubo de dados é um problema exponencial, e reduzir o seu consumo de memória e tempo de computação é de fundamental importância para desenvolver um sistema OLAP.
 Para a área espacial essa necessidade é maior: a maior parte dos algoritmos de computação do cubo tem problemas em lidar com mais do que 15 dimensões~\cite{silva:2015:abordagensParaCubo}.
-Neste trabalho, visamos aplicar a tecnologia de cubo de dados por meio de algoritmos que consigam responder as consultas da área espacial eficientemente, e consigam lidar com a alta dimensionalidade, velocidade e diversidade dos dados para a operação.
 
 \section{Objetivos}\label{ch:intro:obj}
 
-{\color{red} ?}
+Neste trabalho, visamos aplicar a tecnologia de cubo de dados por meio de algoritmos que consigam responder as consultas da área espacial eficientemente, e consigam lidar com a alta dimensionalidade, velocidade e diversidade dos dados para a operação.
+
+Assim é necessário formalizar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
+Disso criaremos uma representação dimensional dos dados de telemetria em uma estrutura do cubo de dados, e vamos avaliar algoritmos de construção para identificar qual deles é o mais apropriado para responder as consultas identificadas.
+
+Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados altamente dimensionais.
+Para a área espacial, teremos teremos as consultas formalizadas e a avaliação da estrutura de cubo de dados como uma solução para operadores.
+
+\begin{enumerate}
+\item Formalizar quais são as consultas relevantes para os operadores de satélite, e quais são as atividades de análise que podem ser expressas como consultas;
+\item Criar uma representação dimensional do cubo de dados apropriada para as consultas identificadas, mapeando as medidas que são necessárias e quais os seus tipos;
+\item Implementar a representação com as medidas em algoritmos da literatura e coletar os resultados da execução das consultas relevantes para os operadores;
+\item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
+\end{enumerate}
 
 \section{Organização da proposta}\label{ch:intro:org}
 

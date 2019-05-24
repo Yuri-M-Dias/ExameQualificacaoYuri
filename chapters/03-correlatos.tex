@@ -2,72 +2,8 @@
 
 \chapter{TRABALHOS CORRELATOS}\label{ch:corr}
 
-Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta. Eles podem ser divididos em duas seções: uma focada nos algoritmos de construção do cubo de dados e outra em como outros operadores estão realizando tarefas semelhantes.
-
-\section{Análise de Dados em Outros Operadores}\label{ch:corr:ops}
-
-A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}, como demonstrado pelos artigos publicados.
-
-\begin{table}[htbp]
-	\begin{center}
-		\caption{Operadores e Arquiteturas de Big Data}\label{table:bigdataoperators}
-		\begin{tabular}{|C{8em}|C{6em}|c|C{10em}|}
-			\hline
-			\bfseries Referência                           & \bfseries Operador & \bfseries Ferramenta & \bfseries Tecnologias                                                                \\
-			\hline
-			\cite{adamskiDataAnalyticsLarge2016}           & L3 (EUA)           & InControl            & Hadoop, Spark, HBase, MongoDB, Cassandra, Amazon AWS                                 \\
-			\hline
-			\cite{boussoufBigDataBased2018}                & Airbus             & Dynaworks            & Hadoop, Spark, HDFS, HBase, PARQUET, HIVE                                            \\
-			\hline
-			\cite{schulsterCHARTingFutureOffline2018}      & EUMETSAT           & CHART                & MATLAB, MySQL, Oracle                                                                \\
-			\hline
-			\cite{zhangBigDataFramework2017}               & SISET (China)      & -                    & Hadoop, HDFS, PostgreSQL, MongoDB, Logstash, Kibana, ElasticSearch, Kafka, MapReduce \\
-			\hline
-			\cite{yvernesCopernicusGroundSegment2018}      & Telespazio France  & PDGS                 & OLAP (DataCube), Saiku, Pentaho, Jaspersoft OLAP                                     \\
-			\hline
-			\cite{dischnerCYGNSSMOCMeeting2016}            & SwRI + NOAA        & CYGNSS MOC           & SFTP, -                                                                              \\
-			\hline
-			\cite{edwardsDealingBigData2018}               & EUMETSAT           & MASIF                & FTP, RESTful service, JMS Messague Queue, PostgreSQL                                 \\
-			\hline
-			\cite{evansDataMiningDrastically2016}          & S.A.T.E + ESA/ESOC & -                    & Java, CSV                                                                            \\
-			\hline
-			\cite{fenManagementOperationCommunication2016} & CSMT (China)       & -                    & não menciona as tecnologias                                                          \\
-			\hline
-			\cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT           & CHART                & algoritmos ad-hoc, estudo de caso                                                    \\
-			\hline
-			\cite{gillesFlyingLargeConstellations2016}     & L-3                & InControl            & Amazon EC2, LXC, Nagios                                                              \\
-			%\hline
-			%\cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
-			\hline
-			\cite{hennionBigdataSatelliteYearly2018}       & Thales Alenia      & AGYR                 & Logstash, Kafka, InfluxDB, ElasticSearch, Kibana, Grafana                            \\
-			\hline
-			\cite{mateikUsingBigData2017}                  & Stinger, NASA      & -                    & Logstash, ElasticSearch, Kibana, HDF5, CSV, R, Python, AWS, Excel                    \\
-			\hline
-			\cite{fernandezTelemetryAnomalyDetection2017}  & NASA               & MARTE                & R, CSV, ad-hoc                                                                       \\
-			\hline
-		\end{tabular}
-	\end{center}
-	\FONTE{Produção do autor}
-\end{table}
-
-Os objetivos em comum desses trabalhos são facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de verificação dos limites nos valores das telemetrias.
-Alguns dos operadores dessa lista estão responsáveis pela operação de constelações de satélites complexos, como constelações de sensoriamento remoto, que faz necessário um certo nível de automação ou a operação contínua teria um custo inviável.
-
-Nesses trabalhos, o uso dessas tecnologias é apenas para os operadores de satélite, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
-
-Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos conforme foram necessários, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas na ferramenta utilizada para análise pontual, ao contrário de~\cite{yvernesCopernicusGroundSegment2018}.
-
-O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
-
-\subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
-
-O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.
-Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
-Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe} feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
-A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
-
-Para os outros setores, isso comumente se dá na análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e estão classificados como Big Data.
-~\cite{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\cite{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\cite{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais.
+Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta.
+Eles podem ser divididos em duas seções: as soluções de \textit{Big Data} de outros operadores, e os algoritmos de construção do cubo de dados com alta dimensionalidade.
 
 \section{Dados da operação}\label{ch:prop:data}
 
@@ -108,7 +44,7 @@ Os outros dados nesta tabela poderiam ser considerados para uma \textit{Data War
 Baseado nos trabalhos correlatos e nos dados levantados, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
 
 \begin{figure}[ht]
-	\caption{Fluxo de dados em uma arquitetura de Big Data}\label{fig:bigdataflow}
+	\caption{\color{red} Fluxo de dados em uma arquitetura de \textit{Big Data}}\label{fig:bigdataflow}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
@@ -138,23 +74,87 @@ Cada uma das etapas está detalhada a seguir:
 
 Os trabalhos de~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} e~\cite{boussoufBigDataBased2018} definem esse processo mais claramente dentre os trabalhos apresentados.
 
+\section{Análise de Dados em Outros Operadores de Satélite}\label{ch:corr:ops}
+
+A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}.
+
+\begin{table}[htbp]
+	\begin{center}
+		\caption{Operadores de Satélite e Arquiteturas de Big Data}\label{table:bigdataoperators}
+		\begin{tabular}{|C{8em}|C{6em}|c|C{10em}|}
+			\hline
+			\bfseries Referência                           & \bfseries Operador & \bfseries Ferramenta & \bfseries Tecnologias                                                                \\
+			\hline
+			\cite{adamskiDataAnalyticsLarge2016}           & L3 (EUA)           & InControl            & Hadoop, Spark, HBase, MongoDB, Cassandra, Amazon AWS                                 \\
+			\hline
+			\cite{boussoufBigDataBased2018}                & Airbus             & Dynaworks            & Hadoop, Spark, HDFS, HBase, PARQUET, HIVE                                            \\
+			\hline
+			\cite{schulsterCHARTingFutureOffline2018}      & EUMETSAT           & CHART                & MATLAB, MySQL, Oracle                                                                \\
+			\hline
+			\cite{zhangBigDataFramework2017}               & SISET (China)      & -                    & Hadoop, HDFS, PostgreSQL, MongoDB, Logstash, Kibana, ElasticSearch, Kafka, MapReduce \\
+			\hline
+			\cite{yvernesCopernicusGroundSegment2018}      & Telespazio France  & PDGS                 & OLAP (DataCube), Saiku, Pentaho, Jaspersoft OLAP                                     \\
+			\hline
+			\cite{dischnerCYGNSSMOCMeeting2016}            & SwRI + NOAA        & CYGNSS MOC           & SFTP, -                                                                              \\
+			\hline
+			\cite{edwardsDealingBigData2018}               & EUMETSAT           & MASIF                & FTP, RESTful service, JMS Messague Queue, PostgreSQL                                 \\
+			\hline
+			\cite{evansDataMiningDrastically2016}          & S.A.T.E + ESA/ESOC & -                    & Java, CSV                                                                            \\
+			\hline
+			\cite{fenManagementOperationCommunication2016} & CSMT (China)       & -                    & não menciona as tecnologias                                                          \\
+			\hline
+			\cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT           & CHART                & algoritmos ad-hoc, estudo de caso                                                    \\
+			\hline
+			\cite{gillesFlyingLargeConstellations2016}     & L-3                & InControl            & Amazon EC2, LXC, Nagios                                                              \\
+			%\hline
+			%\cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
+			\hline
+			\cite{hennionBigdataSatelliteYearly2018}       & Thales Alenia      & AGYR                 & Logstash, Kafka, InfluxDB, ElasticSearch, Kibana, Grafana                            \\
+			\hline
+			\cite{mateikUsingBigData2017}                  & Stinger, NASA      & -                    & Logstash, ElasticSearch, Kibana, HDF5, CSV, R, Python, AWS, Excel                    \\
+			\hline
+			\cite{fernandezTelemetryAnomalyDetection2017}  & NASA               & MARTE                & R, CSV, ad-hoc                                                                       \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\FONTE{Produção dos autores.}
+\end{table}
+
+Os objetivos em comum desses trabalhos são facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de verificação dos limites nos valores das telemetrias.
+Alguns dos operadores dessa lista estão responsáveis pela operação de constelações de satélites complexos, como constelações de sensoriamento remoto, que faz necessário um certo nível de automação ou a operação contínua teria um custo inviável.
+
+Nesses trabalhos, o uso dessas tecnologias é apenas para os operadores de satélite, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
+
+Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos de forma \textit{ad-hoc}, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas a ferramenta utilizada para análise pontual.
+
+O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
+
+\subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
+
+O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.
+Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
+Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe}, feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
+A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
+
+Outros setores, utilizam a análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e também estão classificados como \textit{Big Data}.
+~\citeonline{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\citeonline{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\citeonline{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais no sensoriamento remoto.
+
+{\color{red} \bfseries
+Rodrigo: posso tirar esse parágrafo/seção toda se não achar relevante. Eu queria mostrar aqui que apesar dos dados da carga útil e da plataforma serem diferentes, eles tem características parecidas e podem compartilhar de soluções.
+}
+
 \section{Computação do Cubo de Dados}\label{ch:corr:cube}
 
-O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que obtiveram sucessos na literatura, bem como apresenta uma comparação de resultados de algumas das abordagens que vamos apresentar aqui.
-Dentre este trabalho, podemos citar:
+A computação seletiva do cubo de dados possui muitos algoritmos diferentes implementados, porém eles possuem dificuldades no trato de dados com muitas dimensões e no uso limitado da memória~\cite{hanDataMiningConcepts2011}.
+Vamos mencionar alguns dos algoritmos de desenvolvimento mais recente e que são mais relevantes para esta proposta.
 
-\begin{itemize}
-	\item O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
-	\item \textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
-	\item \textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
-
-	\item A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
-\end{itemize}
+O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
 
 Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
 
-~\cite{heinePopUpCubingAlgorithmEfficiently2017} apresentam o \textit{PopUp-Cubing}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
-Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo-real, de especial interesse para a operação.
+O \textit{PopUp-Cubing} é apresentado em~\cite{heinePopUpCubingAlgorithmEfficiently2017}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
+Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo-real, que são mais parecidos com os dados disponíveis para a operação de satélites.
+Porém, não iremos abordar esse problema neste trabalho.
 
 Com foco em \textit{Big Data} e utilizando como base o esquema \textit{MapReduce},~\cite{wangScalableDataCube2013} apresenta o algoritmo \textit{HaCube} para computação do cubo em paralelo.
 Este trabalho apresenta um balanço entre computação do cubo em paralelo por vários nós de \textit{MapReduce}, que permite algumas atualizações e computação incremental de medidas.
@@ -162,5 +162,13 @@ Devido a própria natureza distribuída, ele precisa de mecanismos de tolerânci
 Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demonstra a computação de medidas holísticas apresentando o \textit{Multi-RegionCube}, porém realizando menos testes que o \textit{HaCube}.
 
 Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
-Essa abordagem é interessante por utilizar de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
+Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
+
+\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
+
+\textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
+
+A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
+
+{\color{red} Falta a crítica nessa seção.}
 

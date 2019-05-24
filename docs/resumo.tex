@@ -3,16 +3,15 @@
 
 \begin{resumo}
 
-%% neste arquivo resumo.tex
-%% o texto do resumo e as palavras-chave têm que ser em Português para os documentos escritos em Português
-%% o texto do resumo e as palavras-chave têm que ser em Inglês para os documentos escritos em Inglês
-%% os nomes dos comandos \begin{resumo}, \end{resumo}, \palavraschave e \palavrachave não devem ser alterados
-
 \hypertarget{estilo:resumo}{} %% uso para este Guia
 
 Satélites são monitorados pelas equipes de solo via pacotes de telemetria, que informam o estado atual dos equipamentos e permitem avaliar a capacidade do satélite de continuar a sua missão.
 Esses pacotes de telemetria constituem um corpo de dados de tamanho e complexidade significativa, sendo que satélites que funcionam por vários anos geram dados históricos de grande volume, ainda úteis para a operação.
-Neste artigo apresentamos uma arquitetura baseada em conceitos de Big Data e Business Intelligence para criar uma representação de dados de telemetria pronta para a análise por operadores e engenheiros de satélite no Instituto Nacional de Pesquisas Espaciais (INPE), bem como apresentamos o fluxo de dados utilizado pelos dados históricos de telemetria de um dos satélites operados pelo INPE.
+Nesta proposta, apresentamos a estrutura de um Cubo de Dados como uma solução para executar consultas e análises sobre esse volume de dados, que são classificados como \textit{Big Data}.
+Apresentamos os conceitos da área de Cubo de Dados relevantes, bem como uma revisão de como outros operadores de satélite estão lidando com volumes de dados nessa classificação.
+Devido a característica de alta dimensionalidade dos dados de telemetria, algoritmos clássicos da aŕea do Cubo de Dados teriam dificuldade em ter um resultado satisfatório para os operadores de satélite.
+Por isso, neste trabalho, propomos formalizar as consultas que são de interesse dos operadores de satélite, criar uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados, e avaliar quais são os algoritmos de construção do cubo que conseguiriam suprir as necessidades dos dados.
+Também apresentamos os resultados intermediários alcançados, bem como o planejamento para a continuação do trabalho.
 
 \palavraschave{%
 	\palavrachave{Cubo de Dados}%
@@ -21,5 +20,5 @@ Neste artigo apresentamos uma arquitetura baseada em conceitos de Big Data e Bus
 	\palavrachave{Satélite}%
 	\palavrachave{Data Warehouse}%
 }
- 
+
 \end{resumo}
