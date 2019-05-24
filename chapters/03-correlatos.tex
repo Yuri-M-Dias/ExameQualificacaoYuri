@@ -1,12 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{TRABALHOS CORRELATOS}
-\label{ch:corr}
+\chapter{TRABALHOS CORRELATOS}\label{ch:corr}
 
 Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta. Eles podem ser divididos em duas seções: uma focada nos algoritmos de construção do cubo de dados e outra em como outros operadores estão realizando tarefas semelhantes.
 
-\section{Análise de Dados em Outros Operadores}
-\label{ch:corr:ops}
+\section{Análise de Dados em Outros Operadores}\label{ch:corr:ops}
 
 A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}, como demonstrado pelos artigos publicados.
 
@@ -61,8 +59,7 @@ Alguns desses trabalhos não utilizam de estruturas completas que seguem um flux
 
 O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
 
-\subsection{Análise de Dados no INPE}
-\label{ch:corr:inpe}
+\subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
 
 O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.
 Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
@@ -72,10 +69,79 @@ A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era
 Para os outros setores, isso comumente se dá na análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e estão classificados como Big Data.
 ~\cite{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\cite{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\cite{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais.
 
-\section{Computação do Cubo de Dados}
-\label{ch:corr:cube}
+\section{Dados da operação}\label{ch:prop:data}
 
-O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que obtiveram sucessos na litetura, bem como apresenta uma comparação de resultados de algumas das que vamos apresentar aqui. Dentre este trabalho, podemos citar:
+A tabela~\ref{table:bigdatasattypes} mostra os tipos de dados relevantes para a operação, a sua origem e o seu formato esperado.
+Essa tabela considera apenas dados considerados como telemetria do próprio satélite, ou dados advindos de terceiros.
+
+\begin{table}[!ht]
+	\begin{center}
+		\caption{Dados de Operação}\label{table:bigdatasattypes}
+		\begin{tabular}{|c|C{5cm}|c|}
+			\hline
+			\bfseries Tipo de Dado         & \bfseries Origem           & \bfseries Formato      \\
+			\hline
+			Sensores de bordo              & Equipamentos no satélite   & Tabelas, CSV           \\
+			\hline
+			Registros do Computador        & Computador de Bordo        & Texto (\textit{Logs})  \\
+			\hline
+			Multimídia                     & Câmeras                    & MP4, JPG, RAW          \\
+			\hline
+			Parâmetros orbitais            & Operação, Rastreio         & TLE, texto, tabelas    \\
+			\hline
+			Documentação associada         & Operadores, engenharia     & Texto (Word, Excel)    \\
+			\hline
+			Clima Espacial                 & Sensores no solo ou espaço & Texto, tabelas, avisos \\
+			\hline
+			\textit{Situational Awareness} & Radares, US-STRACOM, etc   & Texto, tabelas, avisos \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}
+\end{table}
+
+Para este trabalho, apenas os dados vindos de sensores de bordo serão considerados.
+Os outros dados nesta tabela poderiam ser considerados para uma \textit{Data Warehouse} mais completa, porém estão fora do escopo desta proposta.
+
+\subsection{Fluxo dos Dados}\label{ch:prop:dataflow}
+
+Baseado nos trabalhos correlatos e nos dados levantados, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
+
+\begin{figure}[ht]
+	\caption{Fluxo de dados em uma arquitetura de Big Data}\label{fig:bigdataflow}
+	\vspace{6mm}
+	\begin{center}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}.
+\end{figure}
+
+Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos.
+Cada uma das etapas está detalhada a seguir:
+
+\begin{itemize}
+	\item \textbf{Ingestão}: onde os dados serão coletados na sua fonte (satélites, sensores no solo, outras fontes, etc).
+	      Essa etapa se importa em \textbf{onde} estão os dados e \textbf{como} coletá-los, bem como \textbf{quais} são os dados importantes de serem coletados.
+	      A ``fonte'' aqui pode ser um serviço de terceiros, dentro da própria instituição ou disponível de outra forma.
+	\item \textbf{Preparo}: os dados relevantes são selecionados, e transformações são realizadas para inserir os mesmos na base de dados.
+	      Essa etapa se importa no formato específico dos dados, realizando operações de limpeza, verificação da qualidade e da relevância para a análise, entre outras.
+	      O seu objetivo é garantir que os dados tem qualidade, relevância, e estão no formato adequado para a base de dados.
+	\item \textbf{Persistência}: após o devido processamento, os dados de alta qualidade são guardados em uma base de dados, de onde ficarão disponíveis para a análise.
+	      Nessa etapa um banco de dados é utilizado, se importando apenas em como esses dados estão guardados e como eles serão disponibilizados para as consultas e execução de algoritmos.
+	\item \textbf{Análise}: nesta etapa são executadas as consultas e os algoritmos de interesse para a análise.
+	      Podem ser desde consultas simples (``qual era o valor da telemetria X durante a passagem Y?''), a execução de algoritmos complexos (``preveja os valores da telemetria X para a próxima passagem'').
+	\item \textbf{Visualização}: os resultados das consultas e algoritmos são visualizados.
+	      Podem conter desde gráficos simples, como um histograma de uma telemetria, a relatórios complexos de um subsistema/satélite, bem como resultados de algoritmos.
+\end{itemize}
+
+Os trabalhos de~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} e~\cite{boussoufBigDataBased2018} definem esse processo mais claramente dentre os trabalhos apresentados.
+
+\section{Computação do Cubo de Dados}\label{ch:corr:cube}
+
+O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens de construção do cubo de dados que obtiveram sucessos na literatura, bem como apresenta uma comparação de resultados de algumas das abordagens que vamos apresentar aqui.
+Dentre este trabalho, podemos citar:
 
 \begin{itemize}
 	\item O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
@@ -84,8 +150,6 @@ O trabalho de~\cite{silva:2015:abordagensParaCubo} mostra algumas das abordagens
 
 	\item A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
 \end{itemize}
-
-Utilizandos abordagens diferentes temos:
 
 Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
 

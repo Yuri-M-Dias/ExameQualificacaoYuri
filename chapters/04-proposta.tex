@@ -1,95 +1,26 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{PROPOSTA}
-\label{ch:prop}
+\chapter{PROPOSTA}\label{ch:prop}
 
+{\color{red}
 Nesta seção apresentamos os dados que serão utilizados e são relevantes para a operação, bem como apresentamos o fluxo de dados utilizado nos trabalhos correlatos e a arquitetura proposta, por fim explicando o cubo de dados que será implementado.
+}
 
-\section{Dados}
-\label{ch:prop:data}
+\section{Objetivos}\label{ch:prop:obj}
 
-A tabela \ref{table:bigdatasattypes} mostra os tipos de dados relevantes para a operação, a sua origem e o seu formato esperado, ignorando os dados provenientes da carga útil.
+{\color{red} Research questions?!}
 
-\begin{table}[!ht]
-	\begin{center}
-		\caption{Dados de Operação}\label{table:bigdatasattypes}
-		\begin{tabular}{|c|C{5cm}|c|}
-			\hline
-			\bfseries Tipo de Dado         & \bfseries Origem           & \bfseries Formato      \\
-			\hline
-			Sensores de bordo              & Equipamentos no satélite   & Tabelas, CSV           \\
-			\hline
-			Registros do Computador        & Computador de Bordo        & Texto (\textit{Logs})  \\
-			\hline
-			Multimídia                     & Câmeras                    & MP4, JPG, RAW          \\
-			\hline
-			Parâmetros orbitais            & Operação, Rastreio         & TLE, texto, tabelas    \\
-			\hline
-			Documentação associada         & Operadores, engenharia     & Texto (Word, Excel)    \\
-			\hline
-			Clima Espacial                 & Sensores no solo ou espaço & Texto, tabelas, avisos \\
-			\hline
-			\textit{Situational Awareness} & Radares, US-STRACOM, etc   & Texto, tabelas, avisos \\
-			\hline
-		\end{tabular}
-	\end{center}
-	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}
-\end{table}
+\section{Dados no INPE}\label{ch:prop:data}
 
-Para este trabalho, apenas os dados vindos de sensores de bordo serão considerados.
-Os outros dados nesta tabela poderiam ser considerados para uma \textit{Data Warehouse} mais completa, pois um cubo de dados pode ser formado sobre quaisquer um desses dados.
+{\color{red} Estimativa dos dados, crescimento deles no INPE utilizando do disponível pro SCD e estimativas do CBERS+Amazônia}
 
-Por exemplo, um cubo de dados textual poderia ser feito sobre os documentos associados a operação, como o CONOPS, tabelas de telecomandos e documentação de engenharia de sistemas para facilitar a análise da documentação sendo gerada pelo satélite.
-Um cubo multimídia poderia ser gerado sobre os dados multimídia tirados pelas câmeras do satélite para correlacionar com os dados gerados pelos sensores, e assim em diante.
-Alguns exemplos de cubos possíveis de serem feitos estão em~\cite{silva:2015:abordagensParaCubo}.
-
-Esta lista não é exaustiva, e pode incluir dados da carga útil caso sejam relevantes para a análise em questão, como ajudar na georeferênciação de imagens tiradas pelo satélite, bem como outros dados que os operadores acharem necessários e tiverem acesso a eles.
-Isso vai depender diretamente do fluxo de dados que é adotado, pois esses dados precisam ser coletados e preparados para serem utilizados.
-
-\section{Fluxo dos Dados de Operação}
-\label{ch:prop:dataflow}
-
-Baseado nos trabalhos correlatos e nos dados levantados na seção~\ref{ch:prop:data}, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
-
-\begin{figure}[ht]
-	\caption{Fluxo de dados em uma arquitetura de Big Data}\label{fig:bigdataflow}
-	\vspace{6mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}.
-\end{figure}
-
-Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos.
-Cada uma das etapas está detalhada a seguir:
-
-\begin{itemize}
-	\item \textbf{Ingestão}: onde os dados serão coletados na sua fonte (satélites, sensores no solo, outras fontes, etc).
-	      Essa etapa se importa em \textbf{onde} estão os dados e \textbf{como} coletá-los, bem como \textbf{quais} são os dados importantes de serem coletados.
-	      A "fonte" aqui pode ser um serviço de terceiros, dentro da própria instituição ou disponível de outra forma.
-	\item \textbf{Preparo}: os dados relevantes são selecionados, e transformações são realizadas para inserir os mesmos na base de dados.
-	      Essa etapa se importa no formato específico dos dados, realizando operações de limpeza, verificação da qualidade e da relevância para a análise, entre outras.
-	      O seu objetivo é garantir que os dados tem qualidade, relevância, e estão no formato adequado para a base de dados.
-	\item \textbf{Persistência}: após o devido processamento, os dados de alta qualidade são guardados em uma base de dados, de onde ficarão disponíveis para a análise.
-	      Nessa etapa um banco de dados é utilizado, se importando apenas em como esses dados estão guardados e como eles serão disponibilizados para as consultas e execução de algoritmos.
-	\item \textbf{Análise}: nesta etapa são executadas as consultas e os algoritmos de interesse para a análise.
-	      Podem ser desde consultas simples ("qual era o valor da telemetria X durante a passagem Y?"), a execução de algoritmos complexos ("preveja os valores da telemetria X para a próxima passagem").
-	\item \textbf{Visualização}: os resultados das consultas e algoritmos são visualizados.
-	      Podem conter desde gráficos simples, como um histograma de uma telemetria, a relatórios complexos de um subsistema/satélite, bem como resultados de algoritmos.
-\end{itemize}
-
-Esse fluxo é geralmente seguido pelos trabalhos correlatos na seção~\ref{ch:corr:ops}, sendo que os trabalhos de~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} e~\cite{boussoufBigDataBased2018} definem esse processo mais claramente.
-
-\section{Arquitetura de um Cubo de Dados}
-\label{ch:prop:cubearch}
+\section{Cubo de Dados}\label{ch:prop:cubearch}
 
 A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura de Cubo de Dados.
 Essas camadas demonstram tudo o que é necessário para a implementação de um Cubo de Dados, não sendo necessário que uma camada esteja fortemente atrelada a outra.
 
 \begin{figure}[ht]
-	\caption{Estruturado Cubo de dados}\label{fig:cubearch}
+	\caption{Estrutura do Cubo de dados}\label{fig:cubearch}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{10cm}{!}{\includegraphics{Figuras/DataCubeArchitecture.pdf}}
@@ -110,21 +41,17 @@ Deste modo, é interessante manter a mesma linguagem ao longo da estrutura, apen
 
 Com isso se torna necessário ressaltar o último nível, a Base de Dados: a escolha de banco de dados vai impactar como o algoritmo funciona, visto que existem diferentes sistemas de arquivos e como eles são atingidos, bem como o estilo do banco vai mudar como o algoritmo deve gerar o cubo, pois a base pode utilizar diferentes paradigmas de banco de dados~\cite{cuzzocreaDataWarehousingOLAP2013}.
 
-\subsection{Algoritmos de construção do cubo}
-\label{ch:prop:cubearch:algo}
+\subsection{Algoritmos de construção do cubo}\label{ch:prop:cubearch:algo}
 
 Uma das necessidades de usar algoritmos diferentes de cubo de dados está no número de dimensões que um certo cubo consegue realizar pesquisas: consultas com mais que 15 dimensões não são comummente(ou praticamente) executadas em alguns algoritmos, como o trabalho de~\cite{silva:2015:abordagensParaCubo} demonstra.
 
+{\color{red}
 Como estabelecido na seção~\ref{ch:prop:data}, os dados de telemetria de interesse possuem muito mais do que o limite de consultas em até 60 dimensões: com mais de 130 telemetrias para os satélites da família da SCD, e milhares para satélites maiores, a execução de consultas complexas seria normalmente inviável nos algortimos de construção do cubo.
-Esse problema é geralmente resolvido pela modelagem dimensional, como em~\cite{AzevedoAmbr:2010:ArSaTe}, porém isso transforma os dados de um formato "largo" para um formato "longo", aumentando o número de tuplas.
+}
+Esse problema é geralmente resolvido pela modelagem dimensional, como em~\cite{AzevedoAmbr:2010:ArSaTe}, porém isso transforma os dados de um formato ``largo'' para um formato ``longo'', aumentando o número de tuplas.
 
 Deste modo é necessário investigar as abordagens de construção de cubo que funcionem com muitas dimensões, e que permitam o cálculo das medidas necessárias para a operação.
 Neste trabalho, iremos investigar algumas dessas abordagens e como elas se comparam para a análise.
 
-\section{Discussão}
-\label{ch:prop:discussao}
-
-{\color{red}
-	TODO: Passos do que seria feito? Estou achando melhor deixar isso no final, nas conclusões...
-}
+{\color{red} Desenvolver mais sobre o algoritmos?}
 

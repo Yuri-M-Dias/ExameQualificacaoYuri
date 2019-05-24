@@ -1,17 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{RESULTADOS PRELIMINARES}
-\label{ch:impl}
+\chapter{RESULTADOS PRELIMINARES}\label{ch:impl}
 
-{\color{red}
-Para a implementação da arquitetura, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados.
-}
+Para a implementação do cubo, é necessário conhecimento sobre o domínio dos dados e como eles estão organizados.
 Para esse estágio da pesquisa, foram utilizados dados do SCD-2 fornecidos pelo CCS, porém alguns softwares foram implementados como parte da pesquisa sobre o cubo de dados e como resultados da análise dos dados.
 
-\section{SCD-Dashboard}
-\label{ch:impl:dash}
+\section{SCD-Dashboard}\label{ch:impl:dash}
 
-Os dados vindos do SCD2 possuem 135 dimensões e estão distribuídos em um período de 4 anos, tornando a sua análise não trivial.
+Os dados vindos do SCD2 possuem 135 dimensões e estão distribuídos em um período de 25 anos, tornando a sua análise não trivial.
 Durante atividades de \textit{Data Science} era necessário criar muitos gráficos e visualizações com períodos e dimensões variadas, e com tantas dimensões isso levava vários pedaços de código copiados para criar relatórios sobre os dados e dimensões.
 
 Para facilitar essa análise e automatizar esse problema, foi criado um software chamado \textbf{SCD-dashboard} para facilitar na visualização dos dados de telemetria.
@@ -35,8 +31,7 @@ Ferramentas mais parecidas, e mais completas, estão no CHART e nas dashboard cr
 
 Essa ferramenta foi utilizada extensamente para visualização dos dados e para análise exploratória, sendo que foi melhorada durante as disciplinas de \textit{Data Science} e Algoritmos de \textit{Data Mining}, com apresentações da mesma feitas utilizando ela.
 
-\section{RFragCubing}
-\label{ch:impl:rfrag}
+\section{RFragCubing}\label{ch:impl:rfrag}
 
 O algoritmo FragCubing, apresentado na seção~\ref{ch:corr:cube}, foi disponibilizado em forma compilada via código de C++, porém, ele foi feito com uma interface complicada de ser utilizada e automatizada, e não permitia a importação dos dados de telemetria sem um trabalho de pré-processamento não trivial antes.
 Como essa implementação foi a utilizada no trabalho de~\cite{silva:2015:abordagensParaCubo}, os resultados possuem histórico para comparação, portanto o seu uso contínuo seria interessante.
@@ -56,8 +51,7 @@ Uma das vantagens do pacote está na distribuição, com uma interface que permi
 	\FONTE{Produção dos autores}
 \end{figure}
 
-\section{Medida de Similaridade}
-\label{ch:impl:similarity}
+\section{Medida de Similaridade}\label{ch:impl:similarity}
 
 Utilizando a ferramenta criada em~\ref{ch:impl:dash} para uma atividade de exploração de dados que envolvia realizar consultas multidimensionais baseadas no conceito do cubo de dados, um padrão foi notado entre as telemetrias: quando uma medida de agregação por contagem era executada sobre telemetrias que se sabia ter algum tipo de relacionamento entre elas, elas possuiam uma curva característica, como da figura~\ref{fig:scdsimilaritygraph}.
 
