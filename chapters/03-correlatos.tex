@@ -59,13 +59,13 @@ Cada uma das etapas está detalhada a seguir:
 
 \begin{itemize}
 	\item \textbf{Ingestão}: onde os dados serão coletados na sua fonte (satélites, sensores no solo, outras fontes, etc).
-	      Essa etapa se importa em \textbf{onde} estão os dados e \textbf{como} coletá-los, bem como \textbf{quais} são os dados importantes de serem coletados.
+	      Essa etapa trata de \textbf{onde} estão os dados e \textbf{como} coletá-los, bem como \textbf{quais} são os dados importantes de serem coletados.
 	      A ``fonte'' aqui pode ser um serviço de terceiros, dentro da própria instituição ou disponível de outra forma.
 	\item \textbf{Preparo}: os dados relevantes são selecionados, e transformações são realizadas para inserir os mesmos na base de dados.
-	      Essa etapa se importa no formato específico dos dados, realizando operações de limpeza, verificação da qualidade e da relevância para a análise, entre outras.
+	      Essa etapa trato do formato específico dos dados, realizando operações de limpeza, verificação da qualidade e da relevância para a análise, entre outras.
 	      O seu objetivo é garantir que os dados tem qualidade, relevância, e estão no formato adequado para a base de dados.
 	\item \textbf{Persistência}: após o devido processamento, os dados de alta qualidade são guardados em uma base de dados, de onde ficarão disponíveis para a análise.
-	      Nessa etapa um banco de dados é utilizado, se importando apenas em como esses dados estão guardados e como eles serão disponibilizados para as consultas e execução de algoritmos.
+	      Nessa etapa um banco de dados é utilizado, tratando apenas em como esses dados estão guardados e como eles serão disponibilizados para as consultas e execução de algoritmos.
 	\item \textbf{Análise}: nesta etapa são executadas as consultas e os algoritmos de interesse para a análise.
 	      Podem ser desde consultas simples (``qual era o valor da telemetria X durante a passagem Y?''), a execução de algoritmos complexos (``preveja os valores da telemetria X para a próxima passagem'').
 	\item \textbf{Visualização}: os resultados das consultas e algoritmos são visualizados.
@@ -117,7 +117,7 @@ A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recen
 			\hline
 		\end{tabular}
 	\end{center}
-	\FONTE{Produção dos autores.}
+	\FONTE{Produção do autor.}
 \end{table}
 
 Os objetivos em comum desses trabalhos são facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de verificação dos limites nos valores das telemetrias.
@@ -131,17 +131,13 @@ O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias 
 
 \subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
 
-O INPE já realiza análise de dados em outros setores, inclusive sobre as telemetrias de satélite.
+O INPE já realiza análise de dados em outros departamentos, inclusive sobre as telemetrias de satélite.
 Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
 Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe}, feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
 A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
 
 Outros setores, utilizam a análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e também estão classificados como \textit{Big Data}.
 ~\citeonline{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\citeonline{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\citeonline{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de Cubo de Dados para a análise de séries temporais no sensoriamento remoto.
-
-{\color{red} \bfseries
-Rodrigo: posso tirar esse parágrafo/seção toda se não achar relevante. Eu queria mostrar aqui que apesar dos dados da carga útil e da plataforma serem diferentes, eles tem características parecidas e podem compartilhar de soluções.
-}
 
 \section{Computação do Cubo de Dados}\label{ch:corr:cube}
 
@@ -153,7 +149,7 @@ O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o concei
 Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
 
 O \textit{PopUp-Cubing} é apresentado em~\cite{heinePopUpCubingAlgorithmEfficiently2017}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
-Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo-real, que são mais parecidos com os dados disponíveis para a operação de satélites.
+Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo real, que são mais parecidos com os dados disponíveis para a operação de satélites.
 Porém, não iremos abordar esse problema neste trabalho.
 
 Com foco em \textit{Big Data} e utilizando como base o esquema \textit{MapReduce},~\cite{wangScalableDataCube2013} apresenta o algoritmo \textit{HaCube} para computação do cubo em paralelo.
@@ -170,5 +166,7 @@ Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo 
 
 A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
 
-{\color{red} Falta a crítica nessa seção.}
+{\color{red} 
+Qual a justificativa para não só simplesmente aplicar essas abordagens? Não vejo uma boa razão, tem que ter um teste para justificar que elas não funcionam...
+}
 

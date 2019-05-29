@@ -2,20 +2,20 @@
 
 \chapter{INTRODUÇÃO}\label{ch:intro}
 
-O Centro de Controle de Satélites (CCS) localizado no Instituto Nacional de Pesquisas Espaciais (INPE) atualmente monitora e controla alguns satélites: a família do Satélite de Coleta de Dados (SCD), composta de dois satélites SCD-1 e SCD-2, e o Satélite Sino-Brasileiro de Recursos Terrestres (CBERS), com o quinto satélite em operação atualmente, o CBERS-4.
+O Centro de Controle de Satélites (CCS) é um departamento pertencente ao Instituto Nacional de Pesquisas Espaciais (INPE) atualmente monitora e controla os seguintes satélites: a família do Satélite de Coleta de Dados (SCD), composta de dois satélites SCD-1 e SCD-2, e a família do Satélite Sino-Brasileiro de Recursos Terrestres (CBERS), com apenas o quinto satélite em operação atualmente, o CBERS-4.
 Estes satélites realizam passagens sobre as estações terrenas do INPE, durante o qual o CCS recebe dados do estado do satélite, chamados de telemetrias, e envia telecomando, utilizados para controlar o satélite, bem como realiza atividades de manutenção e estimativa, como medidas de velocidade e posição de cada satélite~\cite{AzevedoAmbr:2010:ArSaTe}.
 
 Dados de telemetria geralmente carregam medidas de sensores e verificações de saúde dos instrumentos, como temperatura das baterias, corrente de algum subsistema, se um dado equipamento está ativo ou não, bem como dados que os operadores e engenheiros acham necessários para a operação, entre outros~\cite{larsonSpaceMissionAnalysis1999}.
-Estes dados precisam ser guardados por toda a vida do satélite, sendo que para satélites que estão funcionando por vários anos, eles adquirem um volume considerável, que não pode ser descartado.
+Estes dados precisam ser guardados por toda a vida do satélite, sendo que para satélites que estão em funcionamento por vários anos adquirem um volume de dados considerável, que não pode ser descartado.
 No caso dos satélites da família SCD, o SCD-1 já estando operacional por mais de 25 anos, e continuando a gerar dados, com um volume aproximado de 7GB por ano.
 
-Para satélites mais complexos como os da família CBERS, que possuem mais de 4 mil telemetrias sendo rastreadas, geram um volume de dados cuja análise não é trivial, e só pode ser feita por especialistas no funcionamento do satélite.
+Para satélites mais complexos como os da família CBERS, que possuem mais de 4 mil telemetrias sendo monitoradas, geram um volume de dados cuja análise não é trivial, e só pode ser feita por especialistas no funcionamento do satélite.
 Com os lançamentos futuros do CBERS-4A e do Amazônia-1, o volume de dados e a complexidade da análise dos mesmos deve aumentar, criando novas necessidades de operação~\cite{JulioFoAmbrFerrLour:2017:ChImSp}.
 
-Considerando as necessidades do CCS, esses dados entram na definição de \textit{Big Data}: possuem um grande volume, são gerados continuamente, possuem formatos diversos, sua análise é de alto valor e existe uma incerteza quanto a qualidade dos dados devido a problemas de comunicação e degradação dos instrumentos.
-Esses características são denotadas pelos cinco Vs do \textit{Big Data}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}.
+Esses dados entram na definição de \textit{Big Data}, pois possuem um grande volume, são gerados continuamente, possuem formatos diversos, sua análise é de alto valor e existe uma incerteza quanto a qualidade dos dados devido a problemas de comunicação e degradação dos instrumentos.
+Essas características são denotadas pelos cinco Vs do \textit{Big Data}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}.
 
-Deste modo, é necessário criar uma estrutura que permita a análise e consulta desses dados de uma forma estrutura e que tenha desempenho satisfatório.
+Deste modo, é necessário criar uma estrutura que permita a análise e consulta desses dados de uma forma estruturada e que tenha desempenho satisfatório.
 As tecnologias de \textit{Data Warehouse} (DW) e \textit{Online Analytical Processing} (OLAP) tem demonstrado capacidade e experiência para atingir esses objetivos~\cite{bimonteOpenIssuesBig2016}, inclusive na área espacial~\cite{yvernesCopernicusGroundSegment2018}.
 Essas tecnologias executam a generalização de dados agregando enormes quantidade de dados em vários níveis de abstração, assim tornam elementos essenciais de apoio à decisão e atraem a atenção tanto da indústria como das comunidades de pesquisa.
 Sistemas OLAP, que são tipicamente dominados por consultas complexas que envolvem operadores \textit{group-by} e operadores de agregações, são as principais características entre essas ferramentas.
@@ -31,32 +31,25 @@ Medidas são atributos atributos associados a uma combinação de dimensões, se
 
 Tecnologias OLAP são caracterizadas pela habilidade em responder consultas de apoio a decisão de forma eficiente.
 Para atingir isso, o cubo de dados deve ser materializado antes da execução da consulta.
-Isso significa que as combinações de dimensões são computadas previamente, assim gerando o cubo completo.
+Isso significa que as combinações de dimensões são computadas previamente, assim gerando o cubo de dados completo.
 Porém, essa abordagem possui um custo computacional exponencial em relação ao número de dimensões, assim a materialização completa do cubo envolve um grande número de células e um tempo substancial para a sua execução.
 
 Dados de satélite são caracterizados pela sua alta dimensionalidade, onde um satélite pode precisar rastrear milhares de telemetrias.
 Por exemplo, supondo um satélite com $n = 100$ telemetrias, e cada telemetria representando uma dimensão, teremos $2^{100}$ possíveis subcubos para a implementação de um cubo de dados.
 Supondo uma cardinalidade, o número de valores diferentes em cada telemetria, como sendo de $100$, teremos $101^{100} \approx 10^{200}$ células para cada dimensão.
 
-Dessa forma, conseguir computar e manter um cubo de dados é um problema exponencial, e reduzir o seu consumo de memória e tempo de computação é de fundamental importância para desenvolver um sistema OLAP.
+Dessa forma, conseguir calcular e manter um cubo de dados é um problema exponencial, e reduzir o seu consumo de memória e tempo de computação é de fundamental importância para desenvolver um sistema OLAP.
 Para a área espacial essa necessidade é maior: a maior parte dos algoritmos de computação do cubo tem problemas em lidar com mais do que 15 dimensões~\cite{silva:2015:abordagensParaCubo}.
 
 \section{Objetivos}\label{ch:intro:obj}
 
-Neste trabalho, visamos aplicar a tecnologia de cubo de dados por meio de algoritmos que consigam responder as consultas da área espacial eficientemente, e consigam lidar com a alta dimensionalidade, velocidade e diversidade dos dados para a operação.
+Este trabalho visa estabelecer o uso de cubo de dados para que o processamento de consultas OLAP, da área espacial, sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas e alta cardinalidade dos dados.
 
-Assim é necessário formalizar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
+Assim é necessário identificar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
 Disso criaremos uma representação dimensional dos dados de telemetria em uma estrutura do cubo de dados, e vamos avaliar algoritmos de construção para identificar qual deles é o mais apropriado para responder as consultas identificadas.
 
 Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados altamente dimensionais.
-Para a área espacial, teremos teremos as consultas formalizadas e a avaliação da estrutura de cubo de dados como uma solução para operadores.
-
-\begin{enumerate}
-\item Formalizar quais são as consultas relevantes para os operadores de satélite, e quais são as atividades de análise que podem ser expressas como consultas;
-\item Criar uma representação dimensional do cubo de dados apropriada para as consultas identificadas, mapeando as medidas que são necessárias e quais os seus tipos;
-\item Implementar a representação com as medidas em algoritmos da literatura e coletar os resultados da execução das consultas relevantes para os operadores;
-\item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
-\end{enumerate}
+Para a área espacial, teremos as consultas formalizadas e a adequabilidade da estrutura de cubo de dados como uma solução para operadores de satélites.
 
 \section{Organização da proposta}\label{ch:intro:org}
 
@@ -65,7 +58,7 @@ Os capítulos restantes desta proposta estão organizados da seguinte maneira:
 \begin{itemize}
 	\item{Capítulo 2}: Este capítulo apresenta os conceitos e fundamentos teóricos desta proposta, como os conceitos relevantes de operação de satélites, \textit{Data Warehouse}, \textit{Big Data} e do Cubo de Dados.
 	\item{Capítulo 3}: Neste capítulo os trabalhos correlatos de Cubo de Dados são apresentados, bem como as arquiteturas que outros operadores de satélite estão implementando.
-	\item{Capítulo 4}: {\color{red} Neste capítulo a proposta é apresentada e seus conceitos principais explicados, bem como o fluxo de dados atual do CCS e como a nova arquitetura vai melhorá-lo.}
+	\item{Capítulo 4}: {\color{red} Neste capítulo a proposta é apresentada e seus conceitos principais explicados.}
 	\item{Capítulo 5}: Esse capítulo apresenta os resultados alcançados até o momento.
 	\item{Capítulo 6}: Com base nos resultados intermediários alcançados, esse capítulo apresentará as conclusões obtidas, bem como as direções de implementação para o resto do trabalho.
 \end{itemize}

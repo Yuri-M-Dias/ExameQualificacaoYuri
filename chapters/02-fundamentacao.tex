@@ -18,13 +18,13 @@ Esses dados são coletados pelo computador de bordo do satélite, e são enviado
 Os dados de telemetria compõe usualmente medidas de sensores nos equipamentos do satélite, informações coletadas pelo computador de bordo (como se um instrumento está ligado ou não), e outros dados cuja coleta foi definida como relevante para a operação do satélite.
 Dependendo da missão, outras medidas podem ser classificadas como telemetria, como por exemplo câmeras voltadas para o satélites, radares para a detecção de possíveis colisões, etc~\cite{kragCmSpaceDebris2017}.
 
-Esses dados devem ser analisados pelos operadores de satélite em solo após recebimento no centro de controle.
+Esses dados devem ser analisados pelos operadores de satélite, que são os responsáveis pelo monitoramento e operação do satélite, em solo após recebimento no centro de controle.
 Essa análise visa garantir que o satélite está executando suas tarefas como deveria, e que o seu estado de saúde permite a continuação da missão.
-Neste trabalho, vamos utilizar da análise feita pelos operadores de satélite somente nos dados de telemetria.
+Neste trabalho, vamos utilizar da análise feita pelos operadores de satélite somente nos dados de telemetria, que é uma análise não trivial dadas as características dos dados, classificados como \textit{Big Data}.
 
 \section{Big Data}\label{ch:fun:bigdata}
 
-O termo \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}~\cite{kacfahemaniUnderstandableBigData2015}: Volume, Variedade, Velocidade, Valor e Veracidade. Em detalhes:
+A aplicação do conceito de \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}. Em detalhes:
 
 \begin{itemize}
 	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
@@ -38,7 +38,7 @@ Isso implica que os dados podem ser guardados e analisados até em tempo real.
 	\item \textbf{Veracidade}: os dados não possuem garantias quanto a sua qualidade, como inconsistências e falta de acurácia, porém a análise deve ser de alta qualidade de qualquer forma.
 \end{itemize}
 
-Estes V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
+Esses V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
 Em especial, existe um certo relacionamento com a ideia de ``\textit{NoSQL}'' (``Não apenas SQL'', em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
 
 \section{Data Warehouse}\label{ch:fun:dw}
@@ -88,8 +88,6 @@ Não há utilização de repositórios relacionais para armazenar dados multidim
 	\item \textbf{\textit{Hybrid} OLAP (HOLAP)}: combinam técnicas ROLAP e MOLAP, onde normalmente os dados detalhados são armazenados em base de dados relacionais (ROLAP), e as agregações são armazenadas em estruturas de dados multidimensionais (MOLAP).
 \end{itemize}
 
-Além desses, existem sistemas OLAP voltados para um domínio ou estilo de dados específico, como é o caso do \textit{Spatial OLAP} (SOLAP), voltado para consultas espaciais~\cite{viswanathanUsercentricSpatialData2014}.
-
 É importante ressaltar a diferença entre OLAP e \textit{Online Transaction Processing} (OLPT), visto que sistemas comuns de banco de dados utilizam apenas OLTP, que tem o objetivo de realizar transações e processar consultas online.
 Isso cobre a grande maioria das operações do dia a dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
 Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo voltado para decisões de mais alto nível na organização~\cite{hanDataMiningConcepts2011}.
@@ -117,7 +115,7 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 	\end{center}
 	\vspace{1mm}
 	\legenda{}
-	\FONTE{Produção do autor}.
+	\FONTE{Produção do autor.}
 \end{figure}
 
 \subsection{Células do Cubo de Dados}\label{ch:fun:cube:cells}
@@ -155,7 +153,7 @@ A figura~\ref{fig:starschema} mostra um exemplo de esquema estrela.
 	\end{center}
 	\vspace{1mm}
 	\legenda{}
-	\FONTE{Produção do autor}.
+	\FONTE{Produção do autor.}
 \end{figure}
 
 O esquema floco de neve é uma variação do esquema estrela, onde algumas dimensões são normalizadas, dividindo os dados das tabelas de dimensão em outras tabelas.
@@ -170,7 +168,7 @@ A figura~\ref{fig:snowflakeschema} mostra um exemplo de esquema floco de neve.
 	\end{center}
 	\vspace{1mm}
 	\legenda{}
-	\FONTE{Produção do autor}.
+	\FONTE{Produção do autor.}
 \end{figure}
 
 O esquema constelação de fatos utiliza de múltiplas tabelas de fato, como se fossem várias tabelas no esquema estrela que compartilham tabelas de dimensão.
@@ -185,7 +183,7 @@ A figura~\ref{fig:factconstschema} mostra um exemplo de constelação de fatos.
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
-	\FONTE{Produção do autor}.
+	\FONTE{Produção do autor.}
 \end{figure}
 
 \subsection{Hierarquias de conceito}\label{ch:fun:cube:concept}
@@ -293,7 +291,7 @@ Os valores agregados intermediários podem ser reutilizados para a computação 
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
-	\FONTE{~\cite{silva:2015:abordagensParaCubo}}.
+	\FONTE{~\cite{silva:2015:abordagensParaCubo}.}
 \end{figure}
 
 Na Figura~\ref{fig:bottomup}, é ilustrada a geração de um cubo de dados de 4 dimensões por meio da estratégia \textit{Bottom-up}.
@@ -308,6 +306,6 @@ Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
-	\FONTE{~\cite{silva:2015:abordagensParaCubo}}.
+	\FONTE{~\cite{silva:2015:abordagensParaCubo}.}
 \end{figure}
 
