@@ -231,9 +231,7 @@ Dependendo do sistema OLAP, é possível que outras operações sejam possíveis
 
 \subsection{Computação do cubo de dados}\label{ch:fun:cube:comp}
 
-{\color{red} Qual a definição de uma tarefa ``essencial''?}
-
-A computação do cubo de dados é uma tarefa {\color{red} essencial}, pois a pré-computação de todo ou parte de um cubo de dados pode aumentar significativamente o desempenho do DW.
+A computação do cubo de dados é uma tarefa essencial, pois a pré-computação de todo ou parte de um cubo de dados pode aumentar significativamente o desempenho do DW.
 Porém, essa tarefa possui complexidade exponencial em relação ao número de dimensões, sendo chamada de materialização, com a materialização completa exigindo uma grande quantidade de células, e portanto um elevado consumo de memória e tempo~\cite{hanDataMiningConcepts2011}.
 
 O cálculo original da computação do cubo de dados foi proposta por~\cite{grayDataCubeRelational1996}, sendo: dada uma relação de relação de entrada $R$ com tuplas de tamanho $n$, o número de subcubos que podem ser gerados é $2^n$, onde $n$ é o número de dimensões do cubo.

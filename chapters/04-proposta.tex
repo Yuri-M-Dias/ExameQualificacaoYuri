@@ -18,42 +18,6 @@ Como objetivos secundários, este trabalho visa:
 
 Assim, nas próximas seções, é necessário qualificar o volume dos dados e porque uma abordagem tradicional não é adequada.
 
-\section{Dados no INPE}\label{ch:prop:data}
-
-Utilizando de uma estivativa sobre os dados já disponibilizados para este trabalho, a tabela~\ref{fig:datagenest} mostra a geração por ano de dados no CCS.
-Essa estimativa foi feita utilizando dos dados não compressos a partir da disponibilidade dos mesmos.
-Ela também assume que o Amazônia-1 vai gerar um volume de dados de telemetria similar ao gerado do CBERS.
-
-\begin{figure}[!htb]
-	\caption{Estimativa de geração anual de dados pelos satélites do INPE}\label{fig:datagenest}
-	\vspace{4mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/DataGenSatYear.png}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
-\end{figure}
-
-Dessa estimativa, podemos obter o total de dados de telemetria disponíveis para a análise no CCS, apresentados na figura~\ref{fig:totaldatagen}.
-É importante ressaltar que a grande maioria desses dados não está disponível para consulta pelo usuário, visto que somente os dados de alguns poucos anos da operação estão disponíveis para os operadores e engenheiros, necessitando de trabalho significativo para analisar dados do passado.
-
-\begin{figure}[!htb]
-	\caption{Estimativa do volume de dados histórico de telemetria de todos os satélites}\label{fig:totaldatagen}
-	\vspace{4mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/VolumeToYear.png}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
-\end{figure}
-
-Essa oportunidade de pesquisa deve ser aproveitada para que os dados não virem ``\textit{dark data}'', que denota quaisquer tipo de dados que não são de fácil acesso para os usuários em potencial~\cite{heidornSheddingLightDark2008}.
-
-Considerando que todos os dados já estivessem no banco de dados, propriamente formatados e prontos para a análise, ainda teríamos grandes problemas: com um banco de dados na ordem dos \textit{terabytes}, consultas multidimensionais ou que precisem de dados de vários anos poderiam demorar dias, ou mais, para serem executadas.
-Para conseguir responder a consultas com desempenho satisfatório, propomos o uso de uma estrutura de cubo de dados neste trabalho.
-
 %\section{Cubo de Dados}\label{ch:prop:cubearch}
 %
 %A figura~\ref{fig:cubearch} demonstra a divisão em 4 camadas de uma estrutura de Cubo de Dados.
@@ -88,6 +52,8 @@ Como estabelecido na seção~\ref{ch:prop:data}, os dados de telemetria de inter
 Esse problema é geralmente resolvido pela modelagem dimensional, como em~\cite{AzevedoAmbr:2010:ArSaTe}, porém isso transforma os dados de um formato ``largo'' para um formato ``longo'', aumentando o número de tuplas.
 
 Deste modo é necessário investigar as abordagens de construção de cubo que funcionem com muitas dimensões, e que permitam o cálculo das medidas necessárias para a operação.
+Nesta proposta, o uso dos algoritmos de construção do cubo \textit{FragCubing} e a abordagem de cubo completo serão utilizados como medida de comparação para outros algoritmos mais recentes, como o \textit{FragShell} e
+{\color{red} (O que mais?!?)}
 
 {\color{red} Desenvolver mais sobre o algoritmos?}
 

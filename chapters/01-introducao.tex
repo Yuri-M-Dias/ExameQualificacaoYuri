@@ -12,8 +12,45 @@ No caso dos satélites da família SCD, o SCD-1 já estando operacional por mais
 Para satélites mais complexos como os da família CBERS, que possuem mais de 4 mil telemetrias sendo monitoradas, geram um volume de dados cuja análise não é trivial, e só pode ser feita por especialistas no funcionamento do satélite.
 Com os lançamentos futuros do CBERS-4A e do Amazônia-1, o volume de dados e a complexidade da análise dos mesmos deve aumentar, criando novas necessidades de operação~\cite{JulioFoAmbrFerrLour:2017:ChImSp}.
 
+{\color{cerulean}
+
+A figura~\ref{fig:datagenest} mostra uma uma estimativa simples da geração histórica de dados de telemetria no CCS.
+Essa estimativa foi feita utilizando dos dados não compressos a partir da disponibilidade dos mesmos.
+Ela também assume que o Amazônia-1 vai gerar um volume de dados de telemetria similar ao gerado do CBERS.
+
+\begin{figure}[!htb]
+	\caption{Estimativa de geração anual de dados pelos satélites do INPE}\label{fig:datagenest}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{14cm}{!}{\includegraphics{Figuras/DataGenSatYear.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{Volume estimado de geração de dados por cada ano de operação de cada satélite.}
+	\FONTE{Produção do autor.}
+\end{figure}
+
+Dessa estimativa, podemos obter o total de dados de telemetria disponíveis para a análise no CCS considerando uma taxa constante dos satélites, apresentados na figura~\ref{fig:totaldatagen}.
+É importante ressaltar que a grande maioria desses dados não está disponível para consulta pelo usuário, visto que somente os dados de alguns poucos anos da operação estão disponíveis para os operadores e engenheiros, necessitando de trabalho significativo para analisar dados do passado.
+
+\begin{figure}[!hb]
+	\caption{Estimativa do volume de dados histórico de telemetria de todos os satélites}\label{fig:totaldatagen}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{13cm}{!}{\includegraphics{Figuras/VolumeToYear.png}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{Volume total estimado de dados de telemetria gerados por todos os satélites.}
+	\FONTE{Produção do autor.}
+\end{figure}
+
+Esses dados devem ser propriamente tratados para que não virem ``\textit{dark data}'', termo que denota quaisquer tipo de dados que não são de fácil acesso para os seus usuários em potencial~\cite{heidornSheddingLightDark2008}.
+
 Esses dados entram na definição de \textit{Big Data}, pois possuem um grande volume, são gerados continuamente, possuem formatos diversos, sua análise é de alto valor e existe uma incerteza quanto a qualidade dos dados devido a problemas de comunicação e degradação dos instrumentos.
 Essas características são denotadas pelos cinco Vs do \textit{Big Data}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}.
+
+Considerando que todos os dados já estivessem no banco de dados, propriamente formatados e prontos para a análise, ainda teríamos grandes problemas: com um banco de dados na ordem dos \textit{terabytes}, consultas multidimensionais ou que precisem de dados de vários anos poderiam demorar dias, ou mais, para serem executadas.
+
+}
 
 Deste modo, é necessário criar uma estrutura que permita a análise e consulta desses dados de uma forma estruturada e que tenha desempenho satisfatório.
 As tecnologias de \textit{Data Warehouse} (DW) e \textit{Online Analytical Processing} (OLAP) tem demonstrado capacidade e experiência para atingir esses objetivos~\cite{bimonteOpenIssuesBig2016}, inclusive na área espacial~\cite{yvernesCopernicusGroundSegment2018}.
@@ -43,6 +80,8 @@ Para a área espacial essa necessidade é maior: a maior parte dos algoritmos de
 
 \section{Objetivos}\label{ch:intro:obj}
 
+{\color{red}
+
 Este trabalho visa estabelecer o uso de cubo de dados para que o processamento de consultas OLAP, da área espacial, sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas e alta cardinalidade dos dados.
 
 Assim é necessário identificar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
@@ -51,6 +90,8 @@ Disso criaremos uma representação dimensional dos dados de telemetria em uma e
 Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados altamente dimensionais.
 Para a área espacial, teremos as consultas formalizadas e a adequabilidade da estrutura de cubo de dados como uma solução para operadores de satélites.
 
+}
+
 \section{Organização da proposta}\label{ch:intro:org}
 
 Os capítulos restantes desta proposta estão organizados da seguinte maneira:
@@ -58,7 +99,7 @@ Os capítulos restantes desta proposta estão organizados da seguinte maneira:
 \begin{itemize}
 	\item{Capítulo 2}: Este capítulo apresenta os conceitos e fundamentos teóricos desta proposta, como os conceitos relevantes de operação de satélites, \textit{Data Warehouse}, \textit{Big Data} e do Cubo de Dados.
 	\item{Capítulo 3}: Neste capítulo os trabalhos correlatos de Cubo de Dados são apresentados, bem como as arquiteturas que outros operadores de satélite estão implementando.
-	\item{Capítulo 4}: {\color{red} Neste capítulo a proposta é apresentada e seus conceitos principais explicados.}
+	\item{Capítulo 4}: Neste capítulo a proposta é apresentada e seus conceitos principais explicados.
 	\item{Capítulo 5}: Esse capítulo apresenta os resultados alcançados até o momento.
 	\item{Capítulo 6}: Com base nos resultados intermediários alcançados, esse capítulo apresentará as conclusões obtidas, bem como as direções de implementação para o resto do trabalho.
 \end{itemize}
