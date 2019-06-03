@@ -74,21 +74,23 @@ Porém, essa abordagem possui um custo computacional exponencial em relação ao
 Dados de satélite são caracterizados pela sua alta dimensionalidade, onde um satélite pode precisar rastrear milhares de telemetrias.
 Por exemplo, supondo um satélite com $n = 100$ telemetrias, e cada telemetria representando uma dimensão, teremos $2^{100}$ possíveis subcubos para a implementação de um cubo de dados.
 Supondo uma cardinalidade, o número de valores diferentes em cada telemetria, como sendo de $100$, teremos $101^{100} \approx 10^{200}$ células para cada dimensão.
+{\color{cerulean}
+Devido ao controle ativo pelos operadores de satélite, os dados são concentrados em alguns valores que se repetem frequentemente, sendo que isso é chamado de \textit{skew}.
+}
 
 Dessa forma, conseguir calcular e manter um cubo de dados é um problema exponencial, e reduzir o seu consumo de memória e tempo de computação é de fundamental importância para desenvolver um sistema OLAP.
 Para a área espacial essa necessidade é maior: a maior parte dos algoritmos de computação do cubo tem problemas em lidar com mais do que 15 dimensões~\cite{silva:2015:abordagensParaCubo}.
 
 \section{Objetivos}\label{ch:intro:obj}
 
-{\color{red}
+{\color{cerulean}
 
-Este trabalho visa estabelecer o uso de cubo de dados para que o processamento de consultas OLAP, da área espacial, sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas e alta cardinalidade dos dados.
+Assim, este trabalho tem como objetivo estabelecer um método para processamento de cubos de dados para a área espacial, para que o processamento de consultas OLAP sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas, alto \textit{skew} e alta cardinalidade dos dados.
 
 Assim é necessário identificar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
-Disso criaremos uma representação dimensional dos dados de telemetria em uma estrutura do cubo de dados, e vamos avaliar algoritmos de construção para identificar qual deles é o mais apropriado para responder as consultas identificadas.
+Disso será criada uma representação dimensional dos dados de telemetria em uma estrutura do cubo de dados, e  algoritmos de construção do cubo devem ser avaliados para identificar qual é o mais apropriado para responder as consultas.
 
-Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados altamente dimensionais.
-Para a área espacial, teremos as consultas formalizadas e a adequabilidade da estrutura de cubo de dados como uma solução para operadores de satélites.
+Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados altamente dimensionais, teremos as consultas identificadas e a adequabilidade do uso de cubo de dados como uma solução para operadores de satélites.
 
 }
 

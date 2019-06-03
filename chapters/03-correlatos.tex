@@ -44,7 +44,7 @@ Os outros dados nesta tabela poderiam ser considerados para uma \textit{Data War
 Baseado nos trabalhos correlatos e nos dados levantados, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
 
 \begin{figure}[ht]
-	\caption{\color{red} Fluxo de dados em uma arquitetura de \textit{Big Data}}\label{fig:bigdataflow}
+	\caption{Fluxo de dados em uma arquitetura de \textit{Big Data}}\label{fig:bigdataflow}
 	\vspace{6mm}
 	\begin{center}
 		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
@@ -142,15 +142,18 @@ Outros setores, utilizam a análise de dados vindos da carga útil do satélite 
 \section{Computação do Cubo de Dados}\label{ch:corr:cube}
 
 A computação seletiva do cubo de dados possui muitos algoritmos diferentes implementados, porém eles possuem dificuldades no trato de dados com muitas dimensões e no uso limitado da memória~\cite{hanDataMiningConcepts2011}.
-Vamos mencionar alguns dos algoritmos de desenvolvimento mais recente e que são mais relevantes para esta proposta.
 
+{\color{cerulean}
 O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
+A ideia principal é decompor o cubo original em fragmentos que podem ser reunidos eficientemente para responder uma consulta multidimensional.
+}
 
 Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
 
 O \textit{PopUp-Cubing} é apresentado em~\cite{heinePopUpCubingAlgorithmEfficiently2017}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
-Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo real, que são mais parecidos com os dados disponíveis para a operação de satélites.
-Porém, não iremos abordar esse problema neste trabalho.
+{\color{cerulean}
+Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo real, que são mais parecidos com os dados disponíveis para a operação de satélites, porém este cenário não será abordado neste trabalho.
+}
 
 Com foco em \textit{Big Data} e utilizando como base o esquema \textit{MapReduce},~\cite{wangScalableDataCube2013} apresenta o algoritmo \textit{HaCube} para computação do cubo em paralelo.
 Este trabalho apresenta um balanço entre computação do cubo em paralelo por vários nós de \textit{MapReduce}, que permite algumas atualizações e computação incremental de medidas.
@@ -166,7 +169,28 @@ Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo 
 
 A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
 
+Desta revisão, temos que o \textit{FragCubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados~\cite{silva:2015:abordagensParaCubo}.
+
 {\color{red}
-Qual a justificativa para não só simplesmente aplicar essas abordagens? Não vejo uma boa razão, tem que ter um teste para justificar que elas não funcionam...
+LI; HAN e GONZALEZ (2004) ilustram o impacto exponencial no consumo de memória nas diferentes abordagens de computação de cubos de dados usando apenas 12 dimensões.
+Nota-se que há uma clara saturação quando cubos com 20, 50 ou 100 dimensões são computados utilizando abordagens de cubos completos, cubos DWARF, MCG, cubos fechados ou quocientes (BRAHMI, 2012; RUGGIERI; PEDRESCHI; TURINI, 2010; LIMA; HIRATA, 2011; XIN; et al., 2006; SISMANIS, 2002).
 }
 
+{\color{cerulean}
+
+\subsection{FragCubing}\label{ch:corr:cube:frag}
+
+% Falar do Frag especialmente e dar uma overview de como ele funciona e quais são as suas fraquezas
+
+Índices invertidos são mais adequados quando a relação possui um elevado número de tuplas e dimensões com alta cardinalidade~\cite{silvaQCubeEfficientIntegration2013}, contudo técnicas como as adotadas por abordagens como \textit{Frag-Cubing} degradam o consumo de memória à medida que o número de tuplas cresce, pois consequentemente nestes cenários, o tamanho do índice invertido cresce substancialmente.
+
+[Exemplo do Rodrigo ou não?]
+
+A complexidade da interseção é proporcional ao número de ocorrências de um valor de atributo, mais precisamente é igual ao tamanho da menor lista.
+Em nosso exemplo, iTb 4 com dois TIDs é a menor lista.
+O número de TIDs associado a cada valor de atributo pode ser enorme, assim relações com dimensões de baixa cardinalidade e elevado número de tuplas necessitam de alta capacidade de processamento.
+Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo skew e alta cardinalidade são mais adequadas de serem computadas pela abordagem Frag-Cubing.
+Skew é o grau de uniformidade dos valores de atributos numa relação. Skew zero indica relação com valores de atributos uniformemente distribuídos e quanto maior o skew menos uniformemente distribuída a relação se encontra.
+Neste sentido, abordagens como Frag-Cubing, que fazem uso apenas de memória principal (RAM), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
+
+}
