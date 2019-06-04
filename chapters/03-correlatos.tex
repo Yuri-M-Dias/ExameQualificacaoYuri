@@ -169,28 +169,36 @@ Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo 
 
 A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
 
-Desta revisão, temos que o \textit{FragCubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados~\cite{silva:2015:abordagensParaCubo}.
-
+{\color{cerulean}
+Destes trabalhos, temos que o \textit{FragCubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados~\cite{silva:2015:abordagensParaCubo}.
+Porém,~\citeonline{liHighdimensionalOLAPMinimal2004} ilustram o impacto exponencial no consumo de memória nas diferentes abordagens de computação de cubos de dados usando apenas 12 dimensões, sendo que há uma saturação quando cubos com 20, 50 ou 100 dimensões são computados utilizando abordagens de cubos completos, cubos DWARF, MCG, cubos fechados ou quocientes 
 {\color{red}
-LI; HAN e GONZALEZ (2004) ilustram o impacto exponencial no consumo de memória nas diferentes abordagens de computação de cubos de dados usando apenas 12 dimensões.
-Nota-se que há uma clara saturação quando cubos com 20, 50 ou 100 dimensões são computados utilizando abordagens de cubos completos, cubos DWARF, MCG, cubos fechados ou quocientes (BRAHMI, 2012; RUGGIERI; PEDRESCHI; TURINI, 2010; LIMA; HIRATA, 2011; XIN; et al., 2006; SISMANIS, 2002).
+(BRAHMI, 2012; RUGGIERI; PEDRESCHI; TURINI, 2010; LIMA; HIRATA, 2011; XIN; et al., 2006; SISMANIS, 2002).
+}
 }
 
 {\color{cerulean}
 
 \subsection{FragCubing}\label{ch:corr:cube:frag}
 
-% Falar do Frag especialmente e dar uma overview de como ele funciona e quais são as suas fraquezas
+O \textit{Frag-Cubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de inversão de tupla.
+Cada tupla invertida $iT$ tem um valor de atributo, uma lista de identificadores da tupla (TIDs) e um conjunto de valores de medida.
+Por exemplo, consideremos quatro tuplas: $t_1 = (tid_1, a_1, b_2, c_2, m_1)$, $t_2 = (tid_2, a_1, b_3, c_3, m_2)$, $t_3 = (tid_3, a_1, b_4, c_4, m_3)$, e $t4 = (tid_4, a_1, b_4, c_1, m_4)$.
+Estas quatro tuplas geram oito tuplas invertidas: $iTa_1, iTb_2, iTb_3, iTb_4, iTc_1, iTc_2, iTc_3, e iTc_4$.
 
-Índices invertidos são mais adequados quando a relação possui um elevado número de tuplas e dimensões com alta cardinalidade~\cite{silvaQCubeEfficientIntegration2013}, contudo técnicas como as adotadas por abordagens como \textit{Frag-Cubing} degradam o consumo de memória à medida que o número de tuplas cresce, pois consequentemente nestes cenários, o tamanho do índice invertido cresce substancialmente.
-
-[Exemplo do Rodrigo ou não?]
+Para cada valor de atributo é construído uma lista de ocorrências, assim para a 1 temos $iTa_1 = (a_1, tid_1, tid_2, tid_3, tid_4, m_1, m_2, m_3, m_4)$ onde o valor de atributo a 1 está associado aos TIDs: $tid_1, tid_2, tid_3,$ e $tid_4$.
+O identificador de tupla $tid_1$ tem o valor de medida $m_1$, $tid_2$ tem o valor de medida $m_2$, $tid_3$ tem o valor de medida $m_3$, e $tid_4$ possui o valor de medida $m_4$.
+A consulta $q = (a_1, b_4, COUNT)$ pode ser respondida por $iTa_1 \cap iTb_4 = (a_1b_4, tid_3, tid_4, COUNT(m_3, m_4))$.
+Em $q, iTa_1 \cap iTb_4$ indica os TIDs comuns em $iTa_1$ e $iTb_4$.
 
 A complexidade da interseção é proporcional ao número de ocorrências de um valor de atributo, mais precisamente é igual ao tamanho da menor lista.
-Em nosso exemplo, iTb 4 com dois TIDs é a menor lista.
+Neste exemplo, $iTb_4$ com dois TIDs é a menor lista.
 O número de TIDs associado a cada valor de atributo pode ser enorme, assim relações com dimensões de baixa cardinalidade e elevado número de tuplas necessitam de alta capacidade de processamento.
-Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo skew e alta cardinalidade são mais adequadas de serem computadas pela abordagem Frag-Cubing.
-Skew é o grau de uniformidade dos valores de atributos numa relação. Skew zero indica relação com valores de atributos uniformemente distribuídos e quanto maior o skew menos uniformemente distribuída a relação se encontra.
-Neste sentido, abordagens como Frag-Cubing, que fazem uso apenas de memória principal (RAM), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
+Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo \textit{skew} e alta cardinalidade são mais adequadas de serem computadas pela abordagem \textit{Frag-Cubing}.
+
+\textit{Skew} pode ser definido como o grau de uniformidade dos valores de atributos numa relação, sendo que \textit{skew} zero indica relação com valores de atributos uniformemente distribuídos, e quanto maior o \textit{skew} menos uniformemente distribuída a relação se encontra.
+Neste sentido, abordagens como \textit{Frag-Cubing}, que fazem uso apenas de memória principal (\textit{RAM}), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
+
+[Need to justify the skew?!]
 
 }
