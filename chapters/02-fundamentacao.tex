@@ -127,18 +127,26 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
 Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
+A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C.
+
+\begin{figure}[!htb]
+  \caption{Células de agregação em um cubo de dados}\label{fig:hasse}
+	\vspace{2mm}
+	\begin{center}
+		\resizebox{5cm}{!}{\includegraphics{Figuras/Hasse.pdf}}
+	\end{center}
+	\vspace{1mm}
+	\legenda{}
+	\FONTE{Produção do autor.}
+\end{figure}
 
 Formalmente, supondo um cubo de dados $n$-dimensional, uma célula $a$ de qualquer subcubo é definida por $a = (a_1, a_2, a_3, \ldots, a_n, medidas)$.
 A célula é m-dimensional (de um subcubo com $m$ dimensões), se exatamente $m$, com $(m \leq n)$, valores entre $(a_1, a_2, a_3, \ldots, a_n)$ não são ``$*$''.
 Se $m = n$, então $a$ é uma célula base, caso contrário $(m < n)$, ela é uma célula agregada.
 
-{\color{red} exemplo?}
-
 Um relacionamento de descendente-ancestral pode existir entre células.
 Em um cubo de dados $n$-dimensional, uma célula $a = (a_1, a_2, a_3, \ldots, a_n, medidas_a)$ de nível $i$ é um ancestral de uma célula $b = (b_1, b_2, b_3, \ldots, b_n, medidbs_b)$ de nível $j$, e $b$ é um descendente de $a$, se e somente se $i < j$ e $1 \leq m \leq n$, onde $a_m = b_m$ sempre que $a_m \neq *$.
 Em particular, uma célula $a$ é chamada de pai de uma célula $b$, e $b$ de filho de $a$, se e somente se $j = i+1$ e $b$ for um descendente de $a$~\cite{hanDataMiningConcepts2011}.
-
-{\color{red} exemplo}
 
 \subsection{Modelagem dimensional}\label{ch:fun:cube:dimm}
 
@@ -166,7 +174,7 @@ A figura~\ref{fig:snowflakeschema} mostra um exemplo de esquema floco de neve.
 	\caption{Esquema floco de neve}\label{fig:snowflakeschema}
 	\vspace{2mm}
 	\begin{center}
-		\resizebox{5cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
+		\resizebox{6cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
 	\end{center}
 	\vspace{1mm}
 	\legenda{}
@@ -181,7 +189,7 @@ A figura~\ref{fig:factconstschema} mostra um exemplo de constelação de fatos.
 	\caption{Esquema constelação de fatos}\label{fig:factconstschema}
 	\vspace{6mm}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
+		\resizebox{6cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
@@ -193,8 +201,6 @@ A figura~\ref{fig:factconstschema} mostra um exemplo de constelação de fatos.
 Uma hierarquia de conceitos é utilizada para definir uma sequência de mapeamento entre um conjunto de conceitos de baixo nível para um conjunto de conceitos de alto nível, mais gerais.
 É um estilo de agrupamento e discretização, pois agrupa os valores de modo a reduzir a cardinalidade de uma dimensão~\cite{hanDataMiningConcepts2011}.
 Elas ajudam a tornar a análise mais fácil de ser entendida, pois as operações traduzem os dados de baixo nível em uma representação que é mais fácil para o usuário final, assim facilitando a execução das consultas e o seu subsequente uso.
-
-{\color{red} Han, figura 4.10}
 
 \subsection{Medidas}\label{ch:fun:cube:measures}
 
