@@ -122,12 +122,10 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 
 \subsection{Células do Cubo de Dados}\label{ch:fun:cube:cells}
 
-{\color{red} Lattice}
-
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
 Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
-A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C.
+A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C, do mais genérico (\textit{apex}) ao mais específico(base).
 
 \begin{figure}[!htb]
   \caption{Células de agregação em um cubo de dados}\label{fig:hasse}
