@@ -163,7 +163,7 @@ Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demon
 Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
 Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
 
-\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
+\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{FragCubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
 
 \textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
 
@@ -175,7 +175,7 @@ Porém,~\citeonline{liHighdimensionalOLAPMinimal2004} ilustram o impacto exponen
 
 \subsection{FragCubing}\label{ch:corr:cube:frag}
 
-O \textit{Frag-Cubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de inversão de tupla.
+O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de inversão de tupla.
 Cada tupla invertida $iT$ tem um valor de atributo, uma lista de identificadores da tupla (TIDs) e um conjunto de valores de medida.
 Por exemplo, consideremos quatro tuplas: $t_1 = (tid_1, a_1, b_2, c_2, m_1)$, $t_2 = (tid_2, a_1, b_3, c_3, m_2)$, $t_3 = (tid_3, a_1, b_4, c_4, m_3)$, e $t4 = (tid_4, a_1, b_4, c_1, m_4)$.
 Estas quatro tuplas geram oito tuplas invertidas: $iTa_1, iTb_2, iTb_3, iTb_4, iTc_1, iTc_2, iTc_3, e iTc_4$, demonstradas na figura~\ref{fig:fragexample}.
@@ -199,9 +199,9 @@ Em $q, iTa_1 \cap iTb_4$ indica os TIDs comuns em $iTa_1$ e $iTb_4$.
 A complexidade da interseção é proporcional ao número de ocorrências de um valor de atributo, mais precisamente é igual ao tamanho da menor lista.
 Neste exemplo, $iTb_4$ com dois TIDs é a menor lista.
 O número de TIDs associado a cada valor de atributo pode ser enorme, assim relações com dimensões de baixa cardinalidade e elevado número de tuplas necessitam de alta capacidade de processamento.
-Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo \textit{skew} e alta cardinalidade são mais adequadas de serem computadas pela abordagem \textit{Frag-Cubing}.
+Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo \textit{skew} e alta cardinalidade são mais adequadas de serem computadas pela abordagem \textit{FragCubing}.
 
 \textit{Skew} pode ser definido como o grau de uniformidade dos valores de atributos numa relação, sendo que \textit{skew} zero indica relação com valores de atributos uniformemente distribuídos, e quanto maior o \textit{skew} menos uniformemente distribuída a relação se encontra.
-Neste sentido, abordagens como \textit{Frag-Cubing}, que fazem uso apenas de memória principal (\textit{RAM}), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
+%Neste sentido, abordagens como \textit{FragCubing}, que fazem uso apenas de memória principal (\textit{RAM}), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
 
 }

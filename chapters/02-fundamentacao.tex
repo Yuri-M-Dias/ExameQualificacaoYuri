@@ -107,13 +107,16 @@ A organização de um cubo de dados possibilita ao usuário a flexibilidade de v
 Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{hanDataMiningConcepts2011}.
 
 Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
+{\color{cerulean}
+A figura~\ref{fig:cubeexample} mostra um exemplo de um cubo de dados.
+}
 O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}.
 
 \begin{figure}[!htb]
-	\caption{Exemplo de um cubo de dados \color{red}Substituir pelo exemplo do rodrigo}\label{fig:cubeexample}
+	\caption{Exemplo de um cubo de dados}\label{fig:cubeexample}
 	\vspace{2mm}
 	\begin{center}
-		\resizebox{9cm}{!}{\includegraphics{Figuras/DataCube-Fig1.png}}
+		\resizebox{9cm}{!}{\includegraphics{Figuras/CubeExample.pdf}}
 	\end{center}
 	\vspace{1mm}
 	\legenda{}
@@ -125,7 +128,9 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
 Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
+{\color{cerulean}
 A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C, do mais genérico (\textit{apex}) ao mais específico(base).
+}
 
 \begin{figure}[!htb]
   \caption{Células de agregação em um cubo de dados}\label{fig:hasse}
@@ -306,7 +311,7 @@ Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top
 	\caption{Computação de cubo de dados através da estratégia \textit{Bottom-up}}\label{fig:bottomup}
 	\vspace{4mm}
 	\begin{center}
-		\resizebox{8cm}{!}{\includegraphics{Figuras/bottomup.png}}
+		\resizebox{7cm}{!}{\includegraphics{Figuras/bottomup.png}}
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
