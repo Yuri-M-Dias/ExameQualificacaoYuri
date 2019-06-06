@@ -225,7 +225,9 @@ Alguns exemplos são as medidas de moda, desvio padrão e mediana~\cite{hanDataM
 
 Para realizar consultas no \textit{Data Warehouse}, é necessário utilizar de algumas operações sobre o cubo de dados para obter os resultados adequados.
 Essas consultas também devem conseguir passar na hierarquia de conceitos de cada dimensão, bem como seguir o modelo dimensional do cubo definido, para conseguir oferecer uma interface amigável com o usuário para análise interativa~\cite{hanDataMiningConcepts2011}.
-Algumas operações comuns são:
+{\color{cerulean}
+Algumas operações estão exemplificados na figura~\ref{fig:olap}, porém elas geralmente são:
+}
 
 \begin{itemize}
 	\item \textit{Roll-up}: realiza agregação no cubo de dados, seja navegando na hierarquia de conceitos de nível específico para um mais genérico, ou reduzindo uma dimensão.
@@ -236,7 +238,16 @@ Essa operação visa aumentar o nível de detalhes dos dados.
 	\item \textit{Pivot}: também chamada de rotação, permite mudar a posição das dimensões na visualização, portanto alterando linhas por colunas e vice-versa.
 \end{itemize}
 
-{\color{red} Rodrigo, figura 2.1}
+\begin{figure}[!htb]
+  \caption{Operações \textit{OLAP} em um cubo de dados}\label{fig:olap}
+	\vspace{4mm}
+	\begin{center}
+		\resizebox{15cm}{!}{\includegraphics{Figuras/OLAP.pdf}}
+	\end{center}
+	\vspace{2mm}
+	\legenda{}
+	\FONTE{Produção do autor.}
+\end{figure}
 
 Dependendo do sistema OLAP, é possível que outras operações sejam possíveis, como \textit{drill-across} que passa por mais do que uma tabela de fatos, e \textit{drill-through} que permite executar consultas direto na representação em baixo nível do cubo~\cite{hanDataMiningConcepts2011}.
 
