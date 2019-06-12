@@ -6,15 +6,17 @@
 \hypertarget{estilo:resumo}{} %% uso para este Guia
 
 Satélites são monitorados pelas equipes de solo via pacotes de telemetria, que informam o estado atual dos equipamentos e permitem avaliar a capacidade do satélite de continuar a sua missão.
-Esses pacotes de telemetria constituem um corpo de dados de tamanho e alta complexidade, sendo que satélites que funcionam por vários anos geram dados históricos de grande volume, ainda úteis para a operação.
 {\color{cerulean}
-O volume de dados históricos de telemetria disponíveis ao INPE é estimado em ao menos 3 \textit{terabytes} no total.
+Esses pacotes de telemetria constituem um corpo de dados de tamanho e alta complexidade, sendo que satélites que operados por vários anos geram dados históricos de grande volume, ainda úteis para as atividades de operação.
+O volume de dados históricos de telemetria disponíveis ao INPE atualmente é estimado em ao menos 3 \textit{terabytes} no total, com tendência a crescer nos próximos anos.
+Esta proposta apresenta a estrutura de um Cubo de Dados como uma solução para executar consultas e análises sobre esse volume de dados, que são classificados como \textit{Big Data}.
+Os conceitos da área de Cubo de Dados são apresentados, bem como uma revisão de como outros operadores de satélite estão lidando com volumes de \textit{Big Data}.
 }
-Nesta proposta, apresentamos a estrutura de um Cubo de Dados como uma solução para executar consultas e análises sobre esse volume de dados, que são classificados como \textit{Big Data}.
-Apresentamos os conceitos da área de Cubo de Dados relevantes, bem como uma revisão de como outros operadores de satélite estão lidando com volumes de \textit{Big Data}.
-Devido a característica de alta dimensionalidade dos dados de telemetria, algoritmos clássicos da aŕea do Cubo de Dados tem dificuldade em responder consultas um resultado satisfatório para os operadores de satélite.
-Assim, neste trabalho, é proposto identificar as consultas que são de interesse dos operadores de satélite, criar uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados, e avaliar quais são os algoritmos de construção do cubo que conseguiriam suprir as necessidades dos dados.
-Também apresentamos os resultados intermediários alcançados, bem como o planejamento para a continuação do trabalho.
+Devido a característica de alta dimensionalidade dos dados de telemetria, algoritmos clássicos da aŕea do Cubo de Dados tem dificuldade em responder consultas com resultado satisfatório para os operadores de satélite.
+Assim, neste trabalho é proposto identificar as consultas que são de interesse dos operadores de satélite, criar uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados, e avaliar quais são os algoritmos de construção do cubo que conseguiriam suprir as necessidades dos dados.
+{\color{cerulean}
+Também são apresentados os resultados intermediários alcançados, bem como o planejamento para a continuação do trabalho.
+}
 
 \palavraschave{%
 	\palavrachave{Cubo de Dados}%

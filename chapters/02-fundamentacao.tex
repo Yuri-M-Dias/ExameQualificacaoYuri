@@ -21,12 +21,12 @@ Dependendo da missão, outras medidas podem ser classificadas como telemetria, c
 Esses dados devem ser analisados pelos operadores de satélite, que são os responsáveis pelo monitoramento e operação do satélite, em solo após recebimento no centro de controle.
 Essa análise visa garantir que o satélite está executando suas tarefas como deveria, e que o seu estado de saúde permite a continuação da missão.
 {\color{cerulean}
-Neste trabalho, vamos utilizar da análise feita pelos operadores de satélite somente nos dados de telemetria, que é uma análise não trivial dadas as características dos dados, classificados como \textit{Big Data}.
+Neste trabalho, será utilizada a análise feita pelos operadores de satélite somente nos dados de telemetria, que é uma análise não trivial dadas as características dos dados, classificados como \textit{Big Data}.
 }
 
 \section{Big Data}\label{ch:fun:bigdata}
 
-A aplicação do conceito de \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho vamos utilizar a definição dos \textit{5 Vs}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}. Em detalhes:
+A aplicação do conceito de \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho será utilizada a definição dos \textit{5 Vs}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}. Em detalhes:
 
 \begin{itemize}
 	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
@@ -43,7 +43,7 @@ Isso implica que os dados podem ser guardados e analisados até em tempo real.
 Esses V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
 Em especial, existe um certo relacionamento com a ideia de ``\textit{NoSQL}'' (``Não apenas SQL'', em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
 
-\section{Data Warehouse}\label{ch:fun:dw}
+\section{\textit{Data Warehouse}}\label{ch:fun:dw}
 
 Um Armazém de Dados ou Data Warehouse (DW) é um repositório de dados orientado por assunto, integrado, variado ou particionado em função do tempo e não volátil, que auxilia no gerenciamento do processo de tomada decisões~\cite{inmonUsingDataWarehouse1994}.
 Essa definição pode ser dividida em:
@@ -67,7 +67,7 @@ Neste modelo são definidos fatos, dimensões e medidas.
 Um fato corresponde ao assunto de negócio a ser analisado, cada dimensão é uma perspectiva de visualização do assunto de negócio e medidas são valores numéricos que quantificam o assunto de negócio.
 Uma das dimensões é sempre temporal para permitir a análise do assunto ao longo do tempo~\cite{silva:2015:abordagensParaCubo}.
 
-\section{OLAP}\label{ch:fun:olap}
+\section{\textit{OLAP}}\label{ch:fun:olap}
 
 \textit{On-line Analytical Processing} (OLAP) é um termo que se refere a um conjunto de ferramentas que são utilizadas para resumir, consolidar, visualizar, aplicar formulações e sintetizar dados de acordo com múltiplas dimensões~\cite{coddProvidingOlapUseranalysts1998}.
 
@@ -299,22 +299,23 @@ A partir de um cubo base, a computação do cubo de dados pode utilizar a estrat
 
 A figura~\ref{fig:topdown} mostra a geração de um cubo de dados de quatro dimensões pela estratégia \textit{Top-down}.
 Sendo ABCD um cubo base, os subcubos de três dimensões são: ABC, ABD, ACD e BCD; que podem utilizar os resultados do cubo base para serem computados.
-Os resultados da computação do subcubo ACD pode ser utilizado para computar AD, que consequentemente pode ser utilizado para computar A.
-Essa computação compartilhada permite que a estratégia \textit{Top-down} compute agregações em múltiplas dimensões.
-Os valores agregados intermediários podem ser reutilizados para a computação de subcubos descendentes sucessivos.
 
-\begin{figure}[!htb]
+\begin{figure}[!hbt]
 	\caption{Computação de cubo de dados através da estratégia \textit{Top-Down}}\label{fig:topdown}
 	\vspace{4mm}
 	\begin{center}
-		\resizebox{8cm}{!}{\includegraphics{Figuras/topdown.png}}
+		\resizebox{7cm}{!}{\includegraphics{Figuras/topdown.png}}
 	\end{center}
 	\vspace{2mm}
 	\legenda{}
 	\FONTE{~\cite{silva:2015:abordagensParaCubo}.}
 \end{figure}
 
-Na Figura~\ref{fig:bottomup}, é ilustrada a geração de um cubo de dados de 4 dimensões por meio da estratégia \textit{Bottom-up}.
+Os resultados da computação do subcubo ACD podem ser utilizados para computar AD, que consequentemente podem ser utilizados para computar A.
+Essa computação compartilhada permite que a estratégia \textit{Top-down} compute agregações em múltiplas dimensões.
+Os valores agregados intermediários podem ser reutilizados para a computação de subcubos descendentes sucessivos.
+
+A Figura~\ref{fig:bottomup} mostra a geração de um cubo de dados de 4 dimensões por meio da estratégia \textit{Bottom-up}.
 Subcubos de poucas dimensões tornam-se pais de subcubos com mais dimensões.
 Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top-down}, não pode ser aplicada quando utilizada a estratégia \textit{Bottom-up}, então cada subcubo descendente necessita ser computado do início.
 
@@ -322,7 +323,7 @@ Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top
 	\caption{Computação de cubo de dados através da estratégia \textit{Bottom-up}}\label{fig:bottomup}
 	\vspace{4mm}
 	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{Figuras/bottomup.png}}
+		\resizebox{8cm}{!}{\includegraphics{Figuras/bottomup.png}}
 	\end{center}
 	\vspace{2mm}
 	\legenda{}

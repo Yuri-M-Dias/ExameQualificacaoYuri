@@ -2,8 +2,7 @@
 
 \chapter{TRABALHOS CORRELATOS}\label{ch:corr}
 
-Nessa seção, vamos apresentar os trabalhos correlatos a essa proposta.
-Eles podem ser divididos em duas seções: as soluções de \textit{Big Data} de outros operadores, e os algoritmos de construção do cubo de dados com alta dimensionalidade.
+Nessa seção são apresentados os trabalhos correlatos a essa proposta, que podem ser divididos em duas seções: as soluções de \textit{Big Data} de outros operadores, e os algoritmos existentes de construção do cubo de dados com alta dimensionalidade.
 
 \section{Dados da operação}\label{ch:prop:data}
 
@@ -125,14 +124,14 @@ Alguns dos operadores dessa lista estão responsáveis pela operação de conste
 
 Nesses trabalhos, o uso dessas tecnologias é apenas para os operadores de satélite, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
 
-Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de scripts feitos de forma \textit{ad-hoc}, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas a ferramenta utilizada para análise pontual.
+Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de \textit{scripts} feitos de forma \textit{ad-hoc}, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas a ferramenta utilizada para análise pontual.
 
 O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do Cubo de Dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
 
 \subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
 
 O INPE já realiza análise de dados em outros departamentos, inclusive sobre as telemetrias de satélite.
-Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso algum problema que não pôde ser corrigido aparece~\cite{TominagaFerrAmbr:2017:CoSaTe}.
+Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso apareça algum problema que não pôde ser corrigido~\cite{TominagaFerrAmbr:2017:CoSaTe}.
 Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe}, feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
 A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
 
@@ -144,7 +143,7 @@ Outros setores, utilizam a análise de dados vindos da carga útil do satélite 
 A computação seletiva do cubo de dados possui muitos algoritmos diferentes implementados, porém eles possuem dificuldades no trato de dados com muitas dimensões e no uso limitado da memória~\cite{hanDataMiningConcepts2011}.
 
 {\color{cerulean}
-O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde cubóides com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
+O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde subcubos com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
 A ideia principal é decompor o cubo original em fragmentos que podem ser reunidos eficientemente para responder uma consulta multidimensional.
 }
 
@@ -163,11 +162,11 @@ Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demon
 Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
 Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
 
-\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extende a abordagem \textit{FragCubing} para permitir consultas sobre intervalos de valor, extendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
+\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} estende a abordagem \textit{FragCubing} para permitir consultas sobre intervalos de valor, estendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
 
 \textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
 
-A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} extende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
+A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} estende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
 
 {\color{cerulean}
 Destes trabalhos, o \textit{FragCubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados.

@@ -25,14 +25,14 @@ Como objetivos secundários, este trabalho visa:
 \section{Algoritmos de construção do cubo}\label{ch:prop:cube}
 
 {\color{cerulean}
-Para esta proposta, vamos nos concentrar apenas na proposição de um algoritmo de computação do cubo de dados.
+Esta proposta se concentra apenas na proposição de um algoritmo de computação do cubo de dados.
 Uma das necessidades de usar algoritmos diferentes de cubo de dados está no número de dimensões que um certo cubo consegue realizar pesquisas: consultas com mais que 15 dimensões não são comummente(ou praticamente) executadas em alguns algoritmos, como o trabalho de~\citeonline{silva:2015:abordagensParaCubo} demonstra.
 
-Os dados de telemetria de interesse possuem muito mais do que o limite de comum de consultas em até 60 dimensões: com mais de 130 telemetrias para os satélites da família da SCD, e milhares para satélites maiores como o CBERS e o Amazônia, a execução de consultas complexas seria normalmente inviável nos algortimos de construção do cubo tradicionais.
+Os dados de telemetria de interesse possuem muito mais do que o limite comum de consultas em até 60 dimensões: com mais de 130 telemetrias para os satélites da família da SCD, e milhares para satélites maiores como o CBERS e o Amazônia, a execução de consultas complexas seria normalmente inviável nos algoritmos de construção do cubo tradicionais.
 
 A figura~\ref{fig:qualistructure} mostra uma visão geral da estrutura proposta.
 Seguindo a revisão feita an seção~\ref{ch:corr:cube}, o uso do \textit{FragCubing} seria adotado dadas as características altamente dimensionais e com alto \textit{skew} dos dados.
-Porém, para essa proposta, seria adicionado um classificador de relacionamentos entre as telemetrias, que seriam dados de entrada para o algortimo do \textit{FragCubing} modificado, que decidirá como o cubo de dados resultante será construído.
+Porém, para essa proposta, seria adicionado um classificador de relacionamentos entre as telemetrias, que seriam dados de entrada para o algoritmo do \textit{FragCubing} modificado, que decidirá como o cubo de dados resultante será construído.
 
 \begin{figure}[!htb]
 	\caption{Estrutura proposta}\label{fig:qualistructure}
@@ -47,5 +47,14 @@ Porém, para essa proposta, seria adicionado um classificador de relacionamentos
 
 Nessa estrutura, o usuário realiza consultas diretamente com o \textit{FragCubing} Modificado, porém como o classificador é uma ferramenta separada, ele pode ser utilizado de forma independente.
 É importante ressaltar que o \textit{FragCubing} é composto de um algoritmo de construção do cubo e um algoritmo de processamento das consultas, e esta proposta estaria alterando em princípio apenas o algoritmo de construção do cubo.
+
+{\color{red}
+\subsection{Funcionamento da estrutura}\label{ch:prop:cube:func}
+
+%% Fill me in tomorrow...
+
+
+}
+
 
 }
