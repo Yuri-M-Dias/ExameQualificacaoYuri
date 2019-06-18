@@ -2,7 +2,7 @@
 
 \chapter{FUNDAMENTAÇÃO}\label{ch:fun}
 
-Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pela operação dos satélites na seção~\ref{ch:fun:operations}, apresentando a definição de \textit{Big Data} na seção~\ref{ch:fun:bigdata}, e os os conceito de \textit{Data Warehouse} na seção~\ref{ch:fun:dw}, \textit{OLAP} na seção~\ref{ch:fun:olap} e Cubo de Dados na seção~\ref{ch:fun:cube}.
+Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pela operação dos satélites na seção~\ref{ch:fun:operations}, apresentando a definição de \textit{Big Data} na seção~\ref{ch:fun:bigdata}, e os os conceito de \textit{Data Warehouse} na seção~\ref{ch:fun:dw}, \textit{OLAP} na seção~\ref{ch:fun:olap} e cubo de dados na seção~\ref{ch:fun:cube}.
 
 \section{Operação de Satélites}\label{ch:fun:operations}
 
@@ -92,9 +92,9 @@ Não há utilização de repositórios relacionais para armazenar dados multidim
 Isso cobre a grande maioria das operações do dia a dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
 Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo voltado para decisões de mais alto nível na organização~\cite{hanDataMiningConcepts2011}.
 
-\section{Cubo de Dados}\label{ch:fun:cube}
+\section{Cubo de dados}\label{ch:fun:cube}
 
-O Cubo de Dados originalmente foi criado como um operador relacional que gera todas as combinações possíveis de seus atributos de acordo com uma medida~\cite{grayDataCubeRelational1996}.
+O cubo de dados originalmente foi criado como um operador relacional que gera todas as combinações possíveis de seus atributos de acordo com uma medida~\cite{grayDataCubeRelational1996}.
 
 A estrutura do cubo de dados permite que os dados sejam modelados e visualizados em múltiplas dimensões, e ele é caracterizado por dimensões e medidas.
 Uma medida é um atributo cujos valores são calculados pelo relacionamento entre as dimensões, sendo que esse é calculado utilizando funções de agragação como soma, quantidade, média, moda, mediana, etc.
@@ -119,7 +119,7 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 	\FONTE{Produção do autor.}
 \end{figure}
 
-\subsection{Células do Cubo de Dados}\label{ch:fun:cube:cells}
+\subsection{Células do cubo de dados}\label{ch:fun:cube:cells}
 
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
