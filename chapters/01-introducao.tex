@@ -46,7 +46,7 @@ Esses dados devem ser propriamente tratados para que não virem ``\textit{dark d
 Esses dados entram na definição de \textit{Big Data}, pois possuem um grande volume, são gerados continuamente, possuem formatos diversos, sua análise é de alto valor e existe uma incerteza quanto a qualidade dos dados devido a problemas de comunicação e degradação dos instrumentos.
 Essas características são denotadas pelos cinco Vs do \textit{Big Data}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}.
 
-Considerando que todos os dados já estivessem no banco de dados, propriamente formatados e prontos para a análise, ainda restariam grandes problemas: com um banco de dados na ordem dos \textit{terabytes}, {\color{cerulean}consultas sobre um número elevado de telemetrias} ou que precisem de dados de vários anos poderiam demorar dias, ou mais, para serem executadas.
+Considerando que todos os dados já estivessem no banco de dados, propriamente formatados e prontos para a análise, ainda restariam grandes problemas: com um banco de dados na ordem dos \textit{terabytes}, consultas sobre um número elevado de telemetrias ou que precisem de dados de vários anos poderiam demorar dias, ou mais, para serem executadas.
 
 Deste modo, é necessário criar uma estrutura que permita a análise e consulta desses dados de uma forma estruturada e que tenha desempenho satisfatório.
 As tecnologias de \textit{Data Warehouse} (DW) e \textit{Online Analytical Processing} (OLAP) tem demonstrado capacidade e experiência para atingir esses objetivos~\cite{bimonteOpenIssuesBig2016}, inclusive na área espacial~\cite{yvernesCopernicusGroundSegment2018}.
@@ -54,9 +54,7 @@ Essas tecnologias executam a generalização de dados agregando enormes quantida
 Sistemas OLAP, que são tipicamente dominados por consultas complexas que envolvem operadores \textit{group-by} e operadores de agregações, são as principais características entre essas ferramentas.
 
 Sistemas OLAP são baseados em um modelo multidimensional chamado de cubo de dados, que é uma generalização do operador \textit{group-by} sobre todas as combinações possíveis das dimensões, com variados níveis de granularidade~\cite{grayDataCubeRelational1996}.
-{\color{cerulean}
 Cada dimensão é uma perspectiva de decisão sobre os dados, sendo formada por um subconjunto de atributos.
-}
 Cada combinação é chamada de um subcubo, que correspondem a um conjunto de células descritas como tuplas sobre as dimensões do subcubo.
 Além das dimensões, cada tupla contém um fato, também chamado de medida, que representa o que será medido no processo de análise.
 
@@ -85,9 +83,7 @@ Assim, este trabalho tem como objetivo estabelecer um método para processamento
 Assim é necessário identificar quais são as consultas de interesse dos operadores de satélite e quais são as análises que devem ser feitas pelos mesmos.
 Disso será criada uma representação dimensional dos dados de telemetria em uma estrutura do cubo de dados, e  algoritmos de construção do cubo devem ser avaliados para identificar qual é o mais apropriado para responder as consultas.
 
-{\color{cerulean}
 Como resultados esperados deste trabalho teremos a avaliação dos algoritmos de construção do cubo nos dados de alta dimensionalidade, com a adequabilidade do uso de cubo de dados como uma solução para operadores executarem as consultas analíticas mais estratégicas para as operações de satélites.
-}
 
 \section{Organização da proposta}\label{ch:intro:org}
 

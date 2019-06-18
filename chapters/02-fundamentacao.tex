@@ -20,9 +20,7 @@ Dependendo da missão, outras medidas podem ser classificadas como telemetria, c
 
 Esses dados devem ser analisados pelos operadores de satélite, que são os responsáveis pelo monitoramento e operação do satélite, em solo após recebimento no centro de controle.
 Essa análise visa garantir que o satélite está executando suas tarefas como deveria, e que o seu estado de saúde permite a continuação da missão.
-{\color{cerulean}
 Neste trabalho, será utilizada a análise feita pelos operadores de satélite somente nos dados de telemetria, que é uma análise não trivial dadas as características dos dados, classificados como \textit{Big Data}.
-}
 
 \section{Big Data}\label{ch:fun:bigdata}
 
@@ -107,9 +105,7 @@ A organização de um cubo de dados possibilita ao usuário a flexibilidade de v
 Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{hanDataMiningConcepts2011}.
 
 Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
-{\color{cerulean}
 A figura~\ref{fig:cubeexample} mostra um exemplo de um cubo de dados.
-}
 O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}.
 
 \begin{figure}[!htb]
@@ -128,9 +124,7 @@ O valor de uma medida é computado para uma determinada célula utilizando níve
 Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
 Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
 Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
-{\color{cerulean}
 A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C, do mais genérico (\textit{apex}) ao mais específico(base).
-}
 
 \begin{figure}[!htb]
   \caption{Células de agregação em um cubo de dados}\label{fig:hasse}
@@ -225,9 +219,7 @@ Alguns exemplos são as medidas de moda, desvio padrão e mediana~\cite{hanDataM
 
 Para realizar consultas no \textit{Data Warehouse}, é necessário utilizar de algumas operações sobre o cubo de dados para obter os resultados adequados.
 Essas consultas também devem conseguir passar na hierarquia de conceitos de cada dimensão, bem como seguir o modelo dimensional do cubo definido, para conseguir oferecer uma interface amigável com o usuário para análise interativa~\cite{hanDataMiningConcepts2011}.
-{\color{cerulean}
 Algumas operações estão exemplificados na figura~\ref{fig:olap}, porém elas geralmente são:
-}
 
 \begin{itemize}
 	\item \textit{Roll-up}: realiza agregação no cubo de dados, seja navegando na hierarquia de conceitos de nível específico para um mais genérico, ou reduzindo uma dimensão.

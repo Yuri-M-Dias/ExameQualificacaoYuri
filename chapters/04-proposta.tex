@@ -2,13 +2,9 @@
 
 \chapter{PROPOSTA}\label{ch:prop}
 
-{\color{cerulean}
 Esta seção apresenta os objetivos do trabalho, bem como a problemática dos dados disponíveis atualmente e apresenta a estrutura que é proposta para solucionar o problema.
-}
 
 \section{Objetivos}\label{ch:prop:obj}
-
-{\color{cerulean}
 
 O objetivo principal deste trabalho é estabelecer um método para processamento de cubos de dados para a área espacial, para que o processamento de consultas OLAP sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas, alto \textit{skew} e alta cardinalidade dos dados.
 Como objetivos secundários, este trabalho visa:
@@ -20,11 +16,8 @@ Como objetivos secundários, este trabalho visa:
 \item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
 \end{enumerate}
 
-}
-
 \section{Algoritmos de construção do cubo}\label{ch:prop:cube}
 
-{\color{cerulean}
 Esta proposta se concentra apenas na proposição de um algoritmo de computação do cubo de dados.
 Uma das necessidades de usar algoritmos diferentes de cubo de dados está no número de dimensões que um certo cubo consegue realizar pesquisas: consultas com mais que 15 dimensões não são comummente(ou praticamente) executadas em alguns algoritmos, como o trabalho de~\citeonline{silva:2015:abordagensParaCubo} demonstra.
 
@@ -60,4 +53,3 @@ Disto o cubo de dados será construído, e o algoritmo pode então passar a resp
 O usuário pode então consultar diretamente o classificador de relacionamentos para entender os relacionamentos entre as telemetrias, ou pode executar consultas sobre o cubo de dados gerado, dependendo da informação que lhe for necessária.
 É importante ressaltar que as consultas diretas ao classificador são uma adição para a usabilidade da estrutura, não estando relacionadas diretamente com o algoritmo do \textit{FragCubing}.
 
-}
