@@ -45,7 +45,7 @@ Este passo é necessário para garantir que dados são consistentes o bastante p
 
 O algoritmo de classificação seria então executado sobre os dados ingeridos, que teria os seus próprios resultados de classificação, também salvos.
 Essas classificações e os dados ingeridos serviriam como entrada para o algoritmo do \textit{FragCubing} modificado, que utilizaria dos relacionamentos a sua discrição para montar um cubo de dados sobre os dados de telemetria.
-É importante ressaltar que o \textit{FragCubing} é composto de um algoritmo de construção do cubo e um algoritmo de processamento das consultas, e esta proposta estaria alterando em princípio apenas o algoritmo de construção do cubo.
+É importante ressaltar que o \textit{FragCubing} é composto de um algoritmo de construção do cubo e um algoritmo de processamento das consultas, e esta proposta estaria alterando, em princípio, apenas o algoritmo de construção do cubo.
 
 Neste passo, os relacionamentos seriam utilizados como necessário pelo algoritmo, pois a geração de todos os relacionamentos possíveis não é necessária em todo momento, e os relacionamentos mais relevantes seriam minerados pelo próprio algoritmo.
 Disto o cubo de dados será construído, e o algoritmo pode então passar a responder consultas, seguindo o algoritmo do \textit{FragCubing}.
