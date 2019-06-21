@@ -38,7 +38,7 @@ Essa tabela considera apenas dados considerados como telemetria do próprio sat�
 Para este trabalho, apenas os dados vindos de sensores de bordo serão considerados.
 Os outros dados nesta tabela poderiam ser considerados para uma \textit{Data Warehouse} mais completa, porém estão fora do escopo desta proposta.
 
-\subsection{Fluxo dos Dados}\label{ch:corr:dataflow}
+\subsection{Fluxo dos dados}\label{ch:corr:dataflow}
 
 Baseado nos trabalhos correlatos e nos dados levantados, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
 
@@ -73,7 +73,7 @@ Cada uma das etapas está detalhada a seguir:
 
 Os trabalhos de~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} e~\cite{boussoufBigDataBased2018} definem esse processo mais claramente dentre os trabalhos apresentados.
 
-\section{Análise de Dados em Outros Operadores de Satélite}\label{ch:corr:ops}
+\section{Análise de dados em outros operadores de satélite}\label{ch:corr:ops}
 
 A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}.
 
@@ -128,7 +128,7 @@ Alguns desses trabalhos não utilizam de estruturas completas que seguem um flux
 
 O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do cubo de dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
 
-\subsection{Análise de Dados no INPE}\label{ch:corr:inpe}
+\subsection{Análise de dados no INPE}\label{ch:corr:inpe}
 
 O INPE já realiza análise de dados em outros departamentos, inclusive sobre as telemetrias de satélite.
 Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso apareça algum problema que não pôde ser corrigido~\cite{TominagaFerrAmbr:2017:CoSaTe}.
@@ -167,7 +167,7 @@ A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData201
 Destes trabalhos, o \textit{FragCubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados.
 Porém,~\citeonline{liHighdimensionalOLAPMinimal2004} ilustram o impacto exponencial no consumo de memória nas diferentes abordagens de computação de cubos de dados usando apenas 12 dimensões, sendo que há uma saturação quando cubos com 20, 50 ou 100 dimensões são computados utilizando abordagens de cubos completos, cubos DWARF, MCG, cubos fechados ou quocientes~\cite{silva:2015:abordagensParaCubo}.
 
-\subsection{FragCubing}\label{ch:corr:cube:frag}
+\subsection{\textit{FragCubing}}\label{ch:corr:cube:frag}
 
 O \textit{FragCubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de inversão de tupla.
 Cada tupla invertida $iT$ tem um valor de atributo, uma lista de identificadores da tupla (TIDs) e um conjunto de valores de medida.
