@@ -5,9 +5,9 @@
 %SemFolhaAprovacao,
 %SemImagens,
 %CitacaoNumerica, %% o padrão é citação tipo autor-data
-%PublicacaoDissOuTese, %% (é também o "default") com ficha catal. e folha de aprovação em branco. Caso tenha lista de símbolos e lista de siglas e abreviaturas retirar os comentários dos arquivos siglas.tex e abreviaturasesiglas.tex. Retirar também os comentários indicados nesse arquivo, nos includes
-PublicacaoArtigoOuRelatorio, %% texto sequencial, sem quebra de páginas nem folhas em branco
-PublicacaoProposta, %% igual tese/dissertação, mas sem ficha catal. e fol. de aprov.
+PublicacaoDissOuTese, %% (é também o "default") com ficha catal. e folha de aprovação em branco. Caso tenha lista de símbolos e lista de siglas e abreviaturas retirar os comentários dos arquivos siglas.tex e abreviaturasesiglas.tex. Retirar também os comentários indicados nesse arquivo, nos includes
+%PublicacaoArtigoOuRelatorio, %% texto sequencial, sem quebra de páginas nem folhas em branco
+%PublicacaoProposta, %% igual tese/dissertação, mas sem ficha catal. e fol. de aprov.
 %PublicacaoLivro, %% com capítulos
 %PublicacaoLivro,SemFormatacaoCapitulo, %% sem capítulos
 english,portuguese %% para os documentos em Português com abstract.tex em Inglês
@@ -59,16 +59,16 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 %%% Comente as linhas opcionais abaixo caso não as deseje
 \include{./docs/epigrafe} %% Opcional
 %\include{./docs/dedicatoria} %% Opcional
-%\include{./docs/agradecimentos} %% Opcional
+\include{./docs/agradecimentos} %% Opcional
 \include{./docs/resumo} %% obrigatório
-%\include{./docs/abstract} %% obrigatório
+\include{./docs/abstract} %% obrigatório
 
 \includeListaFiguras %% obrigatório caso haja mais de 3 figuras, gerado automaticamente
 \includeListaTabelas %% obrigatório caso haja mais de 3 tabelas, gerado automaticamente
 
 \include{./docs/abreviaturasesiglas} %% opcional %% altere o arquivo siglaseabreviaturas.tex
 
-%\include{./docs/simbolos} %% opcional %% altere o arquivo simbolos.tex
+\include{./docs/simbolos} %% opcional %% altere o arquivo simbolos.tex
 
 \includeSumario  %% obrigatório, gerado automaticamente
 
@@ -77,9 +77,11 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 \include{./chapters/01-introducao}
 \include{./chapters/02-fundamentacao}
 \include{./chapters/03-correlatos}
-\include{./chapters/04-proposta}
-\include{./chapters/05-implementacao}
-\include{./chapters/06-conclusao}
+\include{./chapters/04-experiment}
+\include{./chapters/05-query-partition}
+\include{./chapters/06-interval-index}
+\include{./chapters/07-results}
+\include{./chapters/08-conclusion}
 
 %% insira quantos capítulos desejar com o seguinte comando:
 %\include{_pasta_do_arquivo_/_meu_arquivo_} %%sem a extensão
@@ -92,8 +94,9 @@ english,portuguese %% para os documentos em Português com abstract.tex em Ingl�
 
 %\include{./docs/glossario} %% insira os termos do glossário no arquivo glossario.tex %% opcional
 
-%\inicioApendice %% opcional, comente esta linha e a seguintes se não houver apendice(s)
+\inicioApendice %% opcional, comente esta linha e a seguintes se não houver apendice(s)
 %\include{./docs/apendice1} %% insira apendices tal qual capítulos acima
+\include{./chapters/anexo-b-interval-intersection}
 
 \inicioAnexo
 \include{./chapters/anexo-cronograma}

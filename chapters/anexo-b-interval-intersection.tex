@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\hypertarget{appendix:a}{} %% uso para este Guia
+\renewcommand{\thechapter}{}%
+\chapter{APPENDIX A - INTERSECTION ALGORITHMS}
+\label{ap:a}
+\renewcommand{\thechapter}{A}
+
+This is only a simple overview to show that the problem is important and has a lot of research behind
+
+- Overview of the intersection algorithms used
+
+- The results from the intersection algorithms
+
+- What to test now with other algorithms (Ding, Li, etc with references!)
+
+- Summary of the algorithms: Table~\ref{tab:setintersectalgos}.
+\textcolor{red}{All wrong for now}
+
+\begin{table}[!ht]
+  \begin{center}
+    \caption{Set Intersection Algorithms}\label{tab:setintersectalgos}
+    \begin{tabular*}{\textwidth}{|c|c|c|}
+      \hline
+      \textbf{Algorithm} &\bfseries Reference & \bfseries Complexity \\
+      \hline
+      Scalar & Cormen? & $O(n + M)$ \\
+      \hline
+      Li & ? & $O(n + M)$ \\
+      \hline
+      std::set\_intersect & C++ impl? & $O(n + M)$ \\
+      \hline
+      HashSet & Not even cormen can save me & $O(n + M)$ \\
+      \hline
+      UnorderedSet & - & $O(n + M)$ \\
+      \hline
+      BinaryIntersection & - & $O(n + M)$ \\
+      \hline
+      BinaryIterator & - & $O(n + M)$ \\
+      \hline
+      SIMD (SS2) & - & $O(n + M)$ \\
+      \hline
+      Ding? & - &  $O(n + M)$ \\
+      \hline
+    \end{tabular*}
+  \end{center}
+\end{table}
+

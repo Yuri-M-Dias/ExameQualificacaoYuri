@@ -1,0 +1,34 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{CONCLUSIONS}\label{ch:concl}
+
+This work shows that it is possible to further optimize data cube algorithms by gathering information from the underlying data, and how this can be made to aid the end user's experience by decreasing implementation requirements and improving response times.
+
+\section{Main contributions}\label{ch:concl:contrib}
+
+One of the stated purposes of this work was to find ways of using the data's domain characteristics to improve the satellite operator's day to day activities, and this work has achieved three main results:
+
+\begin{enumerate}
+\item A heuristic to discover related telemetries between satellite time series data and how to use this with the help of an operator to validate the relevant queries;
+\item Using the previous heuristic to enhance FragCubing's query response time and memory by pre-partitioning the data;
+\item Improving upon FragCubing's Inverted Index memory model by saving only intervals instead of the entire values, and thus reducing memory and query response times for some queries;
+\end{enumerate}
+
+\section{Future work}\label{ch:concl:future}
+
+The natural evolution of this work would be to test it using other data cube algorithms, as there's a great variety of them mentioned in section~\ref{ch:corr} and not all of them might be applicable to satellite telemetry data, or showcase useful performance metrics.
+On that note the use of bCubing~\cite{silva:2015:abordagensParaCubo} will be interesting, as the inverted index separation into blocks can further improve upon the memory usage as described in this chapter.
+
+The use of the gathered satellite data on other projects is also of interest, as there's no public reliable dataset of satellite telemetry data that contains all relevant data and not just a subset of a subsystem, and this work showcases a volume that has information enough for the training of Machine Learning and Artificial Intelligence projects.
+Only projects that release full telemetry data are relatively simple CubeSat projects, who do not generate a significant volume that is enough for the use of these algorithms.
+The author plans to release the dataset in a citable format for the use of the community in the near future.
+
+This work also has the potential of improving query execution when dealing with multiple satellites, constellations and/or formations, it needing only the data to be gathered and the suitable cube format defined to be tested.
+
+Furthermore the Set Intersection problem defined in chapter~\ref{ch:interval} can be further optimized with recent advances not only in computer architectures, but also with regards to complexity and the validation of the algorithms in real world datasets.
+A preliminary investigation was performed, as a simple but not rigorous overview of the results is detailed in Annex~\ref{ap:a}.
+
+\section{Final thoughts}\label{ch:concl:future}
+
+\textcolor{red}{The approach and architecture detailed in this work...}
+

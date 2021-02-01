@@ -2,7 +2,7 @@
 % tdiinpe.cls
 % Classe INPE para teses e dissertacoes e outras publicações
 %
-%*     Instituto Nacional de Pesquisas Espaciais (INPE)                         *% 
+%*     Instituto Nacional de Pesquisas Espaciais (INPE)                         *%
 %*     Copyright 2002-2015 © MCTI/INPE                                          *%
 %*     Ao reusar o tdiinpe.cls por favor,                                       *%
 %*     - mencione que o original foi desenvolvido pelo MCTI/INPE                *%
@@ -16,6 +16,7 @@
 % Alan W. S. da Silva (alan@sid.inpe.br) [11/08/2005] +55(12)3945 6911
 % Mantenedor e Desenvolvedor atual:
 % Gerald J. F. Banon (banon@dpi.inpe.br) [25/03/2008] +55(12)3945 6489
+% Gerald J. F. Banon (gerald.banon@gmail.com) [11/05/2015] +55(12)3923 4742
 %
 % ----- Identificacao:
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
@@ -52,18 +53,24 @@
 %\ProvidesClass{tdiinpe}[2015/01/29 v1.31]
 %\ProvidesClass{tdiinpe}[2015/06/10 v1.32]
 %\ProvidesClass{tdiinpe}[2015/11/16 v1.33]
-\ProvidesClass{tdiinpe}[2016/07/24 v1.34]
+%\ProvidesClass{tdiinpe}[2016/07/24 v1.34]
+%\ProvidesClass{tdiinpe}[2018/09/21 v1.35]
+\ProvidesClass{tdiinpe}[2019/04/02 v1.36]
 
-% modificaçoes (mais acima, mais atual) - última modificação: 24 de julho de 2016
+% modificaçoes (mais acima, mais atual) - última modificação: 02 de abril de 2019
+% - Troca de: COMISSÃO DO CONSELHO DE EDITORAÇÃO E PRESERVAÇÃODA PRODUÇÃO INTELECTUAL DO INPE (DE/DIR-544, por CONSELHO DE EDITORAÇÃO E PRESERVAÇÃO DA PRODUÇÃOINTELECTUAL DO INPE - CEPPII (PORTARIA No176/2018/SEI-INPE) (André Fernandes 2019-04-02)
+% - inclusão do commando \financiamento para informar abaixo da ficha catalográfica sobre a(s) fonte(s) financiador(es) (banon 2018-09-21)
+%   o comando \financiamento{xxx} deve ser colocado depois de \begin{documment} e antes de \maketitle
+%   onde xxx é o texto referente à(s) fonte(s) financiador(es).
 % - modificação do código do comando \FONTE para que as fontes curtas fiquem centralizadas (gjfb - banon 2016-07-24)
 % - introdução do campo \autorFICHAC para ter os nomes dos autores separados por (;) na ficha catalográfica (ex: Nome Completo do Autor1; Nome Completo do Autor2). Campo opcional (se não usado prevalece \author - observação: se há mais de um autor, o campo \author deve ser preenchido assim: Nome Completo do Autor1\\Nome Completo do Autor2). A possibilidade de ausência do campo \autorFICHAC é prático quando a obra tem apenas um autor. Nesse caso basta preencher apenas o campo \author. (banon 2015-11-16)
 % - introdução da opção de copyright: GPLv3 (banon 2015-06-10)
 % - inclusão da palavra COMISSÃO/COMMISSION no comando \ConselhoDeEditoracao (clayton 2015-01-29)
 % - inclusão do commando \marcaRegistrada para informar abaixo da ficha catalográfica sobre marca registrada.
-%   o comando \marcaRegistrada{xxx} tem que ser colocado depois de \begin{documment} e antes de \maketitle
+%   o comando \marcaRegistrada{xxx} deve ser colocado depois de \begin{documment} e antes de \maketitle
 %   onde xxx é o texto referente à marca registrada.
 % - alteração de \newcommand{\FONTE} para assegurar o alinhamento do fonte com a legenda (banon 2014-07-23)
-%   para figuras o posicionamento de título, legenda e fonte segue as três regras abaixo: 
+%   para figuras o posicionamento de título, legenda e fonte segue as três regras abaixo:
 %   1. As legendas curtas ficam centralizadas - As legendas longas ficam justificadas.
 %   2. O fonte segue a mesma regra quando não tem legenda. Quando tem legenda, ele fica alinhado com a legenda.
 %   3. A segunda linha de um fonte longo e as demais linhas (se houver) ficam alinhadas após a palavra Fonte:.
@@ -131,14 +138,14 @@
 % - atualização do script execpub.sh
 % - inclusão dos scripts latin2tex.sh e tex2latin.sh
 % - inclusão do pacote subfigure
-% - inclusão da função watermark para identificação de documentos 
+% - inclusão da função watermark para identificação de documentos
 % - espaçamento no itemize corrigido
 % - correçao em \anexo, para ficar independente de haver ou não apêndice
 % - PublicacaoProposta omite serieinpe
 % - possibilidade de gerar docs em ps, dvi e html, além do PDF. (beta)
 % - definido environment epicap para fazer epígrafes em capítulos
 % - opcao de citacao: CitacaoNumerica, padrão é tipo autor-data
-% - inserido os macros da ABNTeX para citação e referências segundo a ABNT     
+% - inserido os macros da ABNTeX para citação e referências segundo a ABNT
 % - inserção de facilidades para longtables (em landscape inclusive)
 % - modificação no código da função \FONTE
 % - tipos de doc: PublicacaoDissOuTese, PublicacaoArtigoOuRelatorio, PublicacaoProposta, PublicacaoLivro
@@ -158,7 +165,7 @@
 %      \pdftrue
 % \fi
 
-\usepackage{ifpdf} 
+\usepackage{ifpdf}
 
 %%% Checa se foi chamado o comando htlatex para gerar documento em html
 \newif\ifHTML
@@ -202,7 +209,7 @@
 \RequirePackage{babel} %% essencial %% docs em vários idiomas
 
 \RequirePackage{hyphenat} %% essencial %% hifenização
-\RequirePackage{array} %% essencial %% variante para arranjos e tabelas 
+\RequirePackage{array} %% essencial %% variante para arranjos e tabelas
 \RequirePackage{setspace} %% essencial %% define espaços entre linhas no texto
 \RequirePackage{bigdelim} %% essencial %% para uso de tabelas
 \RequirePackage{multirow} %% essencial %% para uso de tabelas
@@ -304,7 +311,7 @@
 	\gdef\@includeFA{false}
 	\gdef\@folhaembranco{true}
 	\gdef\@printserieinpe{false}
-	\gdef\@docSemFormatacaoCapitulo{true}  
+	\gdef\@docSemFormatacaoCapitulo{true}
 }
 
 \DeclareOption{PublicacaoLivro}{%
@@ -313,7 +320,7 @@
 	\gdef\@includeFC{true}
 	\gdef\@includeFA{false}
 	\gdef\@folhaembranco{true}
-	\gdef\@docSemFormatacaoCapitulo{false}	% com capítulo  
+	\gdef\@docSemFormatacaoCapitulo{false}	% com capítulo
 }
 
 \DeclareOption{SemFormatacaoCapitulo}{%
@@ -384,10 +391,10 @@
 \ifHTML\gdef\@sepbr{no}
 \gdef\@tipocitacao{num}
 \else\fi
-\usepackage[\@tipocitacao,abnt-emphasize=bf,abnt-etal-cite=2,abnt-etal-list=0,abnt-repeated-title-omit=yes,abnt-show-options=warn,abnt-verbatim-entry=\@sepbr,abnt-url-package=url]{abntcite}%testebib 
+\usepackage[\@tipocitacao,abnt-emphasize=bf,abnt-etal-cite=2,abnt-etal-list=0,abnt-repeated-title-omit=yes,abnt-show-options=warn,abnt-verbatim-entry=\@sepbr,abnt-url-package=url]{abntcite}%testebib
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% configuracao das margens 
+% configuracao das margens
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \normalsize
 
@@ -402,7 +409,7 @@
 %\setlength{\bottommargin}{3.0cm}
 %\setlength{\headheight}{12pt}
 %\setlength{\headsep}{12pt}
-%\setlength{\footskip}{1.5cm} 
+%\setlength{\footskip}{1.5cm}
 %\setlength{\textheight}{24cm}
 %\setlength{\textwidth}{16cm}
 
@@ -435,7 +442,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \frenchspacing %Não põe um espaco adicional após ponto final.
 \sloppy %força que todas as linhas fiquem dentro das margens.
 
-%footnoterule 	
+%footnoterule
 \renewcommand{\footnoterule}{\vspace*{-3pt}%
 	\rule{3cm}{0.4pt}\vspace*{2.6pt}%
 }
@@ -492,8 +499,8 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 %\renewcommand{\labelenumiii}{\theenumiii}
 
 %%%%%%%% Variaveis, dependem de idiomas
-\ifthenelse{\equal{\languagename}{brazilian} 
-				\or \equal{\languagename}{brazil} 
+\ifthenelse{\equal{\languagename}{brazilian}
+				\or \equal{\languagename}{brazil}
 				\or \equal{\languagename}{portuguese}}{
 \AtBeginDocument{
 \newcommand{\nomecapa}{CAPA}
@@ -509,7 +516,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \newcommand{\nomeglossarios}{GLOSSÁRIO}
 \newcommand{\nomeabreviaturasesiglas}{LISTA DE ABREVIATURAS E SIGLAS}
 \newcommand{\nomefichacatalografica}{FICHA CATALOGRÁFICA}
-\newcommand{\termosdeuso}{TERMOS DE USO}	% acrescentado por jgfb em 2013-10-07
+\newcommand{\termosdeuso}{TERMOS DE USO}	% acrescentado por gjfb em 2013-10-07
 \newcommand{\nomefolhadeaprovacao}{FOLHA DE APROVAÇÃO}
 \renewcommand{\refname}{REFERÊNCIAS BIBLIOGRÁFICAS}
 \renewcommand{\figurename}{Figura}% %awss
@@ -531,7 +538,8 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \newcommand{\PublicadoPor}{Publicado por}
 %\newcommand{\ConselhoDeEditoracao}{CONSELHO DE EDITORAÇÃO}	% comentado por gjfb em 2010-05-01
 %\newcommand{\ConselhoDeEditoracao}{CONSELHO DE EDITORAÇÃO E PRESERVAÇÃO DA PRODUÇÃO INTELECTUAL DO INPE (RE/DIR-204)}	% acrescentado por gjfb em 2010-05-01
-\newcommand{\ConselhoDeEditoracao}{COMISSÃO DO CONSELHO DE EDITORAÇÃO E PRESERVAÇÃO DA PRODUÇÃO INTELECTUAL DO INPE (DE/DIR-544)}	% acrescentado por cmp em 2015-01-29
+%\newcommand{\ConselhoDeEditoracao}{COMISSÃO DO CONSELHO DE EDITORAÇÃO E PRESERVAÇÃO DA PRODUÇÃO INTELECTUAL DO INPE (DE/DIR-544)}	% acrescentado por cmp em 2015-01-29
+\newcommand{\ConselhoDeEditoracao}{CONSELHO DE EDITORAÇÃO E PRESERVAÇÃO DA PRODUÇÃO INTELECTUAL DO INPE - CEPPII (PORTARIA Nº 176/2018/SEI-INPE)}	% acrescentado por aldf em 2019-04-02
 \newcommand{\Presidente}{Presidente}
 \newcommand{\Membros}{Membros}
 \newcommand{\BibliotecaDigital}{BIBLIOTECA DIGITAL}
@@ -554,7 +562,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \newcommand{\nomeglossarios}{GLOSSARY}
 \newcommand{\nomeabreviaturasesiglas}{LIST OF ABBREVIATIONS}
 \newcommand{\nomefichacatalografica}{INDEX CARD}
-\newcommand{\termosdeuso}{TERMS OF USE}	% acrescentado por jgfb em 2013-10-07
+\newcommand{\termosdeuso}{TERMS OF USE}	% acrescentado por gjfb em 2013-10-07
 \newcommand{\nomefolhadeaprovacao}{APPROVAL TERM}
 \renewcommand{\refname}{REFERENCES}
 %\renewcommand{\figurename}{FIGURE}% %awss
@@ -578,7 +586,8 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \newcommand{\PublicadoPor}{Published by}
 %\newcommand{\ConselhoDeEditoracao}{EDITORIAL COMMITTEE}	% comentado por gjfb em 2010-05-01
 %\newcommand{\ConselhoDeEditoracao}{BOARD OF PUBLISHING AND PRESERVATION OF INPE INTELLECTUAL PRODUCTION (RE/DIR-204)}	% acrescentado por gjfb em 2010-05-01
-\newcommand{\ConselhoDeEditoracao}{COMMISSION OF BOARD OF PUBLISHING AND PRESERVATION OF INPE INTELLECTUAL PRODUCTION (DE/DIR-544)}	% acrescentado por cmp em 2015-01-29
+%\newcommand{\ConselhoDeEditoracao}{COMMISSION OF BOARD OF PUBLISHING AND PRESERVATION OF INPE INTELLECTUAL PRODUCTION (DE/DIR-544)}	% acrescentado por cmp em 2015-01-29
+\newcommand{\ConselhoDeEditoracao}{BOARD OF PUBLISHING AND PRESERVATION OF INPE INTELLECTUAL PRODUCTION - CEPPII (PORTARIA Nº 176/2018/SEI-INPE)}	% acrescentado por aldf em 2019-04-02
 \newcommand{\Presidente}{Chairperson}
 \newcommand{\Membros}{Members}
 \newcommand{\BibliotecaDigital}{DIGITAL LIBRARY}
@@ -597,7 +606,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	escrita do INPE, com exceção de qualquer material
 	fornecido especificamente com o propósito de ser entrado e executado
 	num sistema computacional, para o uso exclusivo do leitor da obra.}
-	
+
 	\newcommand{\license}{Copyright \copyright\ \@date\ by MCTI/INPE.
 	No part of this publication may be reproduced, stored in a retrieval system,
 	or transmitted in any form or by any means, electronic, mechanical,
@@ -638,14 +647,14 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 % CC-BY-NC-ND
 							\newcommand{\licenca}{\href{http://creativecommons.org/licenses/by-nc-nd/3.0/}{\includegraphics[width=2cm]{CCBYNCND.png}}\par Esta obra foi licenciada sob uma Licença \href{http://creativecommons.org/licenses/by-nc-nd/3.0/deed.pt_BR}{Creative Commons Atribuição-NãoComercial-SemDerivações 3.0 Não Adaptada}.}	% adicionado por gjfb em 2014-06-08
 							\newcommand{\license}{This work is licensed under a \href{http://creativecommons.org/licenses/by-nc-nd/3.0/}{Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported} License.}
-		
+
 						}{
 							\ifthenelse{\equal{\@GPLv3}{true}}{%
 % GPLv3
 % GPLv3.png deve ser uma cópia de: https://gnu.org/graphics/gplv3-88x31.png
 								\newcommand{\licenca}{\href{https://gnu.org/licenses/gpl-3.0.en.html}{\includegraphics[width=2cm]{GPLv3.pdf}}\par Esta obra foi licenciada sob uma Licença \href{https://gnu.org/licenses/gpl-3.0.en.html}{GNU General Public License - Versão 3}.}	% adicionado por gjfb em 2015-06-10
 								\newcommand{\license}{This work is licensed under a \href{https://gnu.org/licenses/gpl-3.0.en.html}{GNU General Public License - Version 3}.}
-		
+
 							}{
 % no license
 								\newcommand{\licenca}{}
@@ -660,7 +669,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 }
 
 %%% define estilo de numeracao geral no documento
-%plain (centro em baixo) %headings(superior fora com titulos) %myheadings (so num sup fora) %empty 
+%plain (centro em baixo) %headings(superior fora com titulos) %myheadings (so num sup fora) %empty
 \newcommand{\estilonum}{plain} %% ABNT myheadings
 	\markboth{}{}
 
@@ -668,7 +677,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	\ifthenelse{\equal{\@folhaembranco}{true}}{
 		\if@openright\cleardoublepage\else\clearpage\fi %% faz capitulo começar em folha impar (coloca folha em branco)
 	}{\vspace{\baselsinpe}}
-	\thispagestyle{\estilonum} %% define estilo de num. na pag. das partes 
+	\thispagestyle{\estilonum} %% define estilo de num. na pag. das partes
 	\global\@topnum\z@
 	\@afterindentfalse
 	\secdef\@chapter\@schapter
@@ -681,7 +690,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
   \thispagestyle{empty}%
   \if@twocolumn\onecolumn\@tempswatrue\else\@tempswafalse\fi%
   \null\vfil\secdef\@part\@spart}%
-  
+
 \newcommand*{\titulo}[1]{\gdef\@titulo{#1}}
 \newcommand*{\descriccao}[1]{\gdef\@descriccao{#1}}
 
@@ -723,6 +732,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 % FICHA - fim
 
 \newcommand*{\marcaRegistrada}[1]{\gdef\@marcaRegistrada{#1}}	% acrescentado por gjfb em 2014-10-07
+\newcommand*{\financiamento}[1]{\gdef\@financiamento{#1}}	% acrescentado por gjfb em 2018-09-21
 
 \newcommand*{\tituloFA}[1]{\gdef\@tituloFA{#1}}
 \newcommand*{\cursoFA}[1]{\gdef\@cursoFA{#1}}
@@ -768,9 +778,9 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 \newcommand{\includeSumario}{%
 	\pagestyle{plain}% para colocar paginação no sumário
 	\pretexto%
-	
+
 	{\pdfbookmark[0]{\contentsname}{contentsname}}
-	
+
 	\tableofcontents%
 
 %	\addtocontents{toc}{\protect\thispagestyle{empty}}% retirar paginação na primeira página
@@ -802,9 +812,9 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 %%% define variaveis do caption %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% delimita label do texto no caption, respeitar o espaco
-\renewcommand{\captionlabeldelim}{ -} 
+\renewcommand{\captionlabeldelim}{ -}
 %% estilo da fonte do texto no caption, baseado no \captionlabelfont sem negrito
-\renewcommand{\captionfont}{\captionlabelfont\mdseries\captionsize} 
+\renewcommand{\captionfont}{\captionlabelfont\mdseries\captionsize}
 
 %% variaveis temporarias para o comando \FONTE a partir do caption
 \newlength{\tempbox}
@@ -886,8 +896,8 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 				\setlength{\tempboxCalc}{0pt}
 				\setlength{\tempboxC}{0pt}
 				\vspace{24pt}
-				
-% acrescentado por gjfb em 2016-07-24 para as fontes curtas fiquem centralizadas (mesmo código que para as figuras)					
+
+% acrescentado por gjfb em 2016-07-24 para as fontes curtas fiquem centralizadas (mesmo código que para as figuras)
 						\setlength{\tempboxCalc}{\linewidth}
 						\settowidth{\tempboxD}{\tamfonte\captionfont#1}
 						\addtolength{\tempboxCalc}{-\tempboxD}
@@ -896,9 +906,9 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 						}{% fonte curta
 							\setlength{\tempboxCalc}{\tempboxCalc/2}
 						}
-% acrescentado por gjfb em 2016-07-24 para as fontes curtas fiquem centralizadas (mesmo código que para as figuras) - fim	
+% acrescentado por gjfb em 2016-07-24 para as fontes curtas fiquem centralizadas (mesmo código que para as figuras) - fim
 
-						
+
 %				\ifthenelse{\tempboxCalc = 0}{	% comentado por gjfb em 2016-07-24
 					\settowidth{\tempboxC}{\tamfonte}
 					\addtolength{\tempboxCalc}{\tempboxC}
@@ -918,7 +928,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 				\setlength{\tempboxCalc}{0pt}
 			}
 %			%% figure	% comentado por gjfb em 2014-01-17 - para quando o título deve ficar debaixo da figura
-			{% figure - new ABNT Norm 14724-2011 - acrescentado por gjfb em 2014-07-23 - para quando o título deve ficar acima da figura - novo código para o alinhamento do fonte com a legenda 
+			{% figure - new ABNT Norm 14724-2011 - acrescentado por gjfb em 2014-07-23 - para quando o título deve ficar acima da figura - novo código para o alinhamento do fonte com a legenda
 %				\sbox{\tempbox}{\tamlabel}\setlength{\tempboxA}{\wd\tempbox}	% comentado por gjfb em 2014-07-23
 				\setlength{\tempboxA}{0pt}	% acrescentado por gjfb em 2014-07-23 - para quando o título deve ficar acima da figura - novo código para o alinhamento do fonte com a legenda
 				%\typeout{-------------------------------------------------------A\the\tempboxA}
@@ -944,7 +954,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 						\setlength{\tempboxCalc}{\linewidth}
 						\settowidth{\tempboxD}{\tamfonte\captionfont#1}
 %						\gdef\tamtextofonte{\tamfonte\captionfont#1}
-%						\sbox{\tempbox}{\tamtextofonte}\setlength{\tempboxD}{\wd\tempbox}				
+%						\sbox{\tempbox}{\tamtextofonte}\setlength{\tempboxD}{\wd\tempbox}
 						\addtolength{\tempboxCalc}{-\tempboxD}
 						\ifthenelse{\tempboxCalc < 0}{% fonte longa
 							\setlength{\tempboxCalc}{0pt}
@@ -964,7 +974,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 				\setlength{\tempboxCalc}{0pt}
 			}
 
-		% código abaixo comentado por gjfb em 2014-07-23 - ver novo código acima					
+		% código abaixo comentado por gjfb em 2014-07-23 - ver novo código acima
 		%	{% figure - new ABNT Norm 14724-2011 - acrescentado por gjfb em 2014-01-17 - para quando o título deve ficar acima da figura
 		%	\setlength{\tempboxCalc}{0pt}
 		%	\setlength{\tempboxC}{0pt}
@@ -987,7 +997,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 		%	\setlength{\tempboxC}{0pt}
 		%	\setlength{\tempboxCalc}{0pt}
 		%	}
-		
+
 		%	{% figure	% comentado por gjfb em 2014-01-17 - para quando o título deve ficar debaixo da figura
 		%	\ifthenelse{\tempboxCalc = 0}{
 		%		\settowidth{\tempboxC}{\tamfonte}
@@ -1023,7 +1033,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	{}% the heading number
 	{0pt}% the distance between the label and title text
 	{}% code executed immediately preceding the heading text
-	
+
 \titlespacing{\chapter}{0pt}{-21mm}{0mm}	% 21mm foi encontrado por tentativa e erro - acrescentado por gjfb em 2009-10-11
 
 \titlecontents% acrescentado por gjfb em 2009-10-11
@@ -1054,7 +1064,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	{}% the heading number
 	{0pt}% the distance between the label and title text
 	{}% code executed immediately preceding the heading text
-	
+
 \titlespacing{\chapter}{0pt}{-21mm}{0mm}	% 21mm foi encontrado por tentativa e erro - acrescentado por gjfb em 2009-10-11
 
 \titlecontents% acrescentado por gjfb em 2009-10-11
@@ -1082,7 +1092,7 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	\renewcommand{\chaptername}{\nomeanexo}
  	\addtocontents{toc}{\protect\renewcommand{\protect\chaptername}{\protect\nomeanexo}}
 	\pretexto
-	\anexo 
+	\anexo
 }
 
 %%% comando para avisar do inicio do Indice
@@ -1090,9 +1100,9 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
 	\pagestyle{plain}%
 	\pretexto
 	\printindex
-} 
+}
 
-%%%%%%%%%%%%%%%comando para avisar inicio da Contracapa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%comando para avisar inicio da Contracapa%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\inicioContracapa}{
  \pretexto
 }
@@ -1112,8 +1122,9 @@ top=3cm,bottom=3cm]{geometry}	% acrescentado por gjfb em 2011-12-06
                  \setlength{\abovecaptionskip}{\belowcaptionskip}%
                  \setlength{\belowcaptionskip}{\@tempdima}%
                  \@ldtable}
-\makeatother 
-\marcaRegistrada{}	% acrescentado por gjfb em 2014-10-07 
+\makeatother
+\marcaRegistrada{}	% acrescentado por gjfb em 2014-10-07
+\financiamento{}	% acrescentado por gjfb em 2018-09-21
 }
 
 \renewcommand{\maketitle}{%maketitle
@@ -1132,7 +1143,7 @@ pdfauthor = {\@author},
 
 \begin{titlepage}%
  \pdfbookmark[0]{\nomecapa}{CAPA}
- 
+
  \ifthenelse{\equal{\@logoinpe}{true}}{	% acrescentado por gjfb em 2010-06-21
 % 	{\raggedright{\includegraphics[width=12cm]{logoinpe}}\par}
  	{\raggedright{\includegraphics[width=13.4cm,trim=0 0 0 0,clip]{logoinpe.pdf}}\par}
@@ -1154,10 +1165,10 @@ pdfauthor = {\@author},
  {\vspace*{\stretch{5}}\hspace{\metade@largura}\parbox{\metade@largura}{	% acrescentado por gjfb em 2011-12-06
  	\normalfont\large\@descriccao
  }}
- 
+
 % {\vspace*{\stretch{5}}{\centering\normalfont\scriptsize\avisoDeOriginal \\ <\href{http://urlib.net/\@repositorio}{http://urlib.net/\@repositorio}>\par}}	% comentado por gjfb em 2010-05-01
  {\vspace*{\stretch{5}}{\centering\normalfont\small\avisoDeOriginal \\ <\href{http://urlib.net/\@IBI}{http://urlib.net/\@IBI}>\par}}	% acrescentado por gjfb em 2010-05-01
- {\vspace*{\stretch{5}}{\centering\normalfont\normalsize\@instituicaosigla \\ 
+ {\vspace*{\stretch{5}}{\centering\normalfont\normalsize\@instituicaosigla \\
      \@instituicaocidade  \\ \@date\par}}
 %
   \newpage
@@ -1167,7 +1178,7 @@ pdfauthor = {\@author},
   {\vspace*{\stretch{0}}{\@descriccaoversoA\par}}
 \end{titlepage}%
 %%%%%%%%%%%%%%%%%%%%%%FOLHA DE ROSTO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% As páginas são contadas em roman a partir da FOLHA DE ROSTO 
+% As páginas são contadas em roman a partir da FOLHA DE ROSTO
 
 \pagenumbering{roman}% para usar estilo romano na paginação do pretexto - descomentado por gjfb em 2009-09-14
 %\setcounter{page}{1}% este comando não é necessário porque pagenumbering já inicializa a 1
@@ -1195,12 +1206,12 @@ pdfauthor = {\@author},
  {\vspace*{\stretch{5}}\hspace{\metade@largura}\parbox{\metade@largura}{	% acrescentado por gjfb em 2011-12-06
  	\normalfont\large\@descriccao
  }}
- 
+
 % {\vspace*{\stretch{5}}{\centering\normalfont\scriptsize\avisoDeOriginal \\ <\href{http://urlib.net/\@repositorio}{http://urlib.net/\@repositorio}>\par}}	% comentado por gjfb em 2010-05-01
  {\vspace*{\stretch{5}}{\centering\normalfont\small\avisoDeOriginal \\ <\href{http://urlib.net/\@IBI}{http://urlib.net/\@IBI}>\par}}	% acrescentado por gjfb em 2010-05-01
-{\vspace*{\stretch{5}}{\centering\normalfont\normalsize\@instituicaosigla\\ 
+{\vspace*{\stretch{5}}{\centering\normalfont\normalsize\@instituicaosigla\\
   \@instituicaocidade\\ \@date\par}}
-  
+
 \newpage
 \pagestyle{plain}%
 
@@ -1231,7 +1242,7 @@ pdfauthor = {\@author},
 	\settowidth{\sexta@coluna}{12345}
 	\newlength{\quarta@coluna}
 	\settowidth{\quarta@coluna}{123}
-	
+
 	% primeiraLinha - não mais usado
 	\newenvironment{primeiraLinha}{%
 		\begin{list}{}{%
@@ -1290,18 +1301,18 @@ pdfauthor = {\@author},
 %								}
 								{
 %%									\vspace{1mm}\parbox[b]{\oitava@coluna}{\@cutterFICHAC\\}\parbox{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@titulo ~/~\@author.	% comentado por gjfb em 2013-10-07
-%%										\@autorAbreviadoFICHAC.\ 
+%%										\@autorAbreviadoFICHAC.\
 %										-- \@instituicaocidade~: \@instituicaosigla, \@date.} \par
 %									\vspace{1mm}\parbox[t]{\oitava@coluna}{\@cutterFICHAC\\}\parbox[t]{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@titulo ~/~\@author.	% acrescentado por gjfb em 2013-10-07, comentado por gjfb em 2015-11-16
-%%										\@autorAbreviadoFICHAC.\ 
+%%										\@autorAbreviadoFICHAC.\
 %										-- \@instituicaocidade~: \@instituicaosigla, \@date.} \par
 									\@ifundefined{@autorFICHAC}{
 										\vspace{1mm}\parbox[t]{\oitava@coluna}{\@cutterFICHAC\\}\parbox[t]{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@titulo ~/~\@author.	% acrescentado por gjfb em 2013-10-07, comentado por gjfb em 2015-11-16
-%%										\@autorAbreviadoFICHAC.\ 
+%%										\@autorAbreviadoFICHAC.\
 										-- \@instituicaocidade~: \@instituicaosigla, \@date.} \par
 									}{
 										\vspace{1mm}\parbox[t]{\oitava@coluna}{\@cutterFICHAC\\}\parbox[t]{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@titulo ~/~\@autorFICHAC.	% acrescentado por gjfb em 2015-11-16
-%%										\@autorAbreviadoFICHAC.\ 
+%%										\@autorAbreviadoFICHAC.\
 										-- \@instituicaocidade~: \@instituicaosigla, \@date.} \par
 									}
 								}
@@ -1318,15 +1329,15 @@ pdfauthor = {\@author},
 										\vspace{1mm}\hspace{\oitava@coluna}\hspace{\quarta@coluna}\@paginasFICHAC\ p.\ ;\  \scriptsize(\@repositorio-\@tipoDaPublicacao) \par	% acrescentado por gjfb em 2010-05-01 - \scriptsize acrescentado por gjfb em 2010-08-31
 			 						}	% acrescentado por gjfb em 2010-05-01
 			 					}
-			
+
 								\vspace{5.2mm}
-			
+
 								\ifthenelse{\equal{\@includeFCNotasOrientadorTD}{true}}{
 									{\vspace{0mm}\hspace{\oitava@coluna}\parbox{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@tipoTD\ (\@cursoFA) -- \@instituicaoDefesa, \@instituicaocidade, \@anoDefesa.} \par}
 									{\vspace{1mm}\hspace{\oitava@coluna}\parbox{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@nomeAtributoOrientadorFICHAC~: \@valorAtributoOrientadorFICHAC.} \par}
 									\vspace{6mm}
 								}{}
-			
+
 								{\vspace{0mm}\hspace{\oitava@coluna}\parbox{\widthminusoitava@coluna}{\hspace{\quarta@coluna}\@palavraschaveFICHAC}\\ \par}
 							\end{singlespace}
 							{\raggedleft CDU\ \@numeroCDUFICHAC\\ \par}
@@ -1344,14 +1355,16 @@ pdfauthor = {\@author},
 		\licenca
 
 		\license
-		
+
 		\@marcaRegistrada	% acrescentado por gjfb em 2014-10-07
-		
-%		\normalsize		% retornar para normalsize - comentado por jgfb em 2013-12-24 - nesta posição este comando está sem efeito
+
+		\@financiamento	% acrescentado por gjfb em 2018-09-21
+
+%		\normalsize		% retornar para normalsize - comentado por gjfb em 2013-12-24 - nesta posição este comando está sem efeito
 	}
 }	% fim da ficha
 {
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Somente os termos de uso - acrescentado por jgfb em 2013-10-07
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Somente os termos de uso - acrescentado por gjfb em 2013-10-07
 
 	\pdfbookmark[0]{\termosdeuso}{}{
 		\vspace*{\stretch{1}}{
@@ -1362,15 +1375,17 @@ pdfauthor = {\@author},
 		\licenca
 
 		\license
-		
+
 		\@marcaRegistrada	% acrescentado por gjfb em 2014-10-07
-		
-%		\normalsize		% retornar para normalsize - comentado por jgfb em 2013-12-24 - nesta posição este comando está sem efeito
+
+		\@financiamento	% acrescentado por gjfb em 2018-09-21
+
+%		\normalsize		% retornar para normalsize - comentado por gjfb em 2013-12-24 - nesta posição este comando está sem efeito
 	}
 }	% fim dos termos de uso
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%FOLHA DE APROVAÇAO PELA BANCA EXAMINADORA
 
-\normalsize		% retornar para normalsize - acrescentado por jgfb em 2013-12-24
+\normalsize		% retornar para normalsize - acrescentado por gjfb em 2013-12-24
 
 \ifthenelse{\equal{\@includeFA}{true}}{%
 	\pretexto
@@ -1378,9 +1393,9 @@ pdfauthor = {\@author},
 	\begin{flushright}
 		\normalfont\normalsize\parbox{6.8cm}{\@tituloFA\\\@cursoFA}
 	\end{flushright}
-	
+
 	\vspace*{\stretch{1}}
-	
+
 	\begin{center}
 		\resizebox{15.5cm}{!}{
 			\begin{tabular}{lp{0.2cm}>{\PBS\raggedleft\hspace{0pt}}p{7cm}}
@@ -1429,17 +1444,17 @@ pdfauthor = {\@author},
 			\end{tabular}
 		}
 	\end{center}
-	
+
 	\vspace*{\stretch{1}}
-	
-	
+
+
 	\begin{flushleft}
 		%\normalfont\normalsize{\@candidatoOUcandidataFA:\space\@author}%incluir o comentário dessa linha quando montar publicação que contenha folha de aprovação
 		\normalfont\normalsize{}%retirar o comentário dessa linha quando montar publicação que não contenha folha de aprovação
 	\end{flushleft}
-	
+
 	\vspace*{\stretch{1}}
-	
+
 	\begin{flushright}
 		%\normalfont\normalsize{\@instituicaocidade, \@dataAprovacaoFA.}%incluir esta linha quando montar trabalho que contem a folha de aprovação
 		\normalfont\normalsize{}%retirar esta linha quando montar trabalho que contem a folha de aprovação
@@ -1609,7 +1624,7 @@ pdfauthor = {\@author},
 \renewcommand{\subsubsection}{%
   \@startsection{subsubsection}{3}{0mm}{0pt}{0.1pt}%
      {\normalfont\normalsize\bfseries}}
-     
+
 \renewcommand{\paragraph}{%
   \@startsection{paragraph}{4}{0mm}{0pt}{0.1pt}%
      {\normalfont\normalsize\bfseries}}
@@ -1690,7 +1705,7 @@ pdfauthor = {\@author},
 \renewcommand{\cftsubparaaftersnum}{\ -}
 \renewcommand{\cftsubparapagefont}{\normalfont\normalsize}
 
-% - Lista de figuras:	
+% - Lista de figuras:
 
 \setlength{\cftbeforeloftitleskip}{0pt}
 \renewcommand{\cftloftitlefont}{%
@@ -1709,7 +1724,7 @@ pdfauthor = {\@author},
 \renewcommand{\cftfigfont}{\normalfont\normalsize}
 \renewcommand{\cftfigpagefont}{\normalfont\normalsize}
 
-   
+
 % - Lista de tabelas:
 
 \setlength{\cftbeforelottitleskip}{0pt}
@@ -1748,8 +1763,8 @@ pdfauthor = {\@author},
    \@clubpenalty \clubpenalty
    \widowpenalty4000%
    \sfcode`\.\@m%
-} 
-{ 	
+}
+{
 	\def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
 	\endlist
 }
