@@ -39,11 +39,12 @@ portuguese,english %% para os documentos em Inglês com abstract.tex em Portugu�
 % etc.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\watermark{No. 0.1} %% use o comando \watermark para identificar a versão de seu documento
+\watermark{V. 0.1} %% use o comando \watermark para identificar a versão de seu documento
 %% comente este comando quando for gerar a versão final
 \usepackage{rotating}
 \usepackage{dsfont}
 \usepackage{comment}
+\usepackage{enumitem} % Setnoident
 
 \input{./configuracao} %% faça as modificações pertinentes no arquivo configuracao.tex
 
@@ -77,7 +78,7 @@ portuguese,english %% para os documentos em Inglês com abstract.tex em Portugu�
 \include{./chapters/01-introducao}
 \include{./chapters/02-fundamentacao}
 \include{./chapters/03-correlatos}
-\include{./chapters/04-experiment}
+%\include{./chapters/04-experiment} % Not needed, I guess
 \include{./chapters/05-query-partition}
 \include{./chapters/06-interval-index}
 \include{./chapters/07-results}

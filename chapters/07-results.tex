@@ -10,28 +10,43 @@ FragCubing is still preferred when the data has a low degree of sequentiality, a
 On those cases, IntervalFrag is discouraged, as the algorithm will be slower than FragCubing's by simple virtue of needing more instructions to answer the same query, being up to 400\% slower than the same query under FragCubing.
 
 When the dimensions have a high degree of sequentiality, then IntervalFrag excels, as it can not only answer the same queries much faster, but also using only a fraction of the memory used by FragCubing.
-Furthermore, FragCubing used much less memory to answer queries $Q1$, $Q2$ and $Q5$, with $Q4$ having less adavantages and $Q3$ having no difference in memory usage in the end.
+Furthermore, FragCubing used much less memory to answer queries $Q1$, $Q2$ and $Q5$, with $Q4$ having a small difference and $Q3$ having no difference in memory usage in the end.
+All queries executed on the $C0$ cube with all dimensions used only a \textcolor{red}{HOW MUCH?} fraction of the memory needed to answer queries with IntervalFrag, they were however in general much slower to answer.
 
 \begin{table}[!ht]
   \begin{center}
-    \caption{Set Intersection Results, in milliseconds}\label{tab:setresults}
-    \begin{tabular}{|c|c|c|c|c|c|c|}
+    \caption{Preferred algorithm to use}\label{tab:analysis_overview}
+    \footnotesize
+    \begin{tabular}{|C{2.5cm}|C{2.3cm}|C{2.3cm}|C{2.8cm}|C{2cm}|C{1cm}|}
       \hline
-      \textbf{Algorithm - N} & \bfseries $2\times10^6$ & \bfseries $4\times10^6$ & \bfseries $6\times10^6$ & \bfseries $8\times10^6$ & \bfseries $1\times10^7$\\
+      & \bfseries Low Sequentiality &\bfseries High Sequentiality &\bfseries High Dimensionality &\bfseries High Cardinality &\bfseries High Skew \\
       \hline
-      UnorderedSet & 867,802 & 1806,19 & 2586,04 & 3448,11 & 4213,15\\
+      Computing the base cube & & & & & \\
       \hline
-      Scalar & 26,57 & 51,346 & 71,109 & 85,531 & 118,114\\
+      Subcube query& & & & & \\
       \hline
-      Li & 26,531 & 45,596 & 66,19 & 86,234 & 108,603\\
+      Low available RAM& & & & & \\
       \hline
-      BinaryLi & 21,601 & 39,776 & 59,27 & 79,416 & 97,155\\
-      \hline
-      std::set\_intersect & 17,125 & 34,392 & 51,682 & 67,717 & 84,933\\
-      \hline
-      SIMD (SS2) & 10,941 & 21,854 & 33,866 & 43,739 & 55,814\\
+      High data dimensionality& & & & & \\
       \hline
     \end{tabular}
   \end{center}
 \end{table}
+\normalsize
+
+- A paragraph just dealing with the differences between the algos
+
+- At least a new graph just to compare the results
+
+- How about that big table here? Or on the other chapter?
+
+From the tests made using FragCubing and the different cubes ($C1$ to $C5$) tailored to specific queries, it was shown that the best algorithms can be further enhanced by doing some simple pre-processing of the queries, and depending on the type of query used they can drastically improve upon memory usage requirements, allowing for some frequent queries to be optimized and even allowing for queries that could not be answered under a $C0$ cube to be answered by smaller cubes.
+In chapter~\ref{ch:querypart} it was shown that it is faster to load a smaller subset of the data in memory as prepared files when needed and then computing the answer from that file instead of querying a cube that was already loaded in memory, but that used the full dimensional capability of the data.
+
+It is important to note IntervalFrag had faster file reading speeds due to improvements made on the implementation, as well as a slightly more efficient set intersection algorithm, which were not backported to FragCubing.
+This was done to preserve the FragCubing algorithm's performance, as the original code was made for the C language in 2002 and the updated IntervalFrag implementation uses modern C++ standards.
+Nonetheless, it was possible to compile FragCubing using the same flags as IntervalFrag under the GNU C++ compiler, with minimal performance differences.
+
+The difference in query response times from IntervalFrag and FragCubing, even when using the same intersection algorithm, was due to IntervalFrag having to do more comparisons to answer the same query, and this implementation could not be further optimized without heavily skewing the response times to IntervalFrag's side.
+Further details on the intersection algorithms tested and their performance differences can be found on Appendix~\ref{ap:a:problem}.
 
