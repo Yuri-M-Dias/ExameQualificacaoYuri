@@ -2,4 +2,36 @@
 
 \chapter{Analysis and Discussion}\label{ch:analysis}
 
-- The famous table of when to use this algorithm or not that Rodrigo so much wants
+In this chapter, a critical analysis of the algorithms is presented, as well as an overview of how useful are the results and what are their shortcomings.
+The results from chapters~\ref{ch:interval} and~\ref{ch:querypart} show that simple approaches can be used to enhance the query response time for the selected queries, and can be easily ported to other domains and styles of computation.
+
+\autoref{tab:analysis_overview} shows the characteristics in which each algorithm has showed to excel at.
+FragCubing is still preferred when the data has a low degree of sequentiality, as there's little advantage in using the IntervalFrag scheme when the intervals are closer to the size of the original list.
+On those cases, IntervalFrag is discouraged, as the algorithm will be slower than FragCubing's by simple virtue of needing more instructions to answer the same query, being up to 400\% slower than the same query under FragCubing.
+
+When the dimensions have a high degree of sequentiality, then IntervalFrag excels, as it can not only answer the same queries much faster, but also using only a fraction of the memory used by FragCubing.
+Furthermore, FragCubing used much less memory to answer queries $Q1$, $Q2$ and $Q5$, with $Q4$ having less adavantages and $Q3$ having no difference in memory usage in the end.
+
+\begin{table}[!ht]
+  \begin{center}
+    \caption{Set Intersection Results, in milliseconds}\label{tab:setresults}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+      \hline
+      \textbf{Algorithm - N} & \bfseries $2\times10^6$ & \bfseries $4\times10^6$ & \bfseries $6\times10^6$ & \bfseries $8\times10^6$ & \bfseries $1\times10^7$\\
+      \hline
+      UnorderedSet & 867,802 & 1806,19 & 2586,04 & 3448,11 & 4213,15\\
+      \hline
+      Scalar & 26,57 & 51,346 & 71,109 & 85,531 & 118,114\\
+      \hline
+      Li & 26,531 & 45,596 & 66,19 & 86,234 & 108,603\\
+      \hline
+      BinaryLi & 21,601 & 39,776 & 59,27 & 79,416 & 97,155\\
+      \hline
+      std::set\_intersect & 17,125 & 34,392 & 51,682 & 67,717 & 84,933\\
+      \hline
+      SIMD (SS2) & 10,941 & 21,854 & 33,866 & 43,739 & 55,814\\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+

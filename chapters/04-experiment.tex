@@ -3,5 +3,67 @@
 \chapter{Experiment}\label{ch:experiment}
 
 - The data available, how the next chapters are related and the brief description of the data come here.
+
 - Also describe how the experiments will be performed and what will be measured. Basically the section of the results from the fragpaper.
+
+The Frag-Cubing algorithm used the Illimine project implementation \cite{illimineSoftwareDataRepository} that was coded in C++ and compiled on a Linux Kernel 5.0.0-29 machine, with gcc 7.4.0.
+Some adaptations were made to the original code to allow for better output formatting, however these were minimal format changes and didn't impact on the performance or changed how the algorithm works.
+All of the experiments were executed on an Intel(R) Core(TM) i7-8550U CPU @ 1.80 GHz, with 16 GB of DDR4 @ 2400 MHz system memory and on an Adata XPG SX8200 Pro Solid State Drive using PCIe Gen 3x4 interface.
+
+The experiments were designed to measure:
+
+\begin{itemize}
+\item Base cube main memory;
+\item Runtime to build the base cube representation;
+\item Query response time;
+\item Query memory increase, which measures how much memory was needed to answer the query beyond what was used by the base cube.
+\end{itemize}
+
+As a notational convention, we use \(\mathcal{D}\) to denote the number of dimensions, \(\mathcal{C}\) the cardinality of each dimension, \(\mathcal{T}\) the number of tuples in the database, \(\mathcal{F}\) the size of the shell fragment, \(\mathcal{I}\) the number of instantiated dimensions, \(\mathcal{Q}\) the number of inquired dimensions, and \(\mathcal{S}\) the skew or zipf of the data.
+Minimum support level is 1, as well as \(\mathcal{F} = 1\) for all experiments.
+Due to random sampling of the data, it is assumed that the skew is \(\mathcal{S} = 0\) for all dimensions.
+
+Each test was executed 5 times, with the average value of the five runs being taken.
+Additionally, before each test a baseline with no performed queries was executed, just computing the time to cube: how long, and using how much memory, it takes for the algorithm to compute the initial cube.
+This is meant to ease the comparison of the results.
+
+The central idea of this experiment is to partition the input data with the dimensions with the expected dimensions used in a query, to see if that is a better or worse cube construction strategy.
+To achieve that, the 4 year of data resulted in to 24 M (\(\ensuremath{2.4\times 10^{7}}\)) tuples over the satellite's 135 telemetries, saved in a relational database.
+Those were separated into files for each query and each data size.
+To better provide comparisons, each data was separated into datasets of equal interval: 2M, 4M, 6M, 8M and 10M tuples (\(\ensuremath{2\times 10^{6}}\), \(\ensuremath{4\times 10^{6}}\), \(\ensuremath{6\times 10^{6}}\), \(\ensuremath{8\times 10^{6}}\) and \(\ensuremath{10^{7}}\)).
+
+In a first test run it was found that the different data distributions at those levels were interfering with the experiment, and so, to evaluate only the general distribution of the data and how it was organized, each tuple of each dataset was sampled at random for the full \(\ensuremath{2.4\times 10^{7}}\) original data.
+This leads to complete random data between each number of tuples, but no variance between the selected columns for each query, allowing them to be compared.
+
+In the end, this resulted in $12,83$ GB of data converted to Frag-Cubing's format, counting the datasets with the full 135 telemetries and the datasets with the filtered telemetries, resulting in 30 different data files (5 for the high-dimensional case, and 5 for each query).
+
+For this paper, the names in Table \ref{tab:cubenotation} will be used to refer to each of these cubes.
+The cubes with 135 dimensions will be treated as ``C0'', with ``C1'' to ``C5'' being the cubes with dimensions filtered for the telemetries in ``Q1'' to ``Q5''.
+
+\begin{table}[H]
+\caption{Cube representation used in the experiment}\label{tab:cubenotation}
+\centering
+\begin{tabular}{cccp{1.5cm}}
+\toprule
+\bfseries ID &\bfseries Query &\bfseries Dimensions &\bfseries Total Size\\
+    \midrule
+    C0 & - & 135 & 11,29 GB \\
+      C1 & Q1 & 6 & 0,44 GB \\
+      C2 & Q2 & 3 & 0,34 GB \\
+      C3 & Q3 & 2 & 0,22 GB \\
+      C4 & Q4 & 2 & 0,20 GB \\
+      C5 & Q5 & 3 & 0,34 GB \\
+      \bottomrule
+      \end{tabular}
+      \end{table}
+
+      The process to separate the data was performed as follows:
+
+      \begin{enumerate}[leftmargin=*,labelsep=5.8mm]
+      \item Select from telemetry database (PostgreSQL) the dimensions that are used in the query (ex. `SELECT TM001, TM002 FROM telemetries');
+      \item Randomly select $n$ tuples from that selection, where $n$ is in \(\ensuremath{2\times 10^{6}}\), \(\ensuremath{4\times 10^{6}}\), \(\ensuremath{6\times 10^{6}}\), \(\ensuremath{8\times 10^{6}}\) and \(\ensuremath{10^{7}}\);
+      \item Save the results to a file and convert it to Frag-Cubing's input format, naming it cube $i$ (eg. "C$i$"), where $i$ is one of the query identifiers;
+      \item Load the file into Frag-Cubing and execute the relevant queries.
+      \end{enumerate}
+
 

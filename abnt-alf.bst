@@ -6,10 +6,6 @@
 %% This file is distributed under the LaTeXProject Public License (LPPL) http://www.latex-project.org/lppl.html
 %% You are free to modify this file under the LPPL.
 %%
-%% >>> This file has been modified by Gerald Jean Francis Banon
-%% Revision 1.45.2.1  2010/04/23  gjfb
-%% a fun��o manual foi alterada para exibir o publisher
-%%
 %% This file is an *extensive* modification from a file generated with the docstrip utility.
 %% The original source files were:
 %% merlin.mbs  (with options: `babel,nm-revf,aunm-semi,nmlm,x3,m3,dt-end,yr-com,xmth,vnum-x,volp-com,jwdpg,jwdvol,num-xser,btit-rm,bt-rm,pg-bk,add-pub,pub-date,pub-xpar,pre-pub,isbn,issn,pp,ed,abr,ednx,nfss')
@@ -278,14 +274,19 @@ FUNCTION {no.space} { { "" } swap$ }
 
 FUNCTION {space.word} { " " swap$ * " " * }
 
+%FUNCTION {bbl.and}
+%{ abnt.and.type #0 = {" e "} 'skip$ if$
+%  abnt.and.type #1 = {" \& "} 'skip$ if$}
 FUNCTION {bbl.and}
-{ abnt.and.type #0 = {" e "} 'skip$ if$
+{ abnt.and.type #0 = {" and "} 'skip$ if$
   abnt.and.type #1 = {" \& "} 'skip$ if$}
-FUNCTION {bbl.chapter} { "cap." }
+% FUNCTION {bbl.chapter} { "cap." }
+FUNCTION {bbl.chapter} { "chapter" }
 FUNCTION {bbl.colon} {": "}
 FUNCTION {bbl.editors} { "Ed." }
 FUNCTION {bbl.editor} { "Ed." }
-FUNCTION {bbl.edby} { "editado por" }
+% FUNCTION {bbl.edby} { "editado por" }
+FUNCTION {bbl.edby} { "edited by" }
 FUNCTION {bbl.edition} { "ed." }
 FUNCTION {bbl.empty} {""}
 FUNCTION {bbl.etal}{abnt.etal.text "" = {""} {" " abnt.etal.text *} if$}
@@ -305,15 +306,19 @@ FUNCTION {bbl.missing.year}
   {""}       %#0
  if$}
 FUNCTION {bbl.monography} { "Monografia" }
-FUNCTION {bbl.mthesis} { "Disserta��o" }
+% FUNCTION {bbl.mthesis} { "Disserta��o" }
+FUNCTION {bbl.mthesis} { "Master Thesis" }
 FUNCTION {bbl.no.address} {"[S.l.]"}
 FUNCTION {bbl.no.address.no.publisher} {"[S.l.: s.n.]"}
 FUNCTION {bbl.no.publisher} {"[s.n.]"}
 FUNCTION {bbl.number} { iso.abbreviation {"no."} {"n."} if$ }
 FUNCTION {bbl.nr} { "n." }
-FUNCTION {bbl.of} { "de" }
-FUNCTION {bbl.phd} { "Doutorado" }
-FUNCTION {bbl.phdthesis} { "Tese" }
+% FUNCTION {bbl.of} { "de" }
+FUNCTION {bbl.of} { "of" }
+% FUNCTION {bbl.phd} { "Doutorado" }
+FUNCTION {bbl.phd} { "PhD" }
+% FUNCTION {bbl.phdthesis} { "Tese" }
+FUNCTION {bbl.phdthesis} { "PhD Thesis" }
 FUNCTION {bbl.pages}
   {pagename empty$
     { "p." }
@@ -321,30 +326,47 @@ FUNCTION {bbl.pages}
    if$
    }
 FUNCTION {bbl.page} { bbl.pages }
-FUNCTION {bbl.reprint} {"Separata de"}
+% FUNCTION {bbl.reprint} {"Separata de"}
+FUNCTION {bbl.reprint} {"Reprint of"}
 FUNCTION {bbl.semicolon} { "; "}
 FUNCTION {bbl.same.field} {"\underline{\ \ \ \ \ \ \ \ }"}
-FUNCTION {bbl.techrep} { "Rel. Tec." }
+% FUNCTION {bbl.techrep} { "Rel. Tec." }
+FUNCTION {bbl.techrep} { "Tech. Rep." }
 FUNCTION {bbl.url.accessdate}
-  {iso.abbreviation { "Cited "} {"Acesso em: "} if$}
+%  {iso.abbreviation { "Cited "} {"Acesso em: "} if$}
+  {iso.abbreviation { "Cited "} {"Access in: "} if$}
 FUNCTION {bbl.url.available}
-{ iso.abbreviation {"Available from Internet: "} {"Dispon{\'\i}vel em: "} if$}
+%{ iso.abbreviation {"Available from Internet: "} {"Dispon{\'\i}vel em: "} if$}
+{ iso.abbreviation { "Available from Internet: "} {"Available from: "} if$}
 FUNCTION {bbl.void} {""}
 FUNCTION {bbl.volume} { iso.abbreviation {"vol."} {"v."} if$ }
 
 
+% MACRO {jan} {"jan."}
+% MACRO {feb} {"fev."}
+% MACRO {mar} {"mar."}
+% MACRO {apr} {"abr."}
+% MACRO {may} {"maio"}
+% MACRO {jun} {"jun."}
+% MACRO {jul} {"jul."}
+% MACRO {aug} {"ago."}
+% MACRO {sep} {"set."}
+% MACRO {oct} {"out."}
+% MACRO {nov} {"nov."}
+% MACRO {dec} {"dez."}
+
 MACRO {jan} {"jan."}
-MACRO {feb} {"fev."}
+MACRO {feb} {"feb."}
 MACRO {mar} {"mar."}
-MACRO {apr} {"abr."}
-MACRO {may} {"maio"}
+MACRO {apr} {"apr."}
+MACRO {may} {"may"}
 MACRO {jun} {"jun."}
 MACRO {jul} {"jul."}
-MACRO {aug} {"ago."}
-MACRO {sep} {"set."}
-MACRO {oct} {"out."}
+MACRO {aug} {"aug."}
+MACRO {sep} {"sep."}
+MACRO {oct} {"oct."}
 MACRO {nov} {"nov."}
-MACRO {dec} {"dez."}
+MACRO {dec} {"dec."}
 
 
 FUNCTION {is.num}
@@ -1807,8 +1829,7 @@ FUNCTION {manual}
   format.btitle "title" output.check new.block
   format.furtherresp new.sentence
   format.edition output new.sentence
-%  format.address output			% commented by gjfb in 2010-04-23
-  format.publisher.address output	% added by gjfb in 2010-04-23
+  format.address output
   format.date output new.sentence
   format.bvolume.if.no.series output
   format.book.pages output new.sentence
