@@ -2,7 +2,7 @@
 
 \chapter{IntervalFrag}\label{ch:interval}
 
-This section describes the IntervalFrag algorithm, and the proposed architecture needed to implement the enhancements to the FragCubing's algorithm.
+This section describes the IntervalFrag algorithm, and the proposed architecture needed to implement the enhancements to the Frag-Cubing's algorithm.
 
 \section{Using Intervals in Inverted Indexes}\label{ch:interval:problem}
 
@@ -26,4 +26,81 @@ This section describes the IntervalFrag algorithm, and the proposed architecture
 
 \section{Results}\label{ch:interval:results}
 
-- Have this section here or coalesce on the next one? Might be too big already
+~\autoref{tab:interval_memory} and~\autoref{tab:interval_query} show the results of executing both algorithms to answer the queries defined in \autoref{ch:querypart:queries}, while using the cube structure defined as $C0$ in \autoref{ch:querypart:exp:method}, where all telemetries were used as a single file for each test, and then the query was executed, measuring the memory consumption in the first and query response time in the latter.
+
+\begin{table}[!ht]
+  \centering
+  \caption{IntervalFrag x Frag-Cubing, memory consumption in KiB}\label{tab:interval_memory}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    & & \multicolumn{5}{c|}{\textbf{Tuples}} \\
+    \hline
+    \bfseries Algorithm & \bfseries Query & \bfseries $2\times10^6$ & \bfseries $4\times10^6$ & \bfseries $6\times10^6$ & \bfseries $8\times10^6$ & \bfseries $1\times10^7$\\
+    \hline
+    \multirow{5}{*}{Frag-Cubing} & Q1 &
+    1.908.708 & 3.674.784 & 5.447.864 & 6.953.424 & 8.557.348
+    \\\cline{2-7} & Q2 &
+    1.842.396 & 3.294.628 & 4.727.816 & 5.877.016 & 6.760.080
+    \\\cline{2-7} & Q3 &
+    1.448.280 & 2.836.592 & 4.236.496 & 5.362.128 & 6.502.628
+    \\\cline{2-7} & Q4 &
+    1.444.816 & 2.836.696 & 4.236.404 & 5.372.104 & 6.520.176
+    \\\cline{2-7} & Q5 &
+    1.607.456 & 3.024.996 & 4.445.800 & 5.591.052 & 6.650.456
+    \\\hline
+    \multirow{5}{*}{IntervalFrag} & Q1 &
+    504.428 & 845.804 & 1.196.504 & 1.455.472 & 1.651.552
+    \\\cline{2-7}
+    & Q2 &
+    801.864 & 1.207.760 & 1.560.652 & 1.752.292 & 2.062.560
+    \\\cline{2-7} & Q3 &
+    388.652 & 707.588 & 1.030.392 & 1.237.324 & 1.415.472
+    \\\cline{2-7}
+    & Q4 &
+    370.624 & 690.456 & 1.003.236 & 1.237.292 & 1.415.456
+    \\\cline{2-7}
+    & Q5 &
+    540.788 & 895.272 & 1.232.520 & 1.412.280 & 1.604.288
+    \\\hline
+  \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+  \centering
+  \caption{IntervalFrag x Frag-Cubing, query response times in ms}\label{tab:interval_query}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|}
+    \hline
+    & & \multicolumn{5}{c|}{\textbf{Tuples}} \\
+    \hline
+    \bfseries Algorithm & \bfseries Query & \bfseries $2\times10^6$ & \bfseries $4\times10^6$ & \bfseries $6\times10^6$ & \bfseries $8\times10^6$ & \bfseries $1\times10^7$\\
+    \hline
+    \multirow{5}{*}{Frag-Cubing} & Q1 &
+    5.4691 & 188.634 & 310.455 & 421.409 & 523.772
+    \\\cline{2-7} & Q2 &
+    47.391 & 108.405 & 170.515 & 258.585 & 281.877
+    \\\cline{2-7} & Q3 &
+    1.557 & 3.089 & 4.637 & 6.497 & 7.597
+    \\\cline{2-7} & Q4 &
+    399 & 817 & 1.193 & 1.573 & 1.990
+    \\\cline{2-7} & Q5 &
+    7.138 & 21.668 & 33.483 & 49.590 & 59.428
+    \\\hline
+    \multirow{5}{*}{IntervalFrag} & Q1 &
+    1.946 & 4.712 & 6.981 & 9.198 & 11.508
+    \\\cline{2-7}
+    & Q2 &
+    158.050 & 333.838 & 554.111 & 772.125 & 934.793
+    \\\cline{2-7} & Q3 &
+    3.570 & 7.064 & 10.655 & 14.812 & 17.714
+    \\\cline{2-7}
+    & Q4 &
+    995 & 2.011 & 2.952 & 3.860 & 4.916
+    \\\cline{2-7}
+    & Q5 &
+    4.871 & 11.837 & 18.477 & 26.176 & 32.649
+    \\\hline
+  \end{tabular}
+\end{table}
+
+\RED{TODO: THE QUICK GRAPHS FOR EACH OF THESE, WITH JUST SIMPLE COMPARISONS WITH THE AMOUNT OF INQUIRED DIMENSIONS}
+

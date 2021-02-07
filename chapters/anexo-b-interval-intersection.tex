@@ -35,7 +35,7 @@ SIMD (SS2)
 To search for the best algorithm with real world data, an experiment was performed, much on the same framework as detailed in~\ref{ch:experiment}: C++ code, each test was executed 5 times and the median of the values was taken.
 As each technique is efficient with the memory usage, there wasn't much difference to be measured, so only the time necessary to intersect each list was measured.
 Each list was generated in interval from $2\times10^6$ to $1\times10^7$, and all algorithms work on randomized ordered lists with the same size.
-This spread was intentional to mirror the worst cases in the FragCubing algorithm.
+This spread was intentional to mirror the worst cases in the Frag-Cubing algorithm.
 
 Table~\ref{tab:setresults} showcases a summary of the experiment's results, this time caring only for the necessary time to answer the queries.
 
@@ -71,7 +71,7 @@ As the HashSet approach was the slowest approach, \autoref{fig:set_intersection_
     \resizebox{12cm}{!}{\includegraphics{Figuras/IndexListResult.png}}
   \end{center}
   \vspace{2mm}
-  \legenda{Set intersection algorithms response times in miliseconds, ordered by the size of the input relation.}
+  \legenda{Set intersection algorithms response times in milliseconds, ordered by the size of the input relation.}
   \FONTE{Author}
 \end{figure}
 
@@ -81,6 +81,7 @@ While these tests are interesting, there was not enough time to test some recent
 Furthermore, the SIMD instruction set used here (SSE2) is limited even if it's support is widespread, with other instruction sets (SSE3, AVX, AVX512, etc) being available on modern CPUs and also available for use.
 
 Some recent results that have not been properly explored in the data cube context as of yet: Recursive Universe Partitioning, a technique that uses the possible search space to partition the sets and execute the intersection~\cite{pibiriFastCompactSet2021}; FESIA, which combines the use of previous techniques with different SIMD computation techniques and a bitmap to decide which algorithm is more suitable for use depending on the set size~\cite{zhangFESIAFastSIMDEfficient2020}; and simpler implementations that reduce branch mispredictions~\cite{inoueFasterSetIntersection2014}, and the use of pre-processed dictionaries to greatly aid in the computation~\cite{dingFastSetIntersection2011a}.
+There's even an algorithm to compute the set intersection in $\mathcal{O}(1)$ by using a quantum computer~\cite{tianQuantumAlgorithmFinding2019}, however that approach is likely not implementable for any significant dataset in the near future.
 
 Further testing is necessary when dealing with lists of varying sizes, that would showcase the improvements of certain algorithms over others, and the incorporation of these algorithms into a real-world dataset for accurate tests.
 

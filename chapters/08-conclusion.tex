@@ -10,9 +10,11 @@ One of the stated purposes of this work was to find ways of using the data's dom
 
 \begin{enumerate}
 \item A heuristic to discover related telemetries between satellite time series data and how to use this with the help of an operator to validate the relevant queries;
-\item Using the previous heuristic to enhance FragCubing's query response time and memory by pre-partitioning the data;
-\item Improving upon FragCubing's Inverted Index memory model by saving only intervals instead of the entire values, and thus reducing memory and query response times for some queries;
+\item Using the previous heuristic to enhance Frag-Cubing's query response time and memory by pre-partitioning the data;
+\item Improving upon Frag-Cubing's Inverted Index memory model by saving only intervals instead of the entire values, and thus reducing memory and query response times for some queries;
 \end{enumerate}
+
+\RED{This is still all wrong. What do?}
 
 \section{Future work}\label{ch:concl:future}
 
@@ -24,6 +26,10 @@ Only projects that release full telemetry data are relatively simple CubeSat pro
 The author plans to release the dataset in a citable format for the use of the community in the near future.
 
 This work also has the potential of improving query execution when dealing with multiple satellites, constellations and/or formations, it needing only the data to be gathered and the suitable cube format defined to be tested.
+
+The relationship algorithms mentioned in~\autoref{ch:querypart:heur} can be remade to use other different solutions, and combined with the shell-cubing method to generate only shells that have relationships above a certain strength.
+This was also one of the ideas to be developed during this work, which however had not enough time to be fully developed.
+This idea is best when paired with known "best available" techniques, like using the project ~\cite{LibrespacefoundationPolarisPolaris2021}.
 
 Furthermore the Set Intersection problem defined in chapter~\ref{ch:interval} can be further optimized with recent advances not only in computer architectures, but also with regards to complexity and the validation of the algorithms in real world datasets.
 A preliminary investigation was performed, as a simple but not rigorous overview of the results is detailed in Appendix~\ref{ap:a}.
