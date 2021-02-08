@@ -28,7 +28,7 @@ Example: for the TID list $\langle 1, 3, 4, 5, 7 \rangle$, the Interval List wou
 
 This has implications only for the intersection of the lists, and is overall a much simpler implementation to execute.
 By previous experience with the data, it was found that a great of dimensions have attribute values that are repeated on long sequences of the same telemetry data points being repeated, and Frag-Cubing generates a long list of these repetitions for some dimensions.
-This thesis then seeks to answer the question: \textbf{Is the use of the Interval algorithm instead of the raw list better suited to reduce memory requirements and query response times for long sequences of real world satellite telemetry data?}.
+This thesis then seeks to answer the question: \textbf{Can the use of the Interval algorithm instead of the raw list reduce memory requirements and query response times for long sequences of real world satellite telemetry data?}
 
 Thus, in this chapter this implementation will be detailed, as well as an experiment to evaluate whether there is any advantage to using these intervals over the standard technique used by Frag-Cubing.
 
@@ -37,8 +37,9 @@ Thus, in this chapter this implementation will be detailed, as well as an experi
 In practice, the algorithm cannot be implemented using two integers for each interval, as in the case where there is not a substantial interval (difference bigger than one) all elements will take the space of two integers when in Frag-Cubing they would take the place of only one integer.
 This would lead to the worst case for the Interval algorithm to be double the memory of Frag-Cubing, but this can be worked around in practice by encoding the elements without an interval in the negative range of the integer, which isn't used in the TID list as each element indicates a unique identifier that is positive.
 
-In case the identifier to be inserted would be close to zero, it is necessary to add one to each of the elements in the TID list as they are inserted into the IntervalIndex, as checking for a negative zero is not recommended and not guaranteed to work the same on every computer architecture \cite{IEEEStandardFloatingPoint2019}.
+In case the identifier to be inserted would be close to zero, it is necessary to add one to each of the elements in the TID list as they are inserted into the IntervalIndex, as checking for a negative zero is not recommended and not guaranteed to work the same on every computer architecture \cite{ieeeIEEEStandardFloatingPoint2019}.
 With this, the entire integer bit space is used, including the signal bit for the algorithm.
+For the scope of this work, and since the experiment does not require the update of cells, only the insertion and intersection algorithms will be detailed.
 
 \subsection{IntervalInsertion}\label{ch:interval:algo:insertion}
 
@@ -48,27 +49,94 @@ The insertion can be done by checking if the last element in the list is positiv
 If the last element is negative $c$, then we can check if $c * -1 + 1 = b$, and if it is we flip the signal of the position $c$ and insert $b$ to the list as it is.
 If the last element is not negative, then we check if the element $c$, is $c + 1 = b$ and update the position $c$ if it is true, else we flip the signal of $b$ and insert it at the end of the list.
 If none of these we can safely append $b$ to the end of the list after flipping the signal to negative.
+Thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interval_insertion}.
 
-- Using iceberg conditions
-
-- The skew influence
+\begin{algorithm}[!htb]
+\SetAlgoLined
+\KwResult{Element inserted into the list}
+ $b$ element to be inserted\;
+ $L$ the interval list to be inserted\;
+ \If{$empty(L)$}{
+   AppendList($L$, $b * - 1$)\;
+   \KwRet\;
+ }
+ $c$ = LastElement($L$)\;
+ \eIf{$c < 0$}{
+   \If{$c * -1 + 1 = b$}{
+     $L[c] = L[c] * - 1$ \tcp*{Update the last to be positive}
+     AppendList($L$, $b$)\;
+     \KwRet\;
+   }
+ }{
+   \If{$b + 1 = c$}{
+     $L[c] = b$ \tcp*{Update last element}
+     \KwRet\;
+   }
+ }
+ AppendList($L$, $b * - 1$) \tcp*{None of the previous cases, just append the element as a negative}
+ \caption{IntervalInsertion}\label{algo:interval_insertion}
+\end{algorithm}
 
 \subsection{IntervalIntersection}\label{ch:interval:algo:intersection}
 
-- The Intersection problem and algorithm
+The problem of intersecting two sets of elements is a big one, and will not be fully explored by this work, however a simple exploration of some algorithms that was a byproduct of this work are available in Appendix~\ref{ap:a:problem}.
+However, due to the change in how the index uses the TID list, it is necessary to adapt the Frag-Cubing set intersection algorithm to still calculate the intersection between two intervals, and thus the IntervalIntersection algorithm is created.
 
-- Mention that there are ways to improve the algorithm further, and that they are further mentioned in appendix A
+To check if two intervals intersect: assuming two intervals $I_a = \langle a_l, a_r \rangle$ and $I_b = \langle b_l, b_r \rangle$, where $a_l$ is the smallest element in the interval, and $a_r$ the biggest element in the interval.
+The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and the intersection $I_o = I_a \bigcap I_b$ can be computed by computing the biggest element between $a_r$ and $b_r$ (function $max$) and the smallest element between $a_l$ and $b_l$ (function $min$), or \autoref{algo:intersect_interval}.
 
-\begin{figure}[H]
+\begin{algorithm}[!htb]
+\SetAlgoLined
+\KwResult{The result intersection $I_o$, or $\emptyset$ in case there is no intersection}
+ $I_a$ and $I_b$ two intervals\;
+  \eIf{$b_l > a_r$ or $a_l > b_l$}{
+    \KwRet $\emptyset$\;
+  }{
+  $o_l$ = $max( a_l, b_l )$\;
+  $o_r$ = $min( a_r, b_r )$\;
+  \KwRet $[o_l, o_r]$\;
+  }
+  \caption{IntersectTwoIntervals, adapted from \cite{26260}}\label{algo:intersect_interval}
+\end{algorithm}
+
+\autoref{fig:interval:sample} shows four examples of using this algorithm to select for intersections, including the empty case when there is no intersection.
+For the list interval intersection, it can be naively implemented using the scalar merge strategy: two pointers walk by each interval, check if there is an intersection between then and, if there is, create a new element in the result list with the intersection between these two intervals.
+The algorithm to perform this is shown below, and takes the same complexity of the parent algorithm of $\mathcal{O}(n + m)$, where $n$ and $m$ are the sizes of the interval lists being intersected.
+This resulting algorithm is based on the implementations by \cite{liHighdimensionalOLAPMinimal2004} and \cite{silva:2015:abordagensParaCubo}, shown in \autoref{algo:intersect_interval_lists}.
+
+\begin{figure}[!htb]
   \caption{IntervalIntersection example}\label{fig:interval:sample}
   \vspace{6mm}
   \begin{center}
-    \resizebox{13cm}{!}{\includegraphics{Figuras/IntervalIntersection-Cases.pdf}}
+    \resizebox{9cm}{!}{\includegraphics{Figuras/IntervalIntersection-Cases.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{IntervalIntersection example with four operations}
   \FONTE{Author}
 \end{figure}
+
+\begin{algorithm}[!htb]
+\SetAlgoLined
+\KwResult{The resulting list intersection between two interval lists, or $\emptyset$ if there is no intersection}
+ $L_a$ and $L_b$ two input interval lists\;
+ $L_c$ result list, with maximum size $min(length(L_a), length(L_b))$\;
+ $a_i, b_i, c_i = 0$\;
+ \While{$a_i < length(L_a)$ and $b_i < length(L_b)$}{
+   $A[a_l, a_r]$ = interval($L_a[a_i$]) \tcp*{Gets the interval at this position}
+   $B[b_l, b_r]$ = interval($L_b[a_i$])\;
+  \If{$b_l \leq a_r$ and $a_l \leq b_r$}{
+    IntervalInsertion($L_c$, IntersectTwoIntervals(A, B)) \tcp*{Insert into the result list the intersection between the elements}
+    NextIntervalPosition($c_i$) \tcp*{Skips to the next available list space}
+  }
+  \eIf{$a_r \leq b_r$}{
+   NextIntervalPosition($a_i$)\;
+   }{
+   NextIntervalPosition($b_i$)\;
+  }
+ }
+ \KwRet{$L_c$}\;
+ \caption{IntervalIntersection}\label{algo:intersect_interval_lists}
+\end{algorithm}
 
 \section{Results}\label{ch:interval:results}
 
@@ -211,7 +279,7 @@ If one algorithm takes too long to transverse the cube structure and execute the
 This however is just a simple comparison, as in that step each subcube of the fragments would be computed and for these tests that use $\mathcal{F} = 1$ they are almost exactly the same computation, needing higher fragment sizes to appreciate the difference.
 However, since this computation would involve list intersections at higher fragment sizes, the speed of the intersection algorithm would heavily influence this computation, being more comparable to the query response times compared above.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \caption{Comparison: Time to Cube}\label{fig:interval:timetocube}
   \vspace{6mm}
   \begin{center}
@@ -226,7 +294,7 @@ Another important metric is the baseline memory used before queries can be perfo
 \autoref{fig:interval:baseline} shows these values for the files used in this experiment, and IntervalFrag consumes on average 22\% of the memory that Frag-Cubing needs.
 This is important as it allows IntervalFrag to be implemented while requiring much less computational resources.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \caption{Comparison: Baseline memory}\label{fig:interval:baseline}
   \vspace{6mm}
   \begin{center}

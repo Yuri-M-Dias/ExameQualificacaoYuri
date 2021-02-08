@@ -1,10 +1,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Query Partition}\label{ch:querypart}
+\chapter{QUERY PARTITION}\label{ch:querypart}
 
 In this chapter, an algorithm for aggregating the satellite telemetries into relationship groups is presented, which is then used to selected useful queries by a satellite operator.
 These queries are then compared with the Frag-Cubing algorithm: one set is called High-Dimensional, in which the queries are executed on the full data dimensionality; and the other is Low-Dimensional, in which the input data for the data cube algorithm is made of only the dimensions that the query will execute.
 The aim of this work is then to see if the query response time and memory consumption can be improved by pre-filtering the data that will be queried with just the dimensions related to that query.
+
+\section{Case Study: SCD2}\label{ch:querypart:scd2}
+
+The case study used in this thesis will be the satellite SCD2 (Data Collection Satellite in Portuguese), which has over 20 years of continuous operations by the Satellite Control Center at INPE~\cite{OrlandoKuga:2007:SaSCSC}.
+It is one of the first satellites designed, tested and assembled in Brazil, the second in the SCD family of data collection satellites~\cite{Oliveira:1996:SC1Sa}.
+The mission is goal is to retransmit to assigned receiver stations (Cuiabá and Alcântara, for example), data obtained from a network of Automatic Environmental Data Collection Platforms (PCD), which are distributed throughout the Brazilian territory.
+\autoref{fig:scd2_mission} shows a commemorative mission patch for the satellite.
+
+Each PCD is composed of a transmitter in UHF band (about $400Mhz$) that collects environmental data and continuously transmits them back into space.
+This transmission is then relayed by the PCD transponder to one of the receiver stations, and thus the data is gathered.
+This relaying can only happen when the satellite is visible by both the receiver stations and the PCDs, which happens around eight times per day~\cite{miguezSCD2OperationHandbook1993}.
+
+The SCD2 satellite is composed of ten subsystems, including the DCP payload.
+With over 20 years of operation, more than 135 telemetry data points and generating over 8GB of data per year, there is a lot to be analyzed from the housekeeping telemetry data alone.
+
+\begin{figure}[H]
+  \caption{SCD2}\label{fig:scd2_mission}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{5cm}{!}{\includegraphics{Figuras/Scd-2.png}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{Data Collection Satellite 2 (SCD2) mission patch}
+  \FONTE{Taken from \url{http://www.inpe.br/noticias/galeria/}}
+\end{figure}
 
 \section{Algorithm}\label{ch:querypart:heur}
 
