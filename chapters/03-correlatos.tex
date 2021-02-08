@@ -39,59 +39,55 @@ For this work, only the data from the on-board sensors will be considered, as th
 
 \subsection{Data Flow}\label{ch:corr:dataflow}
 
-Baseado nos trabalhos correlatos e nos dados levantados, a figura~\ref{fig:bigdataflow} demonstra o fluxo de dados esperado de uma arquitetura de \textit{Big Data} para a operação de satélites.
+Based on previous works and on the relevant data,~\autoref{fig:bigdataflow} shows a sample data flow expected of a Big Data architecture for satellite operators.
+This flow is split into five phase that go from the source of the data to their final product analysis, and this work will only showcase the flow based on the correlated works, with each phase being:
 
 \begin{figure}[ht]
-	\caption{Fluxo de dados em uma arquitetura de \textit{Big Data}}\label{fig:bigdataflow}
-	\vspace{6mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Adaptado de~\cite{zhangBigDataFramework2017}}.
+  \caption{Data flow in a Big Data architecture}\label{fig:bigdataflow}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{15cm}{!}{\includegraphics{Figuras/BigDataFlow.pdf}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{}
+  \FONTE{Adapted from~\cite{zhangBigDataFramework2017}}.
 \end{figure}
 
-Este fluxo está separado em cinco etapas que vão desde a origem dos dados até o seu resultado de análise, e este trabalho visa apenas mapear qual seria esse fluxo baseado nos trabalhos correlatos.
-Cada uma das etapas está detalhada a seguir:
+\RED{
+  Can't find the original source. Working on it.
+}
 
-\begin{itemize}
-	\item \textbf{Ingestão}: onde os dados serão coletados na sua fonte (satélites, sensores no solo, outras fontes, etc).
-	      Essa etapa trata de \textbf{onde} estão os dados e \textbf{como} coletá-los, bem como \textbf{quais} são os dados importantes de serem coletados.
-	      A ``fonte'' aqui pode ser um serviço de terceiros, dentro da própria instituição ou disponível de outra forma.
-	\item \textbf{Preparo}: os dados relevantes são selecionados, e transformações são realizadas para inserir os mesmos na base de dados.
-	      Essa etapa trata do formato específico dos dados, realizando operações de limpeza, verificação da qualidade e da relevância para a análise, entre outras.
-	      O seu objetivo é garantir que os dados tem qualidade, relevância, e estão no formato adequado para a base de dados.
-	\item \textbf{Persistência}: após o devido processamento, os dados de alta qualidade são guardados em uma base de dados, de onde ficarão disponíveis para a análise.
-	      Nessa etapa um banco de dados é utilizado, tratando apenas em como esses dados estão guardados e como eles serão disponibilizados para as consultas e execução de algoritmos.
-	\item \textbf{Análise}: nesta etapa são executadas as consultas e os algoritmos de interesse para a análise.
-	      Podem ser desde consultas simples (``qual era o valor da telemetria X durante a passagem Y?''), a execução de algoritmos complexos (``preveja os valores da telemetria X para a próxima passagem'').
-	\item \textbf{Visualização}: os resultados das consultas e algoritmos são visualizados.
-	      Podem conter desde gráficos simples, como um histograma de uma telemetria, a relatórios complexos de um subsistema/satélite, bem como resultados de algoritmos.
+\begin{itemize}[noitemsep]
+  \item \textbf{Collection}: where the data are collected at their source (satellite, ground sensors, etc).
+    This phase treat \textbf{where} and \textbf{how} to collect the data, as well as \textbf{which} data are important enough to be collected.
+    The source here can be a third party, another department or available through other means.
+  \item \textbf{Preparation}: the relevant data are selected and the necessary transformations to insert them into the database are peformed.
+    This phase treats the specific format of the data, doing cleaning, quality control and relevance for analysis, among others.
+    The objective is to guarantee the quality, relevance and adequacy of the data to the database.
+  \item \textbf{Storage}: after processing, the high quality data are stored in a database, where they will be available for analysis.
+    At this point any data storage means are used, treating only how these data are stored and how they will be available for analysis.
+  \item \textbf{Analysis}: queries and algorithms will be executed on the data, with the assurance and availability of high quality data.
+    This can range from simple queries (``what's the value of telemetry X during pass Y?''), to the use of complex algorithms (``predict the values of telemetry X for the next three passes on station Z'').
+  \item \textbf{Presentation}: analysis and algorithmic results are displayed to their end users.
+    These can range from simple graphs to complex reports, as well as the result of algorithms. Anything that reaches the decision makers.
 \end{itemize}
 
-Os trabalhos de~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} e~\cite{boussoufBigDataBased2018} definem esse processo mais claramente dentre os trabalhos apresentados.
+The works of~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} and~\cite{boussoufBigDataBased2018} have this process the best well defined out of all presented articles.
 
-\section{Análise de dados em outros operadores de satélite}\label{ch:corr:ops}
+\section{Data Analysis by Satellite Operators}\label{ch:corr:ops}
 
-A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recentes sobre os operadores de satélite e quais tecnologias eles estão utilizando para atingir objetivos semelhantes, principalmente com o uso de \textit{Big Data}.
+\autoref{table:bigdataoperators} shows some recent published work made by satellite operators about the architectures that they use to process and analyze satellite data.
 
 \begin{table}[htbp]
   \begin{center}
-    \caption{Operadores de Satélite e Arquiteturas de Big Data}\label{table:bigdataoperators}
-    \begin{tabular}{|C{8em}|C{6em}|c|C{10em}|}
+    \caption{Satellite Operators and Big Data Architectures}\label{table:bigdataoperators}
+    \begin{tabular}{|C{13em}|C{6em}|c|C{10em}|}
       \hline
-      \bfseries Referência                           & \bfseries Operador & \bfseries Ferramenta & \bfseries Tecnologias                                                                \\
+      \bfseries Reference                           & \bfseries Operator & \bfseries Tool & \bfseries Technologies                                                                \\
       \hline
       \cite{adamskiDataAnalyticsLarge2016}           & L3 (EUA)           & InControl            & Hadoop, Spark, HBase, MongoDB, Cassandra, Amazon AWS                                 \\
       \hline
       \cite{boussoufBigDataBased2018}                & Airbus             & Dynaworks            & Hadoop, Spark, HDFS, HBase, PARQUET, HIVE                                            \\
-      \hline
-      \cite{schulsterCHARTingFutureOffline2018}      & EUMETSAT           & CHART                & MATLAB, MySQL, Oracle                                                                \\
-      \hline
-      \cite{zhangBigDataFramework2017}               & SISET (China)      & -                    & Hadoop, HDFS, PostgreSQL, MongoDB, Logstash, Kibana, ElasticSearch, Kafka, MapReduce \\
-      \hline
-      \cite{yvernesCopernicusGroundSegment2018}      & Telespazio France  & PDGS                 & OLAP (DataCube), Saiku, Pentaho, Jaspersoft OLAP                                     \\
       \hline
       \cite{dischnerCYGNSSMOCMeeting2016}            & SwRI + NOAA        & CYGNSS MOC           & SFTP, -                                                                              \\
       \hline
@@ -99,101 +95,121 @@ A tabela~\ref{table:bigdataoperators} mostra uma revisão feita em artigos recen
       \hline
       \cite{evansDataMiningDrastically2016}          & S.A.T.E + ESA/ESOC & -                    & Java, CSV                                                                            \\
       \hline
-      \cite{fenManagementOperationCommunication2016} & CSMT (China)       & -                    & não menciona as tecnologias                                                          \\
+      \cite{fenManagementOperationCommunication2016} & CSMT (China)       & -                    & - \\
       \hline
-      \cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT           & CHART                & algoritmos ad-hoc, estudo de caso                                                    \\
+      \cite{fernandezTelemetryAnomalyDetection2017}  & NASA               & MARTE                & R, CSV, ad-hoc                                                                       \\
       \hline
       \cite{gillesFlyingLargeConstellations2016}     & L-3                & InControl            & Amazon EC2, LXC, Nagios                                                              \\
-      %\hline
-      %\cite{highsmithSpaceLaunchSystem2015} & Boeing + NASA & - & lançadores, não é o foco da arquitetura \\
       \hline
       \cite{hennionBigdataSatelliteYearly2018}       & Thales Alenia      & AGYR                 & Logstash, Kafka, InfluxDB, ElasticSearch, Kibana, Grafana                            \\
       \hline
       \cite{mateikUsingBigData2017}                  & Stinger, NASA      & -                    & Logstash, ElasticSearch, Kibana, HDF5, CSV, R, Python, AWS, Excel                    \\
       \hline
-      \cite{fernandezTelemetryAnomalyDetection2017}  & NASA               & MARTE                & R, CSV, ad-hoc                                                                       \\
+      \cite{schulsterCHARTingFutureOffline2018}      & EUMETSAT           & CHART                & MATLAB, MySQL, Oracle                                                                \\
+      \hline
+      \cite{trollopeAnalysisAutomatedTechniques2018} & EUMETSAT           & CHART                & ad-hoc algorithms, a case study only \\
+      \hline
+      \cite{yvernesCopernicusGroundSegment2018}      & Telespazio France  & PDGS                 & OLAP (DataCube), Saiku, Pentaho, Jaspersoft OLAP                                     \\
+      \hline
+      \cite{zhangBigDataFramework2017}               & SISET (China)      & -                    & Hadoop, HDFS, PostgreSQL, MongoDB, Logstash, Kibana, ElasticSearch, Kafka, MapReduce \\
       \hline
     \end{tabular}
   \end{center}
-  \FONTE{Produção do autor.}
+  \FONTE{Author.}
 \end{table}
 
-Os objetivos em comum desses trabalhos são facilitar as atividades dos operadores por meio de algoritmos de detecção de anomalias e de verificação dos limites nos valores das telemetrias.
-Alguns dos operadores dessa lista estão responsáveis pela operação de constelações de satélites complexos, como constelações de sensoriamento remoto, que faz necessário um certo nível de automação ou a operação contínua teria um custo inviável.
+The common objective in these is to ease the satellite operator activities by means of anomaly detection algorithms and telemetry bounds checking.
+Some operators in this list are responsible for constellations of complex satellites, like remote sensing and communications, which are only cost-effective with a certain degree of automation for continuous operations.
 
-Nesses trabalhos, o uso dessas tecnologias é apenas para os operadores de satélite, pois em nenhum desses trabalhos eles estão na mesma estrutura de ingestão dos dados da carga útil, mesmo utilizando as mesmas tecnologias, como demonstrado em~\cite{mateikUsingBigData2017} e~\cite{adamskiDataAnalyticsLarge2016}.
+These articles are filtered by only technologies that are used by the operators and not necessarily by the mission exploitation, as the housekeeping telemetry is on a different data ingestion pipeline than the payload data, as shown in~\cite{mateikUsingBigData2017} and~\cite{adamskiDataAnalyticsLarge2016}.
 
-Alguns desses trabalhos não utilizam de estruturas completas que seguem um fluxo de dados, como é o caso de~\cite{fernandezTelemetryAnomalyDetection2017} e~\cite{trollopeAnalysisAutomatedTechniques2018} que utilizam de \textit{scripts} feitos de forma \textit{ad-hoc}, não mostrando uma visão da arquitetura completa do fluxo de dados e apenas a ferramenta utilizada para análise pontual.
+Some of these do not shown complete infrastructure for the entire data flow, like~\cite{fernandezTelemetryAnomalyDetection2017} and~\cite{trollopeAnalysisAutomatedTechniques2018} that use \textit{ad-hoc} scripting, and focus on only one part of the data flow.
 
-O trabalho de~\cite{yvernesCopernicusGroundSegment2018} utiliza de estratégias OLAP e do cubo de dados, tendo utilizado uma modelagem dimensional para a operação de uma constelação de satélites, porém esse trabalho menciona apenas em alto nível a modelagem utilizada, e menciona que o trabalho foi somente na parte da modelagem dimensional e integração dos dados utilizando ferramentas já existentes.
+In~\cite{yvernesCopernicusGroundSegment2018} the authors showcase some OLAP queries and the use of a data cube, having used dimensional modelling to aid the operation of a satellite constellation. However, this work only showcases at a very high level the used methodology, and mention that the work was performed only on at the modelling level to be integrated with other tools, not showcasing the rest of the infrastructure needed for this to work.
 
-\subsection{Análise de dados no INPE}\label{ch:corr:inpe}
+\subsection{Data Analysis at INPE}\label{ch:corr:inpe}
 
-O INPE já realiza análise de dados em outros departamentos, inclusive sobre as telemetrias de satélite.
-Os operadores devem monitorar os valores das telemetrias e informar a engenharia caso apareça algum problema que não pôde ser corrigido~\cite{TominagaFerrAmbr:2017:CoSaTe}.
-Um exemplo está no trabalho~\cite{Magalhaes:2012:EsAvTe}, feito sobre uma falha no satélite CBERS-2, onde o modelo proposto visa melhorar o conhecimento sobre avalanche térmica nas baterias para impedir que isso aconteça novamente em outros satélites.
-A motivação principal dos trabalhos da tabela~\ref{table:bigdataoperators} era a detecção de anomalias, que teve alguns algoritmos estudados em~\cite{AzevedoAmbrViei::EsSoTe}.
+INPE already perform data analysis on satellite telemetry, and in fact in many departments other than satellite operations.
+The satellite operators must monitor the telemetries, analyse the incoming data, and act based on engineering guidance in case a problem is identified~\cite{TominagaFerrAmbr:2017:CoSaTe}.
+An example is in~\cite{Magalhaes:2012:EsAvTe}, made about a fault on the CBERS-2 satellite, where the proposed model would enhance knowledge about a phenomenon known as thermal avalanche that can make a satellite inoperable and thus identify and be able to stop that from happening again.
+Furthermore, as in line with~\autoref{table:bigdataoperators}, anomaly detection is a common area of study~\cite{AzevedoAmbrViei::EsSoTe}.
 
-Outros setores, utilizam a análise de dados vindos da carga útil do satélite ou de agentes externos ao INPE, como dados de sensoriamento remoto, cuja análise não é trivial e também estão classificados como \textit{Big Data}.
-~\citeonline{monteiroFRAMEWORKTRAJECTORYDATA2017} utilizam de conceitos de Big Data para análise de trajetórias de objetos;~\citeonline{ramosDistributedSystemsPerformance2016} demonstram o uso de softwares como o Hadoop para a análise de dados do clima espacial, com uma arquitetura relacionada as arquiteturas revisadas na seção anterior; e~\citeonline{SimoesCamaQuei:2018:DaAnMa} mostra uma arquitetura que utiliza de cubo de dados para a análise de séries temporais no sensoriamento remoto.
+Other departments will mostly use data from the payload or from external agents, like remote sensing data, which analysis is also not trivial and are definitely a Big Data problem.
+\citeonline{monteiroFRAMEWORKTRAJECTORYDATA2017} use Big Data concepts to the trajectory analysis;~\citeonline{ramosDistributedSystemsPerformance2016} showcase the use of tools like Hadoop to analyse Space Weather data, and~\citeonline{SimoesCamaQuei:2018:DaAnMa} show an architecture based on data cubes for remote sensing time series analysis, to name a few.
 
-\section{Computação do cubo de dados}\label{ch:corr:cube}
+\section{Data Cube Computation}\label{ch:corr:cube}
 
-A computação seletiva do cubo de dados possui muitos algoritmos diferentes implementados, porém eles possuem dificuldades no trato de dados com muitas dimensões e no uso limitado da memória~\cite{hanDataMiningConcepts2011}.
+The selective computation of data cubes has a rich history, due to the curse of dimensionality, most algorithms need a way to treat high dimensional data and deal with limited available memory~\cite{hanDataMiningConcepts2011}.
 
-O \textit{Frag-Cubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de \textit{cube shells}, onde subcubos com poucas dimensões (de 3 a 5 neste exemplo) são calculados utilizando de índices invertidos, que funcionam apenas utilizando memória principal.
-A ideia principal é decompor o cubo original em fragmentos que podem ser reunidos eficientemente para responder uma consulta multidimensional.
+The \textit{Frag-Cubing} algorithm~\cite{liHighdimensionalOLAPMinimal2004} uses \textit{cube shells}, where subcubes with few dimensions (generally from 2 to 5) will be computed using an inverted index, thus using the fragments as a compromise between used memory and how many dimensions can be answered with a multidimensional query.
+Frag-Cubing is one of the most efficient and popular data cube computation algorithms, and it's internal workings will be explored in the next section.
 
-Precursor para o computação distribuída do cubo,~\cite{dokaBrownDwarfFullydistributed2011} apresenta o \textit{Brown Dwarf}, um sistema \textit{Peer-to-Peer} que permite atualização das células, desenhado para diminuir a redundância em cubos distribuídos.
+Using distributed computing,~\cite{dokaBrownDwarfFullydistributed2011} shows the Brown Dwarf, a Peer-to-Peer system that allows for cells to be updated and to reduce the redundancy in distributed cubes.
 
-O \textit{PopUp-Cubing} é apresentado em~\cite{heinePopUpCubingAlgorithmEfficiently2017}, que utiliza de icebergs para lidar com dados em formato de \textit{stream}, obtendo resultados superiores ao FTL e \textit{Star-Cubing}.
-Este trabalho é de interesse especial por utilizar de dados de \textit{stream}, que permitiriam resultados parecidos com tempo real, que são mais parecidos com os dados disponíveis para a operação de satélites, porém este cenário não será abordado neste trabalho.
+PopUp-Cubing is shown in~\cite{heinePopUpCubingAlgorithmEfficiently2017}, using icebergs to deal with streaming data, and having superior results to FTL and Star-Cubing.
+This work specially deals with streaming data, which is of interest for real time data analysis of telemetries, however that that is not an scenario explored by this work.
 
-Com foco em \textit{Big Data} e utilizando como base o esquema \textit{MapReduce},~\cite{wangScalableDataCube2013} apresenta o algoritmo \textit{HaCube} para computação do cubo em paralelo.
-Este trabalho apresenta um balanço entre computação do cubo em paralelo por vários nós de \textit{MapReduce}, que permite algumas atualizações e computação incremental de medidas.
-Devido a própria natureza distribuída, ele precisa de mecanismos de tolerância a falha, e também os testes foram executados com no máximo apenas 5 dimensões, porém com até 2,4 bilhões de tuplas.
-Ainda na linha do \textit{MapReduce},~\cite{yangHolisticAlgebraicData2017} demonstra a computação de medidas holísticas apresentando o \textit{Multi-RegionCube}, porém realizando menos testes que o \textit{HaCube}.
+Using MapReduce as a base, ~\cite{wangScalableDataCube2013} presents HaCube, seeking a balance between parallel cube computation between various MapReduce nodes, allowing updates and incremental computation of measures.
+Due to its own distributed nature, it needs some fault tolerance to work, and also the tests were limited to only 5 dimensions, with up to 2,4 billion tuples.
+Also using MapReduce \citeonline{yangHolisticAlgebraicData2017} demonstrates the computing of holistic measures by presenting Multi-RegionCube, however with less testing than the previous method.
 
-Em~\cite{zhaoClosedFragShellsCubing2018} é apresentado o \textit{Closed Frag-Shells Cubing}, que utiliza de uma combinação da abordagem de cubos fechados com a abordagem \textit{Shell fragments}, obtendo resultados melhores que a aplicação de cada uma delas separadamente.
-Essa abordagem utiliza de índices \textit{bitmap} e índices invertidos, sendo que lidam com dados altamente dimensionais e sem uma hierarquia de forma similar ao necessário neste trabalho.
+In~\cite{zhaoClosedFragShellsCubing2018} it is presented Closed Frag-Shells Cubing, which combines the C-Cubing approach~\cite{dongxinCCubingEfficientComputation2006} of creating closed cube cells that losslessly compress drill-down/roll-up semantics, with the Frag-Cubing approach of using shell fragments, adding their own bitmap-based indexing on top to enhance query response times.
+This work is probably the closest to this own thesis, however with much less implementation requirements.
 
-\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} estende a abordagem \textit{Frag-Cubing} para permitir consultas sobre intervalos de valor, estendendo os operadores de consultas clássicas em cubo de dados além do operador de igualdade.
+\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extend the Frag-Cubing approach by adding value interval queries, allowing for other comparison operators besides equality to be used in queries.
+\textit{HFrag}~\cite{silvaHybridMemoryData2015} uses of external memory to aid in the computation of the inverted index, using a hybrid system to partition the cube in both main and secondary memory by keeping the most frequent used values in the main memory and the least used in the secondary memory.
+Hybrid Inverted Cubing (HIC)~\cite{silvaComputingBIGData2016} is an extension to the HFrag algorithm that uses a critical accumulated frequency parameter, which ends up having better results in practice.
 
-\textit{HFrag}~\cite{silvaHybridMemoryData2015} apresenta o uso de memória externa na computação dos índices invertidos, utilizando de um sistema híbrido de memória para armazenar as partições do cubo tanto na memória principal quanto na secundária, com os valores mais frequentes sendo armazenados na memória principal e os valores menos frequentes na memória secundária.
-
-A abordagem \textit{Hybrid Inverted Cubing} (HIC)~\cite{silvaComputingBIGData2016} estende a abordagem \textit{HFrag} com o parâmetro de frequência acumulada crítica, obtendo resultados melhores do que este nas mesmas consultas.
-
-Destes trabalhos, o \textit{Frag-Cubing} continua sendo um algoritmo robusto para a computação do cubo, com suas técnicas de índice invertido sendo utilizadas e ainda obtendo resultados adequados.
-Porém,~\citeonline{liHighdimensionalOLAPMinimal2004} ilustram o impacto exponencial no consumo de memória nas diferentes abordagens de computação de cubos de dados usando apenas 12 dimensões, sendo que há uma saturação quando cubos com 20, 50 ou 100 dimensões são computados utilizando abordagens de cubos completos, cubos DWARF, MCG, cubos fechados ou quocientes~\cite{silva:2015:abordagensParaCubo}.
+Of these works \textit{Frag-Cubing} keeps being a base robust algorithm to compute the cube, as the inverted index techniques are still relevant and the results are adequate.
+However, \citeonline{liHighdimensionalOLAPMinimal2004} show the exponential memory usage of the different cube computation schemes using only 12 dimensions, and there is a clear saturation when cubes with 20, 50, 100 or more dimensions are used to compute the cube~\cite{silva:2015:abordagensParaCubo}.
 
 \subsection{\textit{Frag-Cubing}}\label{ch:corr:cube:frag}
 
-O \textit{Frag-Cubing}~\cite{liHighdimensionalOLAPMinimal2004} apresenta o conceito de inversão de tupla.
-Cada tupla invertida $iT$ tem um valor de atributo, uma lista de identificadores da tupla (TIDs) e um conjunto de valores de medida.
-Por exemplo, consideremos quatro tuplas: $t_1 = (tid_1, a_1, b_2, c_2, m_1)$, $t_2 = (tid_2, a_1, b_3, c_3, m_2)$, $t_3 = (tid_3, a_1, b_4, c_4, m_3)$, e $t4 = (tid_4, a_1, b_4, c_1, m_4)$.
-Estas quatro tuplas geram oito tuplas invertidas: $iTa_1, iTb_2, iTb_3, iTb_4, iTc_1, iTc_2, iTc_3$ e $iTc_4$, demonstradas na figura~\ref{fig:fragexample}.
+Therefore, this work will focus on ways of improving the performance of the Frag-Cubing algorithm, both in query response time and memory usage.
+For that, it is necessary to understand how the algorithm computes the cube and answer queries.
+It does this by using the concept of an inverted index, where each inverted tuple $iT$ has an attribute value, an Tuple Identifier (TID) list, and some computed measure values.
+For example, let us consider four tuples: $t_1 = (tid_1, a_1, b_2, c_2, m_1)$, $t_2 = (tid_2, a_1, b_3, c_3, m_2)$, $t_3 = (tid_3, a_1, b_4, c_4, m_3)$, and $t4 = (tid_4, a_1, b_4, c_1, m_4)$.
+These four tuples will generate eight inverted tuples: $iTa_1, iTb_2, iTb_3, iTb_4, iTc_1, iTc_2, iTc_3$ and $iTc_4$, shown in \autoref{fig:fragexample}.
 
-Para cada valor de atributo é construído uma lista de ocorrências, assim para $a_1$ temos $iTa_1 = (a_1, tid_1, tid_2, tid_3, tid_4, m_1, m_2, m_3, m_4)$ onde o valor de atributo a 1 está associado aos TIDs: $tid_1, tid_2, tid_3,$ e $tid_4$.
-O identificador de tupla $tid_1$ tem o valor de medida $m_1$, $tid_2$ tem o valor de medida $m_2$, $tid_3$ tem o valor de medida $m_3$, e $tid_4$ possui o valor de medida $m_4$.
-A consulta $q = (a_1, b_4, COUNT)$ pode ser respondida por $iTa_1 \cap iTb_4 = (a_1b_4, tid_3, tid_4, COUNT(m_3, m_4))$.
-Em $q, iTa_1 \cap iTb_4$ indica os TIDs comuns em $iTa_1$ e $iTb_4$.
+For each attribute value an occurrence list is built, so for $a_1$ there is $iTa_1 = (a_1, tid_1, tid_2, tid_3, tid_4, m_1, m_2, m_3, m_4)$ where the attribute value 1 is associated with TIDs: $tid_1, tid_2, tid_3,$ and $tid_4$.
+Tuple identifier $tid_1$ has the measure value $m_1$, $tid_2$ has the measure value $m_2$ and so on.
+Query $q = (a_1, b_4, COUNT)$ can be answered by intersecting the lists $iTa_1 \cap iTb_4 = (a_1b_4, tid_3, tid_4, COUNT(m_3, m_4))$, in which $q, iTa_1 \cap iTb_4$ indicates the common TIDs between $iTa_1$ and $iTb_4$, their set intersection.
 
 \begin{figure}[!htb]
-	\caption{Exemplo de uma tabela dimensional e a respectiva lista de índices invertidos}\label{fig:fragexample}
-	\vspace{2mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/FragDrawing.pdf}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{Inverted Index computation example}\label{fig:fragexample}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{15cm}{!}{\includegraphics{Figuras/FragDrawing.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{}
+  \FONTE{Author.}
 \end{figure}
 
-A complexidade da interseção é proporcional ao número de ocorrências de um valor de atributo, mais precisamente é igual ao tamanho da menor lista.
-Neste exemplo, $iTb_2$ com um TID é a menor lista.
-O número de TIDs associado a cada valor de atributo pode ser enorme, assim relações com dimensões de baixa cardinalidade e elevado número de tuplas necessitam de alta capacidade de processamento.
-Listas de TIDs pequenas permitem que consultas sejam respondidas rapidamente, portanto relações com baixo \textit{skew} e alta cardinalidade são mais adequadas de serem computadas pela abordagem \textit{Frag-Cubing}.
+\RED{Can't find this source, I'll update it later}
 
-\textit{Skew} pode ser definido como o grau de uniformidade dos valores de atributos numa relação, sendo que \textit{skew} zero indica relação com valores de atributos uniformemente distribuídos, e quanto maior o \textit{skew} menos uniformemente distribuída a relação se encontra.
-%Neste sentido, abordagens como \textit{Frag-Cubing}, que fazem uso apenas de memória principal (\textit{RAM}), normalmente não conseguem computar cubos com alta dimensionalidade, cardinalidade e elevado número de tuplas eficientemente, pois extrapolam a memória existente e necessitam operações de swap do sistema operacional.
+The complexity of the intersection is proportional to the number of times that an attribute value occurs in the input data, but bounded by the size of the smallest list, and in this example $iTb_2$ with a single TID is the smallest list.
+The number of TIDs associated to an attribute value can then be enormous, with low cardinality dimensions and high number of tuples needing a high processing capacity.
+Smaller TID lists allow for queries to be quickly answered, so relations with a low skew, or uniformity of values in the relation attributes, and high cardinality are more suitable to be computed by approaches with Frag-Cubing.
+
+Furthermore, a skew close to zero can indicate a relation with uniformly distributed values, and the higher this value the less uniform the relation list will be.
+
+The algorithm also introduces the concept of cube shells: instead of computing every combination of low-dimensional cubes, only a thin shell of dimensions is computed.
+This translates to dividing the number of dimensions in the data by the supplied fragment size parameter $\mathcal{F}$ and generating all subcubes with that amount of dimensions, but not repeating the dimensions that have already been generated.
+\autoref{fig:hasseexample} shows a typical full cube with three dimensions $A, B$ and $C$, with the top being the raw cell data ($0$-dimensional cube) and the base being the most aggregated cell that summarizes all data.
+
+If we set $\mathcal{F} = 1$, then the Frag-Cubing algorithm will only pre-compute dimensions $A, B$ and $C$, as they are the lowest dimensions that fit the fragment size, as is the standard of a cube that doesn't compute any aggregation besides the single dimensions.
+However, if we set $\mathcal{F} = 2$, then the algorithm will compute from left to right the subcube $\{A, B\}$, then see that there aren't enough dimensions for another cube with the same size as the fragment and compute the next remaining not computed subcube $\{C\}$, thus computing the subcubes $[\{A, B\}, \{C\}]$.
+If $\mathcal{F} = 3$, then the full cube would be precomputed, equating a fully materialized cube with all children subcubes being computed too.
+
+\begin{figure}[!htb]
+  \caption{Shell Fragmentation example}\label{fig:hasseexample}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{8cm}{!}{\includegraphics{Figuras/FragCubing-HasseBase.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{}
+  \FONTE{Author.}
+\end{figure}
 

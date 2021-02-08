@@ -13,19 +13,19 @@ On those cases, IntervalFrag is discouraged, as the algorithm will be slower tha
   \centering
   \caption{Preferred algorithm to use}\label{tab:analysis_overview}
   \footnotesize
-  \begin{tabular}{|C{1.8cm}|C{2.3cm}|C{2.3cm}|C{2.8cm}|C{2cm}|C{1.5cm}|}
+  \begin{tabular}{|C{1.8cm}|C{2.3cm}|C{2.3cm}|C{2.65cm}|C{2cm}|C{1.6cm}|}
     \hline
     & \bfseries Low Sequentiality &\bfseries High Sequentiality &\bfseries High Dimensionality &\bfseries High Cardinality &\bfseries High Skew \\
     \hline
     Computing the base cube & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag& IntervalFrag \\
     \hline
-    Subcube query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing~$^1$ & FragCubing \\
+    Subcube query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
     \hline
-    Point query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing~$^1$ & FragCubing \\
+    Point query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
     \hline
     Low available RAM & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag \\
     \hline
-    Fast Query Reponse & Frag-Cubing & IntervalFrag & Frag-Cubing & IntervalFrag & Frag-Cubing \\
+    Fast Query Reponse & Frag-Cubing & IntervalFrag & Frag-Cubing$^1$ & Frag-Cubing$^1$ & Frag-Cubing \\
     \hline
     \multicolumn{6}{l}{$^{1}$\footnotesize{If there's high sequentiality, prefer IntervalFrag}} \\
   \end{tabular}
