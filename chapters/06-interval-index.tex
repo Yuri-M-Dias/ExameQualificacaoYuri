@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{IntervalFrag}\label{ch:interval}
+\chapter{INTERVALFRAG}\label{ch:interval}
 
 This section describes the IntervalFrag algorithm, and the proposed architecture needed to implement the enhancements to the Frag-Cubing's algorithm.
 
@@ -40,6 +40,10 @@ This would lead to the worst case for the Interval algorithm to be double the me
 In case the identifier to be inserted would be close to zero, it is necessary to add one to each of the elements in the TID list as they are inserted into the IntervalIndex, as checking for a negative zero is not recommended and not guaranteed to work the same on every computer architecture \cite{ieeeIEEEStandardFloatingPoint2019}.
 With this, the entire integer bit space is used, including the signal bit for the algorithm.
 For the scope of this work, and since the experiment does not require the update of cells, only the insertion and intersection algorithms will be detailed.
+
+Furthermore, it is necessary to define the concept of sequentiality, as it quantifies how much a list can be compressed by transforming it into a list of intervals.
+A high sequentiality means that the data are repeated in long sequences, for example $\langle 1, 2, 3, 4, 5, 6, 7, 8, 9 \rangle$ can be compressed into the sequences $\langle [1, 9] \rangle$, being of high sequentiality.
+However, the list $\langle 1, 3, 5, 6, 9\rangle$ would have a low sequentiality, as the resulting list interval would be only $\langle [1], [3], [5, 6], [9] \rangle$, and would consume exactly as much space as the raw list, with the conversion to an interval list being unfavorable.
 
 \subsection{IntervalInsertion}\label{ch:interval:algo:insertion}
 

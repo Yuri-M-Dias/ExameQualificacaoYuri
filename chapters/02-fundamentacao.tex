@@ -1,306 +1,300 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{FUNDAMENTAÇÃO}\label{ch:fun}
+\chapter{THEORETICAL BACKGROUND}\label{ch:fun}
 
-Este capítulo apresenta os conceitos fundamentais relacionados a essa proposta, começando pela operação dos satélites na seção~\ref{ch:fun:operations}, apresentando a definição de \textit{Big Data} na seção~\ref{ch:fun:bigdata}, e os os conceito de \textit{Data Warehouse} na seção~\ref{ch:fun:dw}, \textit{OLAP} na seção~\ref{ch:fun:olap} e cubo de dados na seção~\ref{ch:fun:cube}.
+This chapter presents the theoretical background necessary to understand the concepts in this thesis, starting with satellite operations, the definitions of Big Data, Data Warehouse, OLAP and Data Cubes.
 
-\section{Operação de satélites}\label{ch:fun:operations}
+\section{Satellite Operations}\label{ch:fun:operations}
 
-Um satélite é dividido em dois módulos: o módulo de serviço e a carga útil.
-O módulo de serviço compõe tudo necessário para o funcionamento dos equipamentos de bordo, como o sistema de geração de energia, o sistema de comunicação com o solo, o computador de bordo, etc.
-A carga útil compõe todos os equipamentos necessários para cumprir os objetivos da missão, sendo esses sensores, câmeras, telescópios, etc~\cite{larsonSpaceMissionAnalysis1999}.
+A satellite is divided into two modules: the service module and the payload.
+The service module is composed of everything necessary for the operation of the on-board equipment, such as the power supply system, the ground communication system, the on-board computer, etc.
+The payload is composed of all the necessary equipment to fulfill the mission objectives, these being sensors, cameras, telescopes, etc~\cite{larsonSpaceMissionAnalysis1999}.
 
-Um satélite gera dois tipos diferentes de dados: dados da carga útil e dados de telemetria.
-Os dados da carga útil são os dados gerados para cumprir a missão do satélite, sendo que eles podem ser fotos tiradas para o sensoriamento remoto, fotos tiradas por telescópios, dados de comunicação caso este seja o foco da missão entre outros~\cite{larsonSpaceMissionAnalysis1999}.
-Os dados de telemetria são os dados de monitoramento do estado de saúde e do funcionamento dos equipamentos do satélite.
-Esses dados são coletados pelo computador de bordo do satélite, e são enviados para as estações de solo via sistemas de telecomunicação.
+A satellite generates two different types of data: payload data and telemetry data.
+Payload data is the data generated to fulfill the mission of the satellite, and it can be photos taken for remote sensing, photos taken by telescopes, communication data if this is the focus of the mission among others~\cite{larsonSpaceMissionAnalysis1999}.
+The telemetry data are the monitoring data of the health status and good operation of the satellite systems. These data are collected by the satellite's on-board computer, and are sent to the ground stations via telecommunication systems.
 
-Os dados de telemetria compõe usualmente medidas de sensores nos equipamentos do satélite, informações coletadas pelo computador de bordo (como se um instrumento está ligado ou não), e outros dados cuja coleta foi definida como relevante para a operação do satélite.
-Dependendo da missão, outras medidas podem ser classificadas como telemetria, como por exemplo câmeras voltadas para o satélites, radares para a detecção de possíveis colisões, etc~\cite{kragCmSpaceDebris2017}.
+The telemetry data usually consist of sensor measurements on the satellite equipment, information collected by the on-board computer (such as whether an instrument is turned on or not), and other data whose collection has been defined as relevant to the operation of the satellite.
+Depending on the mission, other measurements can be classified as telemetry, e.g. satellite-facing cameras, radars for the detection of possible collisions, etc~\cite{kragCmSpaceDebris2017}.
 
-Esses dados devem ser analisados pelos operadores de satélite, que são os responsáveis pelo monitoramento e operação do satélite, em solo após recebimento no centro de controle.
-Essa análise visa garantir que o satélite está executando suas tarefas como deveria, e que o seu estado de saúde permite a continuação da missão.
-Neste trabalho, será utilizada a análise feita pelos operadores de satélite somente nos dados de telemetria, que é uma análise não trivial dadas as características dos dados, classificados como \textit{Big Data}.
+This data must be analyzed by satellite operators, who are responsible for monitoring and operating the satellite, on the ground after reception at the control center.
+This analysis aims to ensure that the satellite is performing the tasks as it should, and that its state of health allows the continuation of the mission.
 
-\section{\textit{Big Data}}\label{ch:fun:bigdata}
+\section{Big Data}\label{ch:fun:bigdata}
 
-A aplicação do conceito de \textit{Big Data} vem evoluindo ao longo dos anos, e para este trabalho será utilizada a definição dos \textit{5 Vs}: Volume, Variedade, Velocidade, Valor e Veracidade~\cite{kacfahemaniUnderstandableBigData2015}. Em detalhes:
+The concept of Big Data is still evolving, and in this work the 5 Vs definition will be used: Volume, Variety, Velocity, Value and Veracity~\cite{kacfahemaniUnderstandableBigData2015}.
 
-\begin{itemize}
-	\item \textbf{Volume}: esse termo geralmente especifica uma quantidade de dados em que um sistema tradicional de gerenciamento de banco de dados é ineficaz.
-É importante ressaltar que isso não se trata apenas do armazenamento dos dados, mas também do seu processamento~\cite{boussoufBigDataBased2018}.
-Usar um grande volume de dados geralmente implica em modelos melhores, que então produzem análises melhores, justificando a coleta de uma grande quantidade de dados.
-	\item \textbf{Variedade}: dados são provenientes de fontes diferentes, com formatos diferentes, sem um esquema de modelagem padronizado, como dados advindos de \textit{logs} de computadores, dados de sensores, dados multimídia, etc.
-Como consequência, esses dados devem ser utilizados da forma mais transparente o possível na análise.
-	\item \textbf{Velocidade}: dados são disponibilizados de uma forma muito rápida, e devem ser analisados da forma mais rápida o possível.
-Isso implica que os dados podem ser guardados e analisados até em tempo real.
-	\item \textbf{Valor}: os dados devem ser armazenados para criar algum valor para os seus usuários, seja ele econômico, científico, social, organizacional, etc.
-	\item \textbf{Veracidade}: os dados não possuem garantias quanto a sua qualidade, como inconsistências e falta de acurácia, porém a análise deve ser de alta qualidade de qualquer forma.
+\begin{itemize}[noitemsep]
+  \item \textbf{Volume}: This term generally specifies an amount of data in which a traditional database management system is ineffective.
+  It is important to note that this is not only about the storage of data, but also about its processing~\cite{boussoufBigDataBased2018}.
+  Using a large volume of data usually implies in better models, which are then hoped to produce better analyses, justifying the collection of a large amount of data.
+  \item \textbf{Variety}: The data has multiple sources, with different formats, without a standardized modeling scheme, such as data coming from computertexts, sensor data, multimedia data, etc.
+  As a consequence, these data should be used as transparently as possible in the analysis.
+  \item \textbf{Velocity}: data is made available very quickly, and should be analyzed as quickly as possible.
+  This implies that the data might be stored and analyzed even in real time.
+  \item \textbf{Value}: data must be stored to create some value for its users, be it economic, scientific, social, organizational, etc.
+  \item \textbf{Veracity}: the data has no guarantees as to its quality, such as inconsistencies and lack of accuracy, but the analysis must be of high quality anyway.
 \end{itemize}
 
-Esses V's estão relacionados com a construção de um \textit{Data Warehouse}, sendo que também podem ser vistos como requisitos para a crição de um para um conjunto de dados caracterizado como \textit{Big Data}~\cite{zhangBigDataFramework2017}.
-Em especial, existe um certo relacionamento com a ideia de ``\textit{NoSQL}'' (``Não apenas SQL'', em inglês), em que não apenas sistemas de banco de dados relacionais são utilizados, mas também outros paradigmas são utilizados, como orientados a documentos, chave e valor, etc~\cite{bimonteOpenIssuesBig2016}.
+These V's are related to the construction of a Data Warehouse, and can also be seen as requirements for the creation of one for a data set characterized as Big Data~\cite{zhangBigDataFramework2017}.
+In particular, there is a certain relationship with the idea of ``NoSQL'' (``Not only SQL''), where not only relational database systems are used, but also other paradigms are used, such as document oriented, key and value, etc~\cite{bimonteOpenIssuesBig2016}.
 
-\section{\textit{Data Warehouse}}\label{ch:fun:dw}
+\section{Data Warehouse}\label{ch:fun:dw}
 
-Um Armazém de Dados ou Data Warehouse (DW) é um repositório de dados orientado por assunto, integrado, variado ou particionado em função do tempo e não volátil, que auxilia no gerenciamento do processo de tomada decisões~\cite{inmonUsingDataWarehouse1994}.
-Essa definição pode ser dividida em:
+A Data Warehouse (DW) is a subject oriented, integrated, time-varying or time partitioned, non-volatile data repository that assists the decision making process~\cite{inmonUsingDataWarehouse1994}.
+This definition can be divided into:
 
 \begin{itemize}
-	\item \textbf{Orientado por assunto}: o DW é utilizado para a análise de uma área em específico.
-Por exemplo, é de interesse analisar especialmente os dados da carga útil de uma forma específica.
-	\item \textbf{Integrado}: o DW deve integrar dados vindos de múltiplas fontes de uma forma estrutura.
-Por exemplo, mesmo que existam duas representações diferentes para um mesmo produto, o DW deve possuir apenas uma representação.
-Isso requer o uso de técnicas de limpeza e integração dos dados, de modo a garantir a consistência dos dados.
-	\item \textbf{Variado em função do tempo}: o DW deve conter, explícita ou implicitamente a perspectiva de tempo.
-Isso quer dizer que o DW possui dados históricos e eles podem ser consultados durante a análise.
-Por exemplo, pode se querer saber de dados de dias, meses ou anos atrás.
-	\item \textbf{Não volátil}: uma vez dentro do DW, os dados não são removidos ou atualizados, sendo um requisito para a consulta de dados históricos.
+  \item \textbf{Subject oriented}: the DW is used for the analysis of a specific area.
+    For example, a DW for telemetry data might just be useful for the operators, but not specific enough for engineering.
+  \item \textbf{Integrated}: the DW must integrate data from multiple sources in a structured way.
+    For example, even if there are two different representations for the same product, the DW should have only one representation.
+    This requires the use of data cleaning and integration techniques in order to ensure data consistency.
+  \item \textbf{Time-varying or time partitioned}: the DW must explicitly or implicitly contain the time perspective.
+    This means that DW has historical data and they can be consulted during the analysis.
+    For example, one might want to know data from days, months or years ago.
+  \item \textbf{Non-volatile}: once inside DW, the data is not removed or updated, being a requirement for consulting historical data.
 \end{itemize}
 
-Essas características diferem o \textit{Data Warehouse} de outros sistemas de repositório, como sistemas de banco de dados, sistemas de processamento de transações e sistemas de arquivos~\cite{hanDataMiningConcepts2011}.
+These features differentiate the Data Warehouse from other repository systems such as database systems, transaction processing systems and file systems~\cite{hanDataMiningConcepts2011}.
 
-Um DW é geralmente representado por um modelo dimensional que permite eficiência na organização dos dados e na recuperação de informações gerenciais~\cite{kimballDataWarehouseToolkit2013}.
-Neste modelo são definidos fatos, dimensões e medidas.
-Um fato corresponde ao assunto de negócio a ser analisado, cada dimensão é uma perspectiva de visualização do assunto de negócio e medidas são valores numéricos que quantificam o assunto de negócio.
-Uma das dimensões é sempre temporal para permitir a análise do assunto ao longo do tempo~\cite{silva:2015:abordagensParaCubo}.
+A DW is generally represented by a dimensional model that allows efficiency in data organization and management information retrieval~\cite{kimballDataWarehouseToolkit2013}.
+Furthermore, this model has a few definitions: facts, dimensions and measures.
+A fact corresponds to the business subject to be analyzed, each dimension is a visualization perspective of the business subject and measures are numerical values that quantify the business subject.
+One of the dimensions is always temporal to allow the analysis of the subject over time.
 
-\section{\textit{OLAP}}\label{ch:fun:olap}
+\section{OLAP}\label{ch:fun:olap}
 
-\textit{On-line Analytical Processing} (OLAP) é um termo que se refere a um conjunto de ferramentas que são utilizadas para resumir, consolidar, visualizar, aplicar formulações e sintetizar dados de acordo com múltiplas dimensões~\cite{coddProvidingOlapUseranalysts1998}.
+\textit{On-line Analytical Processing} (OLAP) is a term that refers to a set of tools that are used to summarize, consolidate, visualize, apply formulations and synthesize data according to multiple dimensions~\cite{coddProvidingOlapUseranalysts1998}.
 
-Um sistema OLAP permite a resposta de consultas multidimensionais usando dados armazenados no \textit{Data Warehouse}~\cite{kimballDataWarehouseToolkit2013}, sendo que as características principais são~\cite{bimonteOpenIssuesBig2016}:
+An OLAP system allows the response of multi-dimensional queries using data stored in the Data Warehouse~\cite{kimballDataWarehouseToolkit2013}, and the main features are~\cite{bimonteOpenIssuesBig2016}:
 
 \begin{itemize}
-	\item \textbf{Consultas Online}: as consultas devem ser feitas \textit{Online}, isto é, em tempo real para o usuário.
-	\item \textbf{Consultas Multidimensionais}: Consultas são definidas utilizando as dimensões e medidas providas pelo \textit{Data Warehouse}, que esperam dados de alta qualidade.
-	\item \textbf{Representação simples}: os resultados das consultas devem ser representados utilizando tabelas e gráficos, pois os usuários finais geralmente são tomadores de decisão que precisam de visualizações relevantes.
-	\item \textbf{Exploratórias}: as consultas são utilizadas em carácter exploratório, pois geralmente os usuários não conhecem de antemão todos os dados disponíveis para consultas.
+  \item \textbf{Online queries}: must be made \textit{Online}, that is, in time for the user.
+  \item \textbf{Multidimensional queries}: They are defined using the dimensions and measures provided by the Data Warehouse, which expect high quality data.
+  \item \textbf{Simple representation}: Query results must be represented using tables and graphs, because end users are usually decision makers who need visualizations that are relevant to the subject.
+  \item \textbf{Exploratory}: queries are used in an exploratory way, since users generally do not know in advance all the data available for queries.
 \end{itemize}
 
-Cada ferramenta OLAP deve manipular um novo tipo abstrato de dados (TAD), chamado de cubo de dados, utilizando estratégias específicas devido ao modo de como os dados são armazenados, sendo classificadas em~\cite{moreiraFullPartialData2012}:
+Each OLAP tool must manipulate a new Abstract Data Type (ADT), called a data cube, using specific strategies due to the way the data is stored, being classified in~\cite{moreiraFullPartialData2012}:
 
 \begin{itemize}
-	\item \textbf{\textit{Relational OLAP} (ROLAP)}: utilizam Sistemas de Gerenciamento de Banco de Dados (\textit{Data base Management System} - DBMS) relacionais para o gerenciamento e armazenamento dos cubos de dados.
-Ferramentas ROLAP incluem otimizações para cada DBMS, implementação da lógica de navegação em agregações, serviços e ferramentas adicionais;
-	\item \textbf{\textit{Multidimensional} OLAP (MOLAP)}: implementam estruturas de dados multidimensionais para armazenar cubo de dados em memória principal ou em memória externa.
-Não há utilização de repositórios relacionais para armazenar dados multidimensionais e a lógica de navegação já é integrada a estrutura proposta;
-	\item \textbf{\textit{Hybrid} OLAP (HOLAP)}: combinam técnicas ROLAP e MOLAP, onde normalmente os dados detalhados são armazenados em base de dados relacionais (ROLAP), e as agregações são armazenadas em estruturas de dados multidimensionais (MOLAP).
+  \item \textbf{Relational OLAP (ROLAP)}: use relational Database Management Systems (Data base Management System - DBMS) for the management and storage of data cubes.
+    ROLAP tools include optimizations for each DBMS, implementation of navigation logic in aggregations, services and additional tools;
+  \item \textbf{Multidimensional OLAP (MOLAP)}: implement multidimensional data structures to store data cubes in main memory or in external memory.
+    No relational repositories are used to store multidimensional data and the navigation logic is already integrated into the proposed structure;
+  \item \textbf{Hybrid OLAP (HOLAP)}: combine ROLAP and MOLAP techniques, where detailed data is stored in a relational database (ROLAP), and aggregations are stored in multidimensional data structures (MOLAP).
 \end{itemize}
 
-É importante ressaltar a diferença entre OLAP e \textit{Online Transaction Processing} (OLPT), visto que sistemas comuns de banco de dados utilizam apenas OLTP, que tem o objetivo de realizar transações e processar consultas online.
-Isso cobre a grande maioria das operações do dia a dia, como controle de estoque, operações bancárias, etc, servindo a diversos usuários de uma organização.
-Já o OLAP é utilizado por tomadores de decisão e analistas de dados, sendo voltado para decisões de mais alto nível na organização~\cite{hanDataMiningConcepts2011}.
+It is important to highlight the difference between OLAP and Online Transaction Processing (OLPT), since common database systems use only OLTP, which has the purpose of performing valid transactions and processing queries.
+This covers the vast majority of day-to-day operations, such as stock control, banking operations, etc., serving various users of an organization.
+OLAP is used by decision makers and data analysts and is geared towards higher level decisions in the organization~\cite{hanDataMiningConcepts2011}.
 
-\section{Cubo de dados}\label{ch:fun:cube}
+\section{Data Cube}\label{ch:fun:cube}
 
-O cubo de dados originalmente foi criado como um operador relacional que gera todas as combinações possíveis de seus atributos de acordo com uma medida~\cite{grayDataCubeRelational1996}.
+The data cube was originally created as a relational operator that generates all the possible combinations of its attributes according to a measure~\cite{grayDataCubeRelational1996}.
 
-A estrutura do cubo de dados permite que os dados sejam modelados e visualizados em múltiplas dimensões, e ele é caracterizado por dimensões e medidas.
-Uma medida é um atributo cujos valores são calculados pelo relacionamento entre as dimensões, sendo que esse é calculado utilizando funções de agragação como soma, quantidade, média, moda, mediana, etc.
-Uma dimensão é feita pelas entidades que compõe os nossos dados, determinando o contexto do assunto em questão~\cite{hanDataMiningConcepts2011}.
-Uma dimensão pode ainda ser dividida em membros, que podem ter uma hierarquia, como uma divisão da dimensão tempo em dia, mês e ano.
+The structure of the data cube allows the data to be modeled and visualized in multiple dimensions, and it is characterized by dimensions and measures.
+A measurement is an attribute whose values are calculated by the relationship between the dimensions, which is calculated using aggregation functions such as sum, count, average, mode, median, etc.
+A dimension is made by the entities that compose the data, determining the context of the subject in question.
+A dimension can also be divided into members, which can have a hierarchy, such as a time dimension divided in day, month and year~\cite{hanDataMiningConcepts2011}.
 
-A organização de um cubo de dados possibilita ao usuário a flexibilidade de visualização dos dados a partir de diferentes perspectivas, já que o operador gera combinações através do conceito do valor \textit{ALL}, onde este conceito representa a agregação de todas as combinações possíveis de um conjunto de valores de atributos.
-Operações em cubos de dados existem a fim de materializar estas diferentes visões, permitindo busca e análise interativa dos dados armazenados~\cite{hanDataMiningConcepts2011}.
+The organization of a data cube allows the user the flexibility to visualize the data from different perspectives, since the cube operator generates combinations through the concept of the value \textit{ALL}, where this concept represents the aggregation of all possible combinations of a set of attribute values.
+Operations in data cubes exist in order to materialize these different views, allowing search and interactive analysis of stored data~\cite{hanDataMiningConcepts2011}.
 
-Um cubo de dados é composto por células e cada célula possui valores para cada dimensão, incluindo \textit{ALL}, e valores para as medidas.
-A figura~\ref{fig:cubeexample} mostra um exemplo de um cubo de dados.
-O valor de uma medida é computado para uma determinada célula utilizando níveis de agregação inferiores para gerar os valores dos níveis de agregação superiores na estratégia \textit{Top-down}, com a ordem inversa sendo a \textit{Bottom-up}.
-
-\begin{figure}[!htb]
-	\caption{Exemplo de um cubo de dados}\label{fig:cubeexample}
-	\vspace{2mm}
-	\begin{center}
-		\resizebox{9cm}{!}{\includegraphics{Figuras/CubeExample.pdf}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
-\end{figure}
-
-\subsection{Células do cubo de dados}\label{ch:fun:cube:cells}
-
-Um cubo de dados é composto de vários subcubos, que são todos os possíveis níveis de agregação nas dimensões especificadas.
-Subcubos são compostos de células base e células agregadas, sendo uma célular agregada é uma célula que utiliza do valor especial \textit{ALL} (``$*$'') para demonstrar que está agregando valores em uma ou mais dimensões.
-Uma célula base não utiliza da notação \textit{ALL}, sendo composta do nível mais baixo de agregação~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
-A figura~\ref{fig:hasse} demonstra todos os níveis de agregação de um cubo composto das dimensões A, B e C, do mais genérico (\textit{apex}) ao mais específico(base).
+A data cube is composed of cells and each cell has values for each dimension, including \textit{ALL}, and values for the measurements.
+\autoref{fig:cubeexample} shows an example of a data cube.
+The value of a measure is computed for a given cell using lower aggregation levels to generate the values of the higher aggregation levels in the \textit{Top-down} strategy, with the inverse order used in \textit{Bottom-up}.
 
 \begin{figure}[!htb]
-  \caption{Células de agregação em um cubo de dados}\label{fig:hasse}
-	\vspace{2mm}
-	\begin{center}
-		\resizebox{5cm}{!}{\includegraphics{Figuras/Hasse.pdf}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{Data Cube example}\label{fig:cubeexample}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{9cm}{!}{\includegraphics{Figuras/CubeExample.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{}
+  \FONTE{Author}
 \end{figure}
 
-Formalmente, supondo um cubo de dados $n$-dimensional, uma célula $a$ de qualquer subcubo é definida por $a = (a_1, a_2, a_3, \ldots, a_n, medidas)$.
-A célula é m-dimensional (de um subcubo com $m$ dimensões), se exatamente $m$, com $(m \leq n)$, valores entre $(a_1, a_2, a_3, \ldots, a_n)$ não são ``$*$''.
-Se $m = n$, então $a$ é uma célula base, caso contrário $(m < n)$, ela é uma célula agregada.
+\subsection{Data Cube Cells}\label{ch:fun:cube:cells}
 
-Um relacionamento de descendente-ancestral pode existir entre células.
-Em um cubo de dados $n$-dimensional, uma célula $a = (a_1, a_2, a_3, \ldots, a_n, medidas_a)$ de nível $i$ é um ancestral de uma célula $b = (b_1, b_2, b_3, \ldots, b_n, medidbs_b)$ de nível $j$, e $b$ é um descendente de $a$, se e somente se $i < j$ e $1 \leq m \leq n$, onde $a_m = b_m$ sempre que $a_m \neq *$.
-Em particular, uma célula $a$ é chamada de pai de uma célula $b$, e $b$ de filho de $a$, se e somente se $j = i+1$ e $b$ for um descendente de $a$~\cite{hanDataMiningConcepts2011}.
-
-\subsection{Modelagem dimensional}\label{ch:fun:cube:dimm}
-
-Existem três esquemas principais para a modelagem dimensional de um cubo de dados: Esquema Estrela (\textit{Star Schema}), Esquema Floco de Neve (\textit{Snowflake Schema}) e Constelação de Fatos (\textit{Fact Constellation Schema}).
-
-O esquema estrela é o mais utilizado, sendo que ele contém uma tabela central chamada de tabela de fatos, onde reside a maior parte dos dados, com um conjunto menor de tabelas, chamadas de tabelas de dimensão, para as outras dimensões.
-A figura~\ref{fig:starschema} mostra um exemplo de esquema estrela.
+A data cube is composed of several subcubes, which are all possible levels of aggregation in the specified dimensions.
+Subcubes are composed of base cells and aggregated cells, and an aggregated cell is a cell that uses the special value \textit{ALL} (``$*$'') to demonstrate that it is adding values in one or more dimensions.
+A base cell does not use the \textit{ALL} notation, being composed of the lowest level of aggregation~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
+\autoref{fig:hasse} shows all levels of aggregation of a cube composed of dimensions A, B and C, from the most generic (\textit{apex}) to the most specific (base).
 
 \begin{figure}[!htb]
-	\caption{Esquema estrela}\label{fig:starschema}
-	\vspace{6mm}
-	\begin{center}
-		\resizebox{4cm}{!}{\includegraphics{Figuras/starSchema.png}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{\RED{WRONG, apex and base are inverted}}\label{fig:hasse}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{5cm}{!}{\includegraphics{Figuras/Hasse.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{A Hasse Diagram of a data cube with three dimensions A, B and C.}
+  \FONTE{Author}
 \end{figure}
 
-O esquema floco de neve é uma variação do esquema estrela, onde algumas dimensões são normalizadas, dividindo os dados das tabelas de dimensão em outras tabelas.
-Isso possui vantagens de eliminar redundâncias nas tabelas de dimensão, porém cria problemas durante a execução de consultas, visto que é necessário realizar operações de \textit{join} com as novas tabelas.
-A figura~\ref{fig:snowflakeschema} mostra um exemplo de esquema floco de neve.
+Formally, assuming a $n$-dimensional data cube, a cell $a$ of any subcube is defined by $a = (a_1, a_2, a_3, \ldots, a_n, measures)$.
+The cell is $m$-dimensional (from a subcube with $m$ dimensions), if exactly $m$, with $(m \leq n)$, values between $(a_1, a_2, a_3, \ldots, a_n)$ are not ``$*$''.
+If $m = n$, then $a$ is a base cell, otherwise $(m < n)$, it is an aggregate cell.
+
+A descending-ancestral relationship can exist between cells.
+In a $n$-dimensional data cube, a cell $a = (a_1, a_2, a_3, \ldots, a_n, measures_a)$ with level $i$ is an ancestor of a cell $b = (b_1, b_2, b_3, \ldots, b_n, measures_b)$ of level $j$, and $b$ is a descendant of $a$, if and only if $i < j$ and $1 \leq m \leq n$, where $a_m = b_m$ whenever $a_m \neq *$.
+In particular, a $a$ cell is called the parent of a $b$ cell, and $b$ the child of $a$, if and only if $j = i+1$ and $b$ is a descendant of $a$~\cite{hanDataMiningConcepts2011}.
+
+\subsection{Dimensional Modelling}\label{ch:fun:cube:dimm}
+
+There are three main schemes for the dimensional modeling of a data cube: Star Schema, Snowflake Schema and Fact Constellation.
+The star schema is the most used, as it contains a central table called the fact table, where most of the data is located, with a smaller set of tables, called dimension tables, for the other dimensions.
+\autoref{fig:starschema} shows an example of a star scheme.
 
 \begin{figure}[!htb]
-	\caption{Esquema floco de neve}\label{fig:snowflakeschema}
-	\vspace{2mm}
-	\begin{center}
-		\resizebox{6cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{Star schema}\label{fig:starschema}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{4cm}{!}{\includegraphics{Figuras/starSchema.png}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{}
+  \FONTE{Author}
 \end{figure}
 
-O esquema constelação de fatos utiliza de múltiplas tabelas de fato, como se fossem várias tabelas no esquema estrela que compartilham tabelas de dimensão.
-Isso leva ao seu nome, como um conjunto de estrelas.
-A figura~\ref{fig:factconstschema} mostra um exemplo de constelação de fatos.
+The snowflake scheme is a variation of the star scheme, where some dimensions are normalized, dividing the data of the dimension tables into other tables.
+This has the advantages of eliminating redundancies in the dimension tables, but it creates problems during the execution of queries since it is necessary to perform join operations with the new tables.
+\autoref{fig:snowflakeschema} shows an example of a snowflake scheme.
 
 \begin{figure}[!htb]
-	\caption{Esquema constelação de fatos}\label{fig:factconstschema}
-	\vspace{6mm}
-	\begin{center}
-		\resizebox{6cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{Snowflake schema}\label{fig:snowflakeschema}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{6cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{}
+  \FONTE{Author}
 \end{figure}
 
-\subsection{Hierarquias de conceito}\label{ch:fun:cube:concept}
+The Fact Constellation uses multiple fact tables, like multiple star schemas but sharing dimension tables, leading to it's name as a group of stars.
+\autoref{fig:factconstschema} shows an example of a fact constellation scheme.
 
-Uma hierarquia de conceitos é utilizada para definir uma sequência de mapeamento entre um conjunto de conceitos de baixo nível para um conjunto de conceitos de alto nível, mais gerais.
-É um estilo de agrupamento e discretização, pois agrupa os valores de modo a reduzir a cardinalidade de uma dimensão~\cite{hanDataMiningConcepts2011}.
-Elas ajudam a tornar a análise mais fácil de ser entendida, pois as operações traduzem os dados de baixo nível em uma representação que é mais fácil para o usuário final, assim facilitando a execução das consultas e o seu subsequente uso.
+\begin{figure}[!htb]
+  \caption{Fact Constellatin scheme}\label{fig:factconstschema}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{6cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{}
+  \FONTE{Author}
+\end{figure}
 
-\subsection{Medidas}\label{ch:fun:cube:measures}
+\subsection{Concept Hierarchies}\label{ch:fun:cube:concept}
 
-Cada célula de um cubo é definida como um par $\langle (d_1, d_2, \ldots, d_n), medidas\rangle$, onde $(d_1, d_2, \ldots, d_n)$ representam as combinações possíveis de valores de atributos sobre as dimensões.
-Uma medida é calculada para uma certa célula agregando os dados correspondentes a combinação de dimensões e valores~\cite{hanDataMiningConcepts2011}.
-Medidas podem ser classificadas em três tipos: distributiva, algébrica e holística.
+A concept hierarchy is used to define a mapping sequence between a set of low-level concepts and a set of high-level, more general concepts.
+It is a style of grouping and discretization, because it groups the values in order to reduce the cardinality of a dimension~\cite{hanDataMiningConcepts2011}.
+They help make the analysis easier to understand, as the operations translate the low-level data into a representation that is easier for the end user, thus facilitating the execution of queries and their subsequent use.
 
-Uma medida distributiva é uma medida cujo cálculo pode ser particionado e depois combinado, e o resultado seria o mesmo se o cálculo fosse executado em todo o conjunto de dados.
-Por exemplo, a função de soma é distributiva: dividindo os dados $N$ em conjuntos $n$, e fazendo a soma de cada conjunto $n$, teremos o mesmo resultado que se a fosse feita diretamente sobre $N$.
+\subsection{Measures}\label{ch:fun:cube:measures}
 
-Uma medida algébrica é uma medida cujo cálculo pode ser feito sobre duas ou mais medidas distributivas.
-Por exemplo, uma medida de média pode ser calculada com a divisão da medida \textit{soma} pela a medida \textit{contagem}, que são ambas distributivas.
+Each cell of a cube is defined as a pair $\langle (d_1, d_2, \ldots, d_n), measures \rangle$, where $(d_1, d_2, \ldots, d_n)$ represent the possible combinations of attribute values over dimensions.
+A measure is calculated for a certain cell by aggregating the data corresponding to the combination of dimensions and values~\cite{hanDataMiningConcepts2011}.
+Measurements can be classified into three types: distributive, algebraic and holistic.
 
-Uma medida é holística se não existe uma medida algébrica com $M$ argumentos que caracterize a computação.
-Isso quer dizer que a computação não pode ser particionada, com valores exatos obtidos apenas se a medida for aplicada em todos os dados.
-Alguns exemplos são as medidas de moda, desvio padrão e mediana~\cite{hanDataMiningConcepts2011}.
+A distributive measure is a measure whose calculation can be partitioned and then combined, and the result would be the same if the calculation was performed on the entire data set.
+For example, the sum function is distributive: dividing the $N$ data into $n$ sets, and making the sum of each $n$ set, will have the same result as if it were done directly over $N$.
 
-\subsection{Operações OLAP}\label{ch:fun:cube:olapops}
+An algebraic measure is a measure that can be calculated with two or more distributive measures.
+For example, a measure of average can be calculated by dividing the measure sum by the measure count, which are both distributive.
 
-Para realizar consultas no \textit{Data Warehouse}, é necessário utilizar de algumas operações sobre o cubo de dados para obter os resultados adequados.
-Essas consultas também devem conseguir passar na hierarquia de conceitos de cada dimensão, bem como seguir o modelo dimensional do cubo definido, para conseguir oferecer uma interface amigável com o usuário para análise interativa~\cite{hanDataMiningConcepts2011}.
-Algumas operações estão exemplificados na figura~\ref{fig:olap}, porém elas geralmente são:
+A measure is holistic if there is no algebraic measure with $M$ arguments that performs the computation.
+This means that computing cannot be partitioned, with exact values obtained only if the measure is applied to all data.
+Some examples are the measures of mode, standard deviation and median~\cite{hanDataMiningConcepts2011}.
+
+\subsection{OLAP Operations}\label{ch:fun:cube:olapops}
+
+To perform queries in the Data Warehouse, it is necessary to use some operations on the data cube to obtain the appropriate results.
+These queries must also be able to go through the hierarchy of concepts of each dimension, as well as follow the dimensional model of the cube, in order to offer a user-friendly interface for interactive analysis~\cite{hanDataMiningConcepts2011}.
+Some operations are exemplified in \autoref{fig:olap}, but they usually are:
 
 \begin{itemize}
-	\item \textit{Roll-up}: realiza agregação no cubo de dados, seja navegando na hierarquia de conceitos de nível específico para um mais genérico, ou reduzindo uma dimensão.
-	\item \textit{Drill-down}: o inverso da operação \textit{roll-up}, navega na hierarquia de conceitos do nível mais genérico para o nível mais específico, ou adiciona dimensões ao cubo atual.
-Essa operação visa aumentar o nível de detalhes dos dados.
-	\item \textit{Slice}: ou ``fatiamento'', realiza uma seleção em uma dimensão do cubo, resultando em um subcubo.
-	\item \textit{Dice}: define um subcubo realizando uma seleção (\textit{slice}) em duas ou mais dimensões.
-	\item \textit{Pivot}: também chamada de rotação, permite mudar a posição das dimensões na visualização, portanto alterando linhas por colunas e vice-versa.
+  \item \textit{Roll-up}: performs aggregation in the data cube, either by navigating the concept hierarchy from a specific level concepts to a more generic one, or by reducing a dimension.
+  \item \textit{Drill-down}: the inverse of the roll-up operation, navigates in the hierarchy of concepts from the most generic level to the most specific level, or adds dimensions to the current cube.
+  \item \textit{Slice}: performs a selection in a cube dimension, resulting in a subcube focused on that dimension.
+  \item \textit{Dice}: defines a subcube by making a selection (slice) in two or more dimensions.
+  \item \textit{Pivot}: also called rotation, it allows changing the position of the dimensions in view, changing rows to columns and vice versa.
 \end{itemize}
 
 \begin{figure}[!htb]
-  \caption{Operações \textit{OLAP} em um cubo de dados}\label{fig:olap}
-	\vspace{4mm}
-	\begin{center}
-		\resizebox{15cm}{!}{\includegraphics{Figuras/OLAP.pdf}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+  \caption{OLAP operations in a Data Cube}\label{fig:olap}
+  \vspace{4mm}
+  \begin{center}
+    \resizebox{15cm}{!}{\includegraphics{Figuras/OLAP.pdf}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{\RED{TRANSLATE}}
+  \FONTE{Author}
 \end{figure}
 
-Dependendo do sistema OLAP, é possível que outras operações sejam possíveis, como \textit{drill-across} que passa por mais do que uma tabela de fatos, e \textit{drill-through} que permite executar consultas direto na representação em baixo nível do cubo~\cite{hanDataMiningConcepts2011}.
+Depending on the OLAP system, it is possible to execute other operations, like drill-across between multiple fact tables, and drill-through where queries are executed directly on the low-level representation of the data~\cite{hanDataMiningConcepts2011}.
 
-\subsection{Computação do cubo de dados}\label{ch:fun:cube:comp}
+\subsection{Data Cube Computation}\label{ch:fun:cube:comp}
 
-A computação do cubo de dados é uma tarefa essencial, pois a pré-computação de todo ou parte de um cubo de dados pode aumentar significativamente o desempenho do DW.
-Porém, essa tarefa possui complexidade exponencial em relação ao número de dimensões, sendo chamada de materialização, com a materialização completa exigindo uma grande quantidade de células, e portanto um elevado consumo de memória e tempo~\cite{hanDataMiningConcepts2011}.
+Data cube computation is an essential task, as pre-computing all or part of a data cube can significantly increase DW performance.
+However, this task has exponential complexity in relation to the number of dimensions, being called materialization, with complete materialization requiring a large number of cells, and therefore a high memory consumption and time~\cite{hanDataMiningConcepts2011}.
 
-O cálculo original da computação do cubo de dados foi proposta por~\cite{grayDataCubeRelational1996}, sendo: dada uma relação de relação de entrada $R$ com tuplas de tamanho $n$, o número de subcubos que podem ser gerados é $2^n$, onde $n$ é o número de dimensões do cubo.
-Por exemplo, supondo um cubo com três dimensões \textit{Satélite, Telemetria, Valor}, teremos $2^3 = 8$ subcubos possíveis: $\{(satélite, telemetria, valor), (satélite, valor), (satélite, telemetria),$ $(telemetria, valor), (telemetria), (valor), (satélite), () \}$, com $()$ denotando o agrupamento vazio (célula base, as dimensões não estão agrupadas).
+The original calculation of the data cube computation was proposed by~\cite{grayDataCubeRelational1996}, being: given an input relation $R$ with tuples of size $n$, the number of subcubes that can be generated is $2^n$, where $n$ is the number of dimensions of the cube.
+For example, assuming a cube with three dimensions \textit{Satellite, Telemetry, Value}, we have $2^3 = 8$ possible subcubes: $\{(satellite, telemetry, value), (satellite, value), (satellite, telemetry),$ $(telemetry, value), (telemetry), (value), (satellite), \emptyset \}$, with $\emptyset$ denoting the empty grouping (base cell, dimensions are not grouped).
 % Weird latex thing here...
 
-Porém, na prática, as dimensões podem possuir hierarquias de conceito associadas, como para a dimensão tempo: ``dia<mês<trimestre<semestre<ano''.
-Para um cubo com $n$ dimensões com múltiplas hierarquias de conceito, o número total de subcubos é apresentado na equação~\ref{eq:conceptcuboids}.
+However, in practice, dimensions can have associated concept hierarchies, as for the time dimension: ``day<month<quarter<semester<year'.
+For a cube with $n$ dimensions with multiple concept hierarchies, the total number of subcubes is shown in \autoref{eq:conceptcuboids}.
 
 \begin{equation}
-	subcubos = \prod_{i=1}^n (L_i + 1)
+  subcubes = \prod_{i=1}^n (L_i + 1)
 \label{eq:conceptcuboids}
 \end{equation}
 
-Onde $L_i$ é o número de níveis de conceito da dimensão $i$.
-É necessário adicionar um a equação~\ref{eq:conceptcuboids} para denotar o nível virtual \textit{ALL}.
-O tamanho de cada subcubo também depende da cardinalidade de cada dimensão, isto é, o número de valores distintos.
-Enquanto o número de dimensões, hierarquias de conceito e cardinalidade do cubo aumenta, também aumentam os seus requisitos de espaço de forma exponencial, sendo conhecida como a \textbf{maldição de dimensionalidade} na computação do cubo~\cite{hanDataMiningConcepts2011}.
+Where $L_i$ is the number of concept levels of the $i$ dimension.
+It is necessary to add one to the equation~\ref{eq:conceptcuboids} to denote the virtual level \textit{ALL}.
+The size of each subcube also depends on the cardinality of each dimension, that is, the number of distinct values.
+While the number of dimensions, concept hierarchies, and cardinality of the cube increases, they also increase the space requirements exponentially, being known as the \textbf{Curse of Dimensionality} in cube computing.
 
-Para conseguir responder as consultas de maneira apropriada, é necessário escolher um método para a computação dos subcubos: a não materialização, a materialização completa e a materialização parcial.
+To be able to answer the queries properly, it is necessary to choose a method for subcube computing: non-materialisation, complete materialisation and partial materialisation.
 
-Na não materialização, os subcubos agregados não são pré-computados, assim as agregações são computadas imediatamente, que podem ser extremamente lentas, porém tem o menor consumo de memória.
+In non-materialisation, the aggregated subcubes are not pre-computed, so the aggregations are computed in query time, which can be extremely slow, but has the lowest memory consumption.
 
-A materialização completa computa todos as agregações possíveis do cubo, gerando um cubo de dados completo.
-Esse método gera os melhores tempos de resposta, pois as agregações já foram computadas, porém necessita de uma grande quantidade de espaço de memória.
+Complete materialization computes all possible aggregations of the cube, generating a complete data cube.
+This method generates the best response times, because the aggregations have already been computed, but it requires a large amount of memory.
 
-A materialização parcial computa apenas um subconjunto selecionado de subcubos, sendo que existem diversas técnicas diferentes de seleção dos subcubos que serão computados.
-Uma delas é computar todos os subcubos que contém apenas células que satisfazem um dado critério, especificado pelo usuário.
-Esses cubos são chamados de \textit{iceberg}~\cite{beyerBottomupComputationSparse1999}.
+Partial materialization only computes a selected subset of subcubes, and there are several different techniques for selecting the subcubes to be computed.
+One of them is to compute all the subcubes that contain only cells that satisfy a given criterion, specified by the user.
+These cubes are called iceberg~\cite{beyerBottomupComputationSparse1999}.
 
-Outra técnica é computar cubos pequenos, geralmente entre 3 e 5 dimensões, para formar cubos completos.
-Para responder consultas com mais dimensões, as combinações entre os subcubos pequenos são agregadas.
-Esta técnica é chamada de \textit{shell fragment}, e o cubo é chamado de \textit{cube shell}~\cite{liHighdimensionalOLAPMinimal2004}.
+Another technique is to compute small cubes, usually between 3 and 5 dimensions, to form complete cubes.
+To answer queries with more dimensions, the combinations between the small subcubes are aggregated.
+This technique is called shell fragment, and the cube is called cube shell~\cite{liHighdimensionalOLAPMinimal2004}.
 
-Um cubo de dados onde as células com medidas idênticas são encapsuladas em uma única abstração, chamada de célular fechada (\textit{closed cell}) é chamado de cubo fechado, ou cubo quociente.
-Esta técnica foi apresentada com o cubo fechado (\textit{closed cube})~\cite{dongxinCCubingEfficientComputation2006} e com o cubo quociente (\textit{quotient cube})~\cite{lakshmananQuotientCubeHow2002}.
+A data cube where cells with identical measurements are encapsulated in a single abstraction, called a closed cell is called a closed cube~\cite{dongxinCCubingEfficientComputation2006}, or quotient cube~\cite{lakshmananQuotientCubeHow2002}.
 
-A escolha da materialização parcial depende do equilíbrio necessário entre tempo de resposta e espaço de armazenamento.
-Porém, a computação do cubo completo continua sendo relevante, sendo que os avanços na computação dos cubos parciais são geralmente adotados na computação do cubo completo.
-Existe ainda o problema de atualização do cubo, pois cada atualização pode causar uma recomputação parcial ou completa do cubo para manter as medidas corretas.
+The choice of partial materialization depends on the required balance between response time and storage space.
+However, full cube computation remains relevant, and advances in partial cube computation are generally adopted in full cube computation.
+There is also the problem of updating the cube, as each update can cause a partial or complete recomputation of the cube to maintain the correct measurements.
 
-A partir de um cubo base, a computação do cubo de dados pode utilizar a estratégia \textit{Top-down} ou \textit{Bottom-up} para a geração dos subcubos remanescentes~\cite{hanDataMiningConcepts2011}.
+From a base cube, the data cube computation can use the Top-down or Bottom-up strategy for the generation of the remaining subcubes~\cite{hanDataMiningConcepts2011}.
 
-A figura~\ref{fig:topdown} mostra a geração de um cubo de dados de quatro dimensões pela estratégia \textit{Top-down}.
-Sendo ABCD um cubo base, os subcubos de três dimensões são: ABC, ABD, ACD e BCD; que podem utilizar os resultados do cubo base para serem computados.
+\autoref{fig:topdown} shows the generation of a four-dimensional data cube by the Top-down strategy.
+ABCD being a base cube, the three dimension subcubes are: ABC, ABD, ACD and BCD; which can use the results of the base cube to be computed.
 
 \begin{figure}[!hbt]
-	\caption{Computação de cubo de dados através da estratégia \textit{Top-Down}}\label{fig:topdown}
-	\vspace{4mm}
-	\begin{center}
-		\resizebox{7cm}{!}{\includegraphics{Figuras/topdown.png}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{~\cite{silva:2015:abordagensParaCubo}.}
+  \caption{Computing the data cube with the Top-Down strategy}\label{fig:topdown}
+  \vspace{4mm}
+  \begin{center}
+    \resizebox{7cm}{!}{\includegraphics{Figuras/topdown.png}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{}
+  \FONTE{~\cite{silva:2015:abordagensParaCubo}.}
 \end{figure}
 
 Os resultados da computação do subcubo ACD podem ser utilizados para computar AD, que consequentemente podem ser utilizados para computar A.
@@ -311,14 +305,22 @@ A Figura~\ref{fig:bottomup} mostra a geração de um cubo de dados de 4 dimensõ
 Subcubos de poucas dimensões tornam-se pais de subcubos com mais dimensões.
 Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top-down}, não pode ser aplicada quando utilizada a estratégia \textit{Bottom-up}, então cada subcubo descendente necessita ser computado do início.
 
+The results of the ACD subcube computation can be used to compute AD, which consequently can be used to compute A.
+This shared computing allows the Top-down strategy to compute aggregations in multiple dimensions.
+The intermediate aggregated values can be reused for the computation of successive descending subcubes.
+
+\autoref{fig:bottomup} shows the generation of a 4-dimensional data cube through the Bottom-up strategy.
+Low dimensional subcubes become parents of more dimensioned subcubes.
+Unfortunately, the shared computing used in the Top-down strategy cannot be applied when using the Bottom-up strategy, so each descending subcube needs to be computed from the beginning.
+
 \begin{figure}[!htb]
-	\caption{Computação de cubo de dados através da estratégia \textit{Bottom-up}}\label{fig:bottomup}
-	\vspace{4mm}
-	\begin{center}
-		\resizebox{8cm}{!}{\includegraphics{Figuras/bottomup.png}}
-	\end{center}
-	\vspace{2mm}
-	\legenda{}
-	\FONTE{~\cite{silva:2015:abordagensParaCubo}.}
+  \caption{Computing the data cube with the Bottom-Up strategy}\label{fig:bottomup}
+  \vspace{4mm}
+  \begin{center}
+    \resizebox{8cm}{!}{\includegraphics{Figuras/bottomup.png}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{}
+  \FONTE{~\cite{silva:2015:abordagensParaCubo}.}
 \end{figure}
 

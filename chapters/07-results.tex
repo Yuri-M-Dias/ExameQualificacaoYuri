@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Analysis and Discussion}\label{ch:analysis}
+\chapter{ANALYSIS AND DISCUSSION}\label{ch:analysis}
 
 In this chapter, a critical analysis of the algorithms is presented, as well as an overview of how useful are the results and what are their shortcomings.
 The results from chapters~\ref{ch:interval} and~\ref{ch:querypart} show that simple approaches can be used to enhance the query response time for the selected queries, and can be easily ported to other domains and styles of computation.
@@ -44,7 +44,7 @@ All queries executed on the $C0$ cube with all dimensions used only a fraction o
 From the tests made using Frag-Cubing and the different cubes ($C1$ to $C5$) tailored to specific queries, it was shown that the best algorithms can be further enhanced by doing some simple pre-processing of the queries, and depending on the type of query used they can drastically improve upon memory usage requirements, allowing for some frequent queries to be optimized and even allowing for queries that could not be answered under a $C0$ cube to be answered by smaller cubes.
 In chapter~\ref{ch:querypart} it was shown that it is faster to load a smaller subset of the data in memory as prepared files when needed and then computing the answer from that file instead of querying a cube that was already loaded in memory, but that used the full dimensional capability of the data.
 
-\RED{ADD AT LEAST ONE GRAPH OR TABLE COMPARING THEM. THE ONE USED FOR THE PRESENTATION IS FINE}
+\RED{Add graphs comparing the query partition to IntervalFrag? Can do, but not sure if needed.}
 
 It is important to note IntervalFrag had faster file reading speeds (about 12\% faster) due to improvements made on the implementation, as well as a slightly more efficient set intersection algorithm, which were not backported to Frag-Cubing.
 This was done to preserve the Frag-Cubing algorithm's performance, as the original code was made for the C language in 2002 and the updated IntervalFrag implementation uses C++17 standards.

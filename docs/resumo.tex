@@ -5,21 +5,14 @@
 
 \hypertarget{estilo:resumo}{} %% uso para este Guia
 
-Satélites são monitorados pelas equipes de solo via pacotes de telemetria, que informam o estado atual dos equipamentos e permitem avaliar a capacidade do satélite de continuar a sua missão.
-Esses pacotes de telemetria constituem um corpo de dados de tamanho e alta complexidade, sendo que satélites que operados por vários anos geram dados históricos de grande volume, ainda úteis para as atividades de operação.
-O volume de dados históricos de telemetria disponíveis ao INPE atualmente é estimado em ao menos 3 \textit{terabytes} no total, com tendência a crescer nos próximos anos.
-Esta proposta apresenta o uso de cubo de dados como solução para executar consultas e análises sobre esses dados.
-Os conceitos da área de cubo de dados são apresentados, bem como uma revisão de como outros operadores de satélite estão lidando com grandes volumes, variedades e velocidade de atualização de dados, cenário que define um contexto de \textit{Big Data} para o domínio de controle de satélites.
-Devido a característica de alta dimensionalidade dos dados de telemetria, algoritmos clássicos da aŕea do cubo de dados tem dificuldade em responder consultas com resultado satisfatório para os operadores de satélite.
-Assim, neste trabalho é proposto identificar as consultas que são de interesse dos operadores de satélite, criar uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados, e avaliar quais são os algoritmos de construção do cubo que conseguiriam suprir as necessidades dos dados.
-Também são apresentados os resultados alcançados até o momento, bem como o planejamento para a continuação do trabalho.
+In order to successfully operate a spacecraft, satellite operators need expert knowledge of the spacecraft and how the subsystems are related to and interacts with each other. With data spread over years of operations, it is important to know what questions to ask, and performing analysis on those datasets is not straightforward. In this paper, we present the results of a query selection process with an experienced satellite engineer, applying the most relevant queries to a data cube, measuring the response times and memory consumption. This lead to testing two distinct data cube inputs: the ``high-dimensional'' of building the data cube with all telemetries at input time; and the ``low-dimensional'' of building a subcube with the query telemetries at query time. The tests were executed with the Frag-Cubing data cube algorithm, using historic data from one of the National Institute for Space Research (INPE) satellites, with high-dimensional (over 130 dimensions) and big volume features (over \(\ensuremath{2\times 10^{7}}\) tuples), only with sequential computing of the data cube. The results indicate that the low-dimensional approach reduces the memory consumption to answer the queries in between 33\% and 0,01\% of the high-dimensional approach, while keeping a similar, or in some cases up to 20\% faster, query response time.
 
 \palavraschave{%
-	\palavrachave{cubo de dados}%
-	\palavrachave{\textit{Big Data}}%
-	\palavrachave{Satélites}%
-	\palavrachave{Telemetrias}%
-	\palavrachave{Operação de Satélites}%
+  \palavrachave{Data Cube}%
+  \palavrachave{Inverted Index}%
+  \palavrachave{Satellite}%
+  \palavrachave{Telemetry}%
+  \palavrachave{Satellite Operations}%
 }
 
 \end{resumo}
