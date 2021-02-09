@@ -55,7 +55,7 @@ If the last element is not negative, then we check if the element $c$, is $c + 1
 If none of these we can safely append $b$ to the end of the list after flipping the signal to negative.
 Thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interval_insertion}.
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{Element inserted into the list}
  $b$ element to be inserted\;
@@ -89,7 +89,7 @@ However, due to the change in how the index uses the TID list, it is necessary t
 To check if two intervals intersect: assuming two intervals $I_a = \langle a_l, a_r \rangle$ and $I_b = \langle b_l, b_r \rangle$, where $a_l$ is the smallest element in the interval, and $a_r$ the biggest element in the interval.
 The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and the intersection $I_o = I_a \bigcap I_b$ can be computed by computing the biggest element between $a_r$ and $b_r$ (function $max$) and the smallest element between $a_l$ and $b_l$ (function $min$), or \autoref{algo:intersect_interval}.
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The result intersection $I_o$, or $\emptyset$ in case there is no intersection}
  $I_a$ and $I_b$ two intervals\;
@@ -108,7 +108,7 @@ For the list interval intersection, it can be naively implemented using the scal
 The algorithm to perform this is shown below, and takes the same complexity of the parent algorithm of $\mathcal{O}(n + m)$, where $n$ and $m$ are the sizes of the interval lists being intersected.
 This resulting algorithm is based on the implementations by \cite{liHighdimensionalOLAPMinimal2004} and \cite{silva:2015:abordagensParaCubo}, shown in \autoref{algo:intersect_interval_lists}.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \caption{IntervalIntersection example}\label{fig:interval:sample}
   \vspace{6mm}
   \begin{center}
@@ -119,7 +119,7 @@ This resulting algorithm is based on the implementations by \cite{liHighdimensio
   \FONTE{Author}
 \end{figure}
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The resulting list intersection between two interval lists, or $\emptyset$ if there is no intersection}
  $L_a$ and $L_b$ two input interval lists\;
@@ -283,7 +283,7 @@ If one algorithm takes too long to transverse the cube structure and execute the
 This however is just a simple comparison, as in that step each subcube of the fragments would be computed and for these tests that use $\mathcal{F} = 1$ they are almost exactly the same computation, needing higher fragment sizes to appreciate the difference.
 However, since this computation would involve list intersections at higher fragment sizes, the speed of the intersection algorithm would heavily influence this computation, being more comparable to the query response times compared above.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \caption{Comparison: Time to Cube}\label{fig:interval:timetocube}
   \vspace{6mm}
   \begin{center}
@@ -298,7 +298,7 @@ Another important metric is the baseline memory used before queries can be perfo
 \autoref{fig:interval:baseline} shows these values for the files used in this experiment, and IntervalFrag consumes on average 22\% of the memory that Frag-Cubing needs.
 This is important as it allows IntervalFrag to be implemented while requiring much less computational resources.
 
-\begin{figure}[!htb]
+\begin{figure}[H]
   \caption{Comparison: Baseline memory}\label{fig:interval:baseline}
   \vspace{6mm}
   \begin{center}

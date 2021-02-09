@@ -32,7 +32,7 @@ SIMD (SS2)
 
 \section{Experiments}\label{ap:a:results}
 
-To search for the best algorithm with real world data, an experiment was performed, much on the same framework as detailed in~\ref{ch:experiment}: C++ code, each test was executed 5 times and the median of the values was taken.
+To search for the best algorithm with real world data, an experiment was performed, much on the same framework as detailed in~\ref{ch:querypart:exp:method}: C++ code, each test was executed 5 times and the median of the values was taken.
 As each technique is efficient with the memory usage, there wasn't much difference to be measured, so only the time necessary to intersect each list was measured.
 Each list was generated in interval from $2\times10^6$ to $1\times10^7$, and all algorithms work on randomized ordered lists with the same size.
 This spread was intentional to mirror the worst cases in the Frag-Cubing algorithm.
