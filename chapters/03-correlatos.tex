@@ -53,10 +53,6 @@ This flow is split into five phase that go from the source of the data to their 
   \FONTE{Adapted from~\cite{zhangBigDataFramework2017}}.
 \end{figure}
 
-\RED{
-  Can't find the original source. Working on it.
-}
-
 \begin{itemize}[noitemsep]
   \item \textbf{Collection}: where the data are collected at their source (satellite, ground sensors, etc).
     This phase treat \textbf{where} and \textbf{how} to collect the data, as well as \textbf{which} data are important enough to be collected.
@@ -81,7 +77,7 @@ The works of~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} and
 \begin{table}[htbp]
   \begin{center}
     \caption{Satellite Operators and Big Data Architectures}\label{table:bigdataoperators}
-    \begin{tabular}{|C{13em}|C{6em}|c|C{10em}|}
+    \begin{tabular}{|C{11em}|C{6em}|c|C{10em}|}
       \hline
       \bfseries Reference                           & \bfseries Operator & \bfseries Tool & \bfseries Technologies                                                                \\
       \hline
@@ -185,8 +181,6 @@ Query $q = (a_1, b_4, COUNT)$ can be answered by intersecting the lists $iTa_1 \
   \legenda{}
   \FONTE{Author.}
 \end{figure}
-
-\RED{Can't find this source, I'll update it later}
 
 The complexity of the intersection is proportional to the number of times that an attribute value occurs in the input data, but bounded by the size of the smallest list, and in this example $iTb_2$ with a single TID is the smallest list.
 The number of TIDs associated to an attribute value can then be enormous, with low cardinality dimensions and high number of tuples needing a high processing capacity.
