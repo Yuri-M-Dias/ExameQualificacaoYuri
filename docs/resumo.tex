@@ -5,14 +5,16 @@
 
 \hypertarget{estilo:resumo}{} %% uso para este Guia
 
-\RED{
-In order to successfully operate a spacecraft, satellite operators need expert knowledge of the spacecraft and how the subsystems are related to and interacts with each other.
-With data spread over years of operations, it is important to know what questions to ask, and performing analysis on those datasets is not straightforward.
-In this paper, we present the results of a query selection process with an experienced satellite engineer, applying the most relevant queries to a data cube, measuring the response times and memory consumption.
-This lead to testing two distinct data cube inputs: the ``high-dimensional'' of building the data cube with all telemetries at input time; and the ``low-dimensional'' of building a subcube with the query telemetries at query time.
-The tests were executed with the Frag-Cubing data cube algorithm, using historic data from one of the National Institute for Space Research (INPE) satellites, with high-dimensional (over 130 dimensions) and big volume features (over \(\ensuremath{2\times 10^{7}}\) tuples), only with sequential computing of the data cube.
-The results indicate that the low-dimensional approach reduces the memory consumption to answer the queries in between 33\% and 0,01\% of the high-dimensional approach, while keeping a similar, or in some cases up to 20\% faster, query response time.
-}
+Satellites are monitored by ground teams via telemetry packages, which report the current status of the equipment and allow them to assess the satellite's ability to continue its mission.
+These telemetry packages compose a large and complex body of data, with satellites that are operated for several years generating large volumes of historical data that is still useful for operation activities and needs to be archived.
+The volume of historical telemetry data available to the National Institute for Space Research (INPE) is currently estimated to be at least 3 \textit{terabytes} in total, with a tendency to grow in the coming years.
+With this volume, and considering that the data analysis on these data is not trivial, requiring expert engineering knowledge, it is necessary to implement specialized systems to perform queries and analysis on them.
+In this work we identify the queries that are of interest to satellite operators, create a multidimensional model for the telemetry data using a data cube model, and then use the Frag-Cubing data cube computation algorithm as a basis for implementation.
+First an approach that uses pre-processing of the selected queries is implemented, where the dimensions related to the query are filtered out and low-dimensional cubes are created from them.
+This approach is compared to the high dimensionality approach that uses all available dimensions, and finds that, while queries are restricted to the filtered dimensions, it has a 15\% advantage in query time and in the best cases consumes only 10\% of the memory used by the high dimensionality approach.
+So if the queries have a low dimensionality, there is advantage in using a pre-processed cube from disk than running a query on a data cube already built with the high dimensionality approach.
+Then an approach based on modifying the Frag-Cubing inverted index algorithm is experimentally validated, which consists in using the high-sequentiality characteristic of some satellite telemetry to replace the lists of tuple identifiers (\textit{TID list}) with lists of intervals..
+This approach on high dimensional data, tested on the queries defined by the operators, uses on average 20\% of the memory that traditional lists use, and is up to 3200\% faster to answer queries on dimensions with high sequentiality, while being up to 400\% slower to answer queries on dimensions with low sequentiality.
 
 \palavraschave{%
   \palavrachave{Data Cube}%

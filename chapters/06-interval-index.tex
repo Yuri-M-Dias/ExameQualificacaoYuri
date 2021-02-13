@@ -221,60 +221,54 @@ This resulting algorithm is based on the implementations by \cite{liHighdimensio
 \end{table}
 
 To make the comparisons easier to understand, let's focus on only queries $Q1$ and $Q2$, that were the highest in number of dimensions and the highest in number of cardinalities respectively.
-\autoref{fig:interval:q1q2} shows those results, and it is clear that the memory usage is always much lower under IntervalFrag.
+\autoref{fig:interval:q1-2} shows those results, and it is clear that the memory usage is always much lower under IntervalFrag.
 $Q1$ has four dimensions with low cardinality and high sequentiality, and these are quickly answered by IntervalFrag, while Frag-Cubing takes a long time to answer the queries that involve those dimensions.
 
 However, in the case of $Q2$ where all dimensions have both cardinality and low sequentiality, IntervalFrag takes 331\% longer to answer the query on the worst case, being the biggest drawback of this algorithm.
 This is due to the inherently slower set intersection algorithm used by IntervalFrag, that needs to execute more comparisons than Frag-Cubing, even when the algorithms have the same complexity and are similar.
 
 \begin{figure}[H]
-  \caption{IntervalFrag for Q1 and Q2}\label{fig:interval:q1q2}
+  \caption{IntervalFrag for Q1 and Q2}\label{fig:interval:q1-2}
   \vspace{6mm}
   \begin{center}
-    \begin{minipage}{0.5\textwidth}
-        \textbf{A}
-        \centering
-        \resizebox{7.5cm}{!}{\includegraphics{Figuras/Interval-Memory-Q1-Q2.png}}
-        %\caption{first figure}
-    \end{minipage}\hfill
-    \begin{minipage}{0.5\textwidth}
-        \textbf{B}
-        \centering
-        \resizebox{7.5cm}{!}{\includegraphics{Figuras/Interval-TIme-Q1-Q2.png}}
-        %\caption{second figure}
-    \end{minipage}
-    %\resizebox{13cm}{!}{\includegraphics{Figuras/Interval}}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/q1q2-1.pdf}}
   \end{center}
   \vspace{2mm}
-  \legenda{(\textbf{A}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$.
-  (\textbf{B}) Query response times of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$}
+  \legenda{
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$
+    (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$.
+}
   \FONTE{Author}
 \end{figure}
 
 In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer queries $Q3$ and $Q4$, both that have a high cardinality and low sequentiality, but takes only about 53\% of the time to answer $Q5$, that also has a high cardinality but presents a high sequentiality.
-\autoref{fig:interval:q3-5} shows those results, and it is also clear that the memory usage is much lower with IntervalFrag than with Frag-Cubing.
+\autoref{fig:interval:q3-4} shows those results for $Q3$ and $Q4$, \autoref{fig:interval:q5} for $Q5$, and it is also clear that the memory usage is much lower with IntervalFrag than with Frag-Cubing.
 
 \begin{figure}[H]
-  \caption{IntervalFrag for Q3, Q4 and Q5}\label{fig:interval:q3-5}
+  \caption{IntervalFrag for Q3 and Q4}\label{fig:interval:q3-4}
   \vspace{6mm}
   \begin{center}
-    \begin{minipage}{0.5\textwidth}
-        \textbf{A}
-        \centering
-        \resizebox{7.5cm}{!}{\includegraphics{Figuras/Interval-Memory-Q3-Q5.png}}
-        %\caption{first figure}
-    \end{minipage}\hfill
-    \begin{minipage}{0.5\textwidth}
-        \textbf{B}
-        \centering
-        \resizebox{7.5cm}{!}{\includegraphics{Figuras/Interval-TIme-Q3-Q5.png}}
-        %\caption{second figure}
-    \end{minipage}
-    %\resizebox{13cm}{!}{\includegraphics{Figuras/Interval}}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/q3q4-1.pdf}}
   \end{center}
   \vspace{2mm}
-  \legenda{(\textbf{A}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q3$, $Q4$ and $Q5$ under the cube $C0$.
-  (\textbf{B}) Query response times of IntervalFrag and Frag-Cubing for queries $Q3$, $Q4$ and $Q5$ under the cube $C0$}
+  \legenda{
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$
+    (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$.
+}
+  \FONTE{Author}
+\end{figure}
+
+\begin{figure}[H]
+  \caption{IntervalFrag for Q5}\label{fig:interval:q5}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/q5-1.pdf}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$
+    (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$.
+}
   \FONTE{Author}
 \end{figure}
 
@@ -287,7 +281,7 @@ However, since this computation would involve list intersections at higher fragm
   \caption{Comparison: Time to Cube}\label{fig:interval:timetocube}
   \vspace{6mm}
   \begin{center}
-    \resizebox{13cm}{!}{\includegraphics{Figuras/Interval-TimeToCube.png}}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/timetocube-1.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Time necessary to compute the cube after the data is read into memory.}
@@ -302,7 +296,7 @@ This is important as it allows IntervalFrag to be implemented while requiring mu
   \caption{Comparison: Baseline memory}\label{fig:interval:baseline}
   \vspace{6mm}
   \begin{center}
-    \resizebox{13cm}{!}{\includegraphics{Figuras/Interval-BaselineMemory.png}}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/baseline-1.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Memory used by the baseline cube, when it can start to answer queries}

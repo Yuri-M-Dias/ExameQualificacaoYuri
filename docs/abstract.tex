@@ -15,18 +15,15 @@
 \hypertarget{estilo:abstract}{} %% uso para este Guia
 
 Satélites são monitorados pelas equipes de solo via pacotes de telemetria, que informam o estado atual dos equipamentos e permitem avaliar a capacidade do satélite de continuar a sua missão.
-Esses pacotes de telemetria constituem um corpo de dados de tamanho e alta complexidade, sendo que satélites que operados por vários anos geram dados históricos de grande volume, ainda úteis para as atividades de operação.
+Esses pacotes de telemetria constituem um corpo de dados de elevado tamanho e complexidade, com satélites que são operados por vários anos geram dados históricos de grande volume, ainda úteis para as atividades de operação e que necessitam de ser arquivados.
 O volume de dados históricos de telemetria disponíveis ao Instituto Nacional de Pesquisas Espaciais (INPE) atualmente é estimado em ao menos 3 \textit{terabytes} no total, com tendência a crescer nos próximos anos.
-Neste trabalho, características dos dados de telemetrias são utilizadas para melhorar o consumo de memória e tempo de resposta de consultas feitas sobre um cubo de dados baseado em dados de telemetria de um dos satélites do INPE.
-Assim, neste trabalho é proposto identificar as consultas que são de interesse dos operadores de satélite, criar uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados, e avaliar a relação de entrada do algoritmo que diminui tempo de resposta e consumo de memória.
-Ainda, uma abordagem baseada na sequencialidade das telemetrias é proposta, implementada e experimentalmente validada com 4 anos de telemetrias do satélite SCD2.
-
-\RED{
-Esta proposta apresenta o uso de cubo de dados como solução para executar consultas e análises sobre esses dados.
-Os conceitos da área de cubo de dados são apresentados, bem como uma revisão de como outros operadores de satélite estão lidando com grandes volumes, variedades e velocidade de atualização de dados, cenário que define um contexto de \textit{Big Data} para o domínio de controle de satélites.
-Devido a característica de alta dimensionalidade dos dados de telemetria, algoritmos clássicos da aŕea do cubo de dados tem dificuldade em responder consultas com resultado satisfatório para os operadores de satélite.
-Também são apresentados os resultados alcançados até o momento, bem como o planejamento para a continuação do trabalho.
-}
+Com este volume, e considerando que as análises de dados sobre esse arquivos não é trivial, necessitando de conhecimento especialista de engenharia, é necessário a implementação de sistemas especializados para realizar consultas e análises sobre esses dados.
+Neste trabalho é feita a identificação as consultas que são de interesse dos operadores de satélite, uma modelagem multidimensional para os dados de telemetria utilizando de cubo de dados é criada e então os algoritmos de computação do cubo de dados Frag-Cubing é utilizado como base de implementação.
+Primeiramente uma abordagem que utiliza de pré-processamento das consultas selecionados é implementada, onde as dimensões relacionadas a consulta são filtradas e cubos de baixa dimensionalidade são criados à partir delas.
+Essa abordagem é comparada com a abordagem de alta dimensionalidade que utiliza de todas as dimensões disponíveis, e encontra que, conquanto que as consultas sejam restritas as dimensões filtradas, tem uma vantagem de 15\% no tempo de consulta e nos melhores casos consumindo apenas 10\% de memória utilizada pela abordagem de alta dimensionalidade.
+Assim, se as consultas tiverem uma dimensionalidade baixa, existe vantagem em utilizar um cubo preprocessado do zero do que executar uma consulta em uma cubo de dados construído com abordagem de alta dimensionalidade.
+Depois uma abordagem baseada na alteração do algoritmo de índice invertido do Frag-Cubing é experimentalmente validade, que compõe em utilizar da característica de alta sequencialidade de algumas telemetrias de satélite para substituir as listas de identificadores de tuplas (\textit{TID list}) por listas de intervalos.
+Essa abordagem sobre os dados de alta dimensionalidade, testada nas consultas definidas pelos operadores anteriormente, usa em média 20\% da memória que a listas tradicional utiliza, e é até 3200\% mais rápida para responder consultas em dimensões com alta sequencialidade, porém sendo até 400\% mais lenta para responder consultas com dimensões com baixa sequencialidade.
 
 % Keywords
 \keywords{%
