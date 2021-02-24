@@ -1,55 +1,96 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{PROPOSTA}\label{ch:prop}
+\chapter{METHOD}\label{ch:prop}
 
-Esta seção apresenta os objetivos do trabalho, bem como a problemática dos dados disponíveis atualmente e apresenta a estrutura que é proposta para solucionar o problema.
+In this section, the objectives will be reviewed, the case study data will be presented and also the proposed architecture.
 
-\section{Objetivos}\label{ch:prop:obj}
 
-O objetivo principal deste trabalho é estabelecer um método para processamento de cubos de dados para a área espacial, para que o processamento de consultas OLAP sejam executadas de forma eficiente considerando-se a alta dimensionalidade, elevado número de tuplas, alto \textit{skew} e alta cardinalidade dos dados.
-Como objetivos secundários, este trabalho visa:
+\section{Objectives}\label{ch:prop:obj}
 
-\begin{enumerate}
-\item Identificar quais são as consultas relevantes para os operadores de satélite, e quais são as atividades de análise que podem ser expressas como consultas;
-\item Criar uma representação dimensional do cubo de dados apropriada para as consultas identificadas, mapeando as medidas que são necessárias e quais os seus tipos;
-\item Implementar a representação com as medidas em algoritmos da literatura e coletar os resultados da execução das consultas relevantes para os operadores;
-\item Avaliar os resultados da implementação dos algoritmos e mostrar qual das abordagens é mais apropriada para o cenário da operação.
-\end{enumerate}
+To recall from \autoref{ch:intro:obj}, the main objective of this thesis is to "create a data cube base architecture to represent satellite telemetry data along a mission, using the distribution of the telemetry values to ease analysis and querying of the satellite's state by satellite engineers".
+To achieve that, and as specific goals, two different architectures will be proposed and implemented: one tries to reduce main memory consumption by pre-processing the data to be queried into high-dimensional and low-dimensional, and then filters the resulting data cubes by the dimensions related to each pre-defined query; the other uses an inverted index compression technique of changing the TID lists to hold interval lists instead of raw number lists, and tries to see how that affects query response time and memory consumption.
 
-\section{Algoritmos de construção do cubo}\label{ch:prop:cube}
+\section{Case Study: SCD2}\label{ch:prop:scd2}
 
-Esta proposta se concentra apenas na proposição de um algoritmo de computação do cubo de dados.
-Uma das necessidades de usar algoritmos diferentes de cubo de dados está no número de dimensões que um certo cubo consegue realizar pesquisas: consultas com mais que 15 dimensões não são comummente(ou praticamente) executadas em alguns algoritmos, como o trabalho de~\citeonline{silva:2015:abordagensParaCubo} demonstra.
+The case study used in this thesis will be the satellite SCD2 (Data Collection Satellite in Portuguese), which has over 20 years of continuous operations by the Satellite Control Center at INPE~\cite{OrlandoKuga:2007:SaSCSC}.
+It is one of the first satellites designed, tested and assembled in Brazil, the second in the SCD family of data collection satellites~\cite{Oliveira:1996:SC1Sa}.
+The mission is goal is to retransmit to assigned receiver stations (Cuiabá and Alcântara, for example), data obtained from a network of Automatic Environmental Data Collection Platforms (PCD), which are distributed throughout the Brazilian territory.
+\autoref{fig:scd2_mission} shows a commemorative mission patch for the satellite.
 
-Os dados de telemetria de interesse possuem muito mais do que o limite comum de consultas em até 60 dimensões: com mais de 130 telemetrias para os satélites da família da SCD, e milhares para satélites maiores como o CBERS e o Amazônia, a execução de consultas complexas seria normalmente inviável nos algoritmos de construção do cubo tradicionais.
+Each PCD is composed of a transmitter in UHF band (about $400Mhz$) that collects environmental data and continuously transmits them back into space.
+This transmission is then relayed by the PCD transponder to one of the receiver stations, and thus the data is gathered.
+This relaying can only happen when the satellite is visible by both the receiver stations and the PCDs, which happens around eight times per day~\cite{miguezSCD2OperationHandbook1993}.
 
-A figura~\ref{fig:qualistructure} mostra uma visão geral da estrutura proposta.
-Seguindo a revisão feita an seção~\ref{ch:corr:cube}, o uso do \textit{FragCubing} seria adotado dadas as características altamente dimensionais e com alto \textit{skew} dos dados.
-Porém seria adicionado um classificador de relacionamentos entre as telemetrias, que forneceria dados de entrada para o algoritmo do \textit{FragCubing} modificado, que decidirá como o cubo de dados resultante será construído.
+The SCD2 satellite is composed of ten subsystems, including the DCP payload.
+With over 20 years of operation, more than 135 telemetry data points and generating over 8GB of data per year, there is a lot to be analyzed from the housekeeping telemetry data alone.
+This work has access to data taken between 2014 and 2018, and amounts to about 23GB of CSV files.
+These data were obtained by exporting the telemetry database to CSV format via the SatCS program developed at INPE~\cite{azevedoFRAMEWORKSISTEMACONTROLE2015}, taking over three weeks to process the data.
 
-\begin{figure}[!htb]
-	\caption{Estrutura proposta}\label{fig:qualistructure}
-	\vspace{2mm}
-	\begin{center}
-		\resizebox{14cm}{!}{\includegraphics{Figuras/QualificationStructure.pdf}}
-	\end{center}
-	\vspace{1mm}
-	\legenda{}
-	\FONTE{Produção do autor.}
+\begin{figure}[H]
+  \caption{SCD2}\label{fig:scd2_mission}
+  \vspace{6mm}
+  \begin{center}
+    \resizebox{5cm}{!}{\includegraphics{Figuras/Scd-2.png}}
+  \end{center}
+  \vspace{2mm}
+  \legenda{Data Collection Satellite 2 (SCD2) mission patch}
+  \FONTE{Taken from \url{http://www.inpe.br/noticias/galeria/}}
 \end{figure}
 
-\subsection{Funcionamento da estrutura}\label{ch:prop:cube:func}
+\section{Proposed Architecture}\label{ch:prop:static}
 
-Nesta estrutura, o fluxo de dados seria semelhante ao apresentado na seção~\ref{ch:corr:dataflow}, começando pela ingestão dos dados históricos, que seriam organizados e limpos conforme o necessário pelas características de cada satélite.
-Este passo é necessário para garantir que dados são consistentes o bastante para que o algoritmo possa ser executado e obtenha resultados com maior qualidade.
+One of the necessities of using different data cube algorithms is in the number of dimensions that a certain cube can perform queries: queries with more than 15 dimensions are not generally (or practically) executed in some algorithms, as the work of~\cite{silvaComputingBIGData2016} demonstrates, however demonstrating some works that do execute queries with more dimensions than that.
 
-O algoritmo de classificação seria então executado sobre os dados ingeridos, que teria os seus próprios resultados de classificação, também salvos.
-Essas classificações e os dados ingeridos serviriam como entrada para o algoritmo do \textit{FragCubing} modificado, que utilizaria dos relacionamentos a sua discrição para montar um cubo de dados sobre os dados de telemetria.
-É importante ressaltar que o \textit{FragCubing} é composto de um algoritmo de construção do cubo e um algoritmo de processamento das consultas, e esta proposta estaria alterando, em princípio, apenas o algoritmo de construção do cubo.
+The telemetry data of interest has many more dimensions than the common limit for data cube with up to 60 dimensions: with over 135 telemetries for the SCD family satellites, and thousands for larger satellites like CBERS and Amazonia, running high-dimensional queries would typically be infeasible in traditional cube construction algorithms.
 
-Neste passo, os relacionamentos seriam utilizados como necessário pelo algoritmo, pois a geração de todos os relacionamentos possíveis não é necessária em todo momento, e os relacionamentos mais relevantes seriam minerados pelo próprio algoritmo.
-Disto o cubo de dados será construído, e o algoritmo pode então passar a responder consultas, seguindo o algoritmo do \textit{FragCubing}.
+It is then needed to first propose an overall architecture that takes the data from input, processes it and then spits out an analysis on the other side.
+This is presented as a data cube answering queries, after having been inputed sufficient data and statistical information about this data.
+An overview of this architecture is present in \ref{fig:architecture_static}, showing how the data is based on databases
+The figure~\ref{fig:architecture_static} shows an overview of the proposed structure.
+The biggest gain of using the data cube is, plainly, to easily execute group-by operators on multiple aggregation levels and using multiple dimensions at once to compute the relationship measures between them.
 
-O usuário pode então consultar diretamente o classificador de relacionamentos para entender os relacionamentos entre as telemetrias, ou pode executar consultas sobre o cubo de dados gerado, dependendo da informação que lhe for necessária.
-É importante ressaltar que as consultas diretas ao classificador são uma adição para a usabilidade da estrutura, não estando relacionadas diretamente com o algoritmo do \textit{FragCubing}.
+In this figure, the Frag-Cubing algorithm has been arbitrarily divided into the steps of reading the input, building the inverted index, building the shell fragments in accord to the algorithm and then the cubing step that generates the data cube aggregations and is shown in the middle of the picture.
+The users can then query into this structure via a Query Processor built-in.
+
+\begin{figure}[!htb]
+  \caption{General Data Cube Architecture}\label{fig:architecture_static}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{15cm}{!}{\includegraphics{Figuras/Static_Structure.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{Data Cube-based architecture showing the data being generated by the satellite, being processed by SatCS, exported to a raw CSV format into PostgreSQL, which is then used as a Data Warehouse base to build a Data Cube using the Frag-Cubing algorithm. The user can then query the data cube directly.}
+  \FONTE{Author}
+\end{figure}
+
+\subsection{Proposed changes}\label{ch:prop:static:dynamic}
+
+To achieve the objectives of this thesis, the following changes are then proposed, illustrated by~\autoref{fig:architecture_dynamic}: change the Frag-Cubing algorithm into the IntervalFrag algorithm by changing the inverted index step into an inverted index with intervals; add the Query Partition step in which the telemetry value distribution is used to filter out relationships between the telemetries with the help of a Satellite Engineer, and have those relationships influence what data is then input into IntervalFrag.
+The overall objective is to show that only some changes are made into the Frag-Cubing algorihtm, and the Query Partition is an added optional step.
+The changes have been highlighted in red lettering.
+
+\begin{figure}[!htb]
+  \caption{General Data Cube Architecture}\label{fig:architecture_dynamic}
+  \vspace{2mm}
+  \begin{center}
+    \resizebox{13cm}{!}{\includegraphics{Figuras/Dynamic_Structure.pdf}}
+  \end{center}
+  \vspace{1mm}
+  \legenda{Data Cube-based architecture showing the data being generated by the satellite, being processed by SatCS, exported to a raw CSV format into PostgreSQL, which is then used as a Data Warehouse base to build a Data Cube using the IntervalFrag algorithm.
+    The Query Partition algorithms can then use the information obtained from the data to filter out dimensions to be input into IntervalFrag.
+  The user can then query the data cube directly, or the relationships if necessary.}
+  \FONTE{Author}
+\end{figure}
+
+In the next chapters, the Query Partition algorithm will be presented and the results of using the approach will be shown, then the IntervalFrag algorithm will be explained, the constituent algorithms that diverge from Frag-Cubing explained and the experimental results shown.
+
+%\RED{How to describe the architecture and the data how Mauricio detailed it? I guess this is the best option}
+%- Como objetivo específico ou adicional, como o uso do IntervalFrag no Frag-Cubing
+%- Colocar o mesmo desenho da arquitetura com a camada do Frag-Cubing, isso é para explicar a arquitetura alto nível, e uma arquitetura dinâmica de como funciona o Frag-Cubing/meu trabalho.
+%- Pensar nas camadas, montar um framework para transformar os dados de telemetrias em um cubo de dados para facilitar as consultas, inclusive como forma de melhorar o desempenho
+%- Utilizar aquele projeto do R para visualizar, mostrar como os dados são mostrados, onde entram e o que mostram
+%- Utilizar como base aquela arquitetura DOTNET em camadas? -> Uma arquitetura mais rebuscada, com mais cores (???), dorar a pílula como se fosse para ganhar dinheiro
+%- Utilizar um fluxograma para representar a dinâmica dessa arquitetura
+%- Criar uma arquitetura em nível mais alto e fazer as chamadas para a arquitetura -> Não entende em qual contexto da arquitetura o Interval entra
+%- O quê se ganha com a representação em cubo de dados -> Forma melhor de executar consultas com group-by, isso é um ganho para o trabalho -> Colocar isso na contribuição
 

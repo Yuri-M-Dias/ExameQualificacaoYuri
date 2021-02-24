@@ -8,13 +8,47 @@ This work shows that it is possible to further optimize data cube algorithms by 
 
 One of the stated purposes of this work was to find ways of using the data's domain characteristics to improve the satellite operator day to day activities, and this work has achieved three main results:
 
-\begin{enumerate}
+The goal of this thesis to create a data cube base architecture to represent satellite telemetry was achieved and the value distribution of the data was also used to improve upon query response times and memory consumption.
+As for specific contributions, they are as follows:
+
+\begin{itemize}[noitemsep]
 \item A heuristic to discover related telemetries between satellite time series data and how to use this with the help of an operator to validate the relevant queries;
 \item Using the previous heuristic to enhance Frag-Cubing's query response time and memory by pre-partitioning the data;
-\item Improving upon Frag-Cubing's Inverted Index memory model by saving only intervals instead of the entire values, and thus reducing memory and query response times for some queries;
-\end{enumerate}
+\item Improving upon Frag-Cubing's Inverted Index memory model by saving only intervals instead of the entire values, creating IntervalFrag, and thus reducing memory and query response times for some queries;
+\end{itemize}
 
-\RED{This is still not enough?}
+For academia, the contribution of IntervalFrag is more important, as it showcases a way of improving the memory consumption of an inverted index with a $\Theta(1)$ insertion operation, even when keeping the same complexity as the traditional intersection.
+This work also ascertained the downside of the Intervals being slower to intersect when the sequentiality is low, showing that experimentally.
+
+For INPE this work showcases a data cube architecture that can be implemented to help the Satellite Engineers and operators to execute their day to day analysis, and furthermore shows how can it be implemented as to reduce memory consumption and query response times.
+
+For the correlated works, this improves upon Frag-Cubing's original implementation and shows that other algorithms can be improved to by using the value distribution of the data as a base for improvements.
+This change would not be too hard to implement on other correlated works that aren't based on bitmaps.
+For other satellite operator organizations, this can be incorporated to their Big Data architecture, in replacement for similar Data cube computation schemes.
+
+Furthermore \autoref{tab:publications} shows the summary of the published, and currently expecting to be published articles that resulted either directly from this work or from the wider master's effort.
+In this table, two main conference results are shown, as well as an article that has been submitted already, and another that is currently being written, containing the results of the IntervalFrag algorithm.
+
+\begin{table}[!ht]
+  \begin{center}
+    \caption{Resulting published work}\label{tab:publications}
+    \begin{tabular}{|C{2.3cm}|c|C{2.2cm}|C{2.4cm}|C{2.9cm}|}
+      \hline
+      \textbf{Name} &\bfseries QUALIS & \bfseries SCOPUS Percentile & \bfseries Source &\bfseries Status \\
+      \hline
+      WETE 2018 & NA - Conference & - & \cite{PereiraFerrSilv:2018:StApOL} & Published \\
+      \hline
+      IAC 2019 & NA - Conference & - & \cite{pereiraLessonsLearnedSystems2019} & Published \\
+      %\hline % My precious..
+      %MDPI Information & B2 (A4) & 52\% & - & Accepted, later retracted \\
+      \hline
+      IEEE Latin America Transactions & B2 & 61\% & - & Submitted \\
+      \hline
+      IEEE Systems Journal & A2 & 88\% & - & Writing \\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{table}
 
 \section{Future work}\label{ch:concl:future}
 
@@ -32,11 +66,9 @@ This was also one of the ideas to be developed during this work, which however h
 This idea is best when paired with known "best available" techniques, like using the project ~\cite{LibrespacefoundationPolarisPolaris2021}.
 
 Furthermore the Set Intersection problem defined in chapter~\ref{ch:interval} can be further optimized with recent advances not only in computer architectures, but also with regards to complexity and the validation of the algorithms in real world datasets.
-A preliminary investigation was performed, as a simple but not rigorous overview of the results is detailed in Appendix~\ref{ap:a}.
+A preliminary investigation was performed, as a simple but not rigorous overview of the results is detailed in Appendix~\ref{ap:a:problem}.
 
 \section{Final thoughts}\label{ch:concl:future}
-
-\RED{The approach and architecture detailed in this work...}
 
 This work was developed entirely with open source software, and they will be made available later at \url{https://github.com/Yuri-M-Dias/SCD2}.
 Furthermore, there is a lack of good datasets that deal with satellite telemetry data available, perhaps this work can further contribute by allowing the usage of the dataset by making it public.

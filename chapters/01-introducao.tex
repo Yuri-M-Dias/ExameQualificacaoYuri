@@ -68,13 +68,19 @@ Though the choice of the data cube construction algorithm can reduce the memory 
 
 \section{Research Objectives}\label{ch:intro:obj}
 
-In this thesis, two approaches of reducing the memory usage of the Frag-Cubing algorithm will be explored and evaluated, with the goal of reducing implementation requirements for a data warehouse based on a data cube, using the unique domain characteristics of satellite telemetry data.
+%- Ao invés de usar características, utilizar as distribuição estatística dos valores de telemetria do satélite para
+%Criar uma arquitetura básica de cubo de dados para representação da distribuição dos valores de telemetrias ao longo de uma missão, para facilitar a análise e consulta do estado do satélite pelos engenheiros de satélite.
+
+The goal of this thesis is to create a data cube base architecture to represent satellite telemetry data along a mission, using the distribution of the telemetry values to ease analysis and querying of the satellite's state by satellite engineers.
+
+Specific objectives of this work include:
+
+\begin{itemize}[noitemsep]
+  \item To test two approaches of reducing the memory usage of the Frag-Cubing algorithm, with the goal of reducing implementation requirements for a data warehouse based on a data cube, using the telemetry value distribution of satellite telemetry data.
 It will use the information gathered by analysing the satellite telemetries to select and optimize queries, taking into account the high dimensionality, high number of tuples, high skew and high cardinality of the base data.
-
-Therefore, this work aims to create a dimensional representation of the telemetry data into a data cube structure, and evaluate the data cube construction algorithms that are better suited to use satellite telemetry data.
-
-This will also question whether the use of inverted index compression via list intervals can improve the memory consumption and query response times for the Frag-Cubing algorithm.
-With the results being evaluated against the Frag-Cubing original implementation, it will be possible to known when to use each of the alternatives and decide for which dimensions and/or kinds of data they are applicable.
+  \item To probe whether the use of inverted index compression via list intervals can improve the memory consumption and query response times for the Frag-Cubing algorithm.
+  With the results being evaluated against the Frag-Cubing original implementation, it will be possible to know when to use each of the alternatives and decide for which dimensions and/or kinds of data they are applicable.
+\end{itemize}
 
 \section{Method}\label{ch:intro:method}
 
@@ -83,13 +89,11 @@ Then the queries selected will be filtered, and an approach of pre-processing th
 
 This will be experimentally evaluated on data from one of INPE's satellite, notably SCD2, for which the Satellite Control Center (CCS) has allowed the use of over 4 years of satellite telemetry data, totalling over $24GB$ of raw data and associated documentation, with 135 telemetries being tracked.
 
-\RED{? What else?}
-
 \section{Contributions}\label{ch:intro:contrib}
 
 This work aims to use open source software to define an improved data cube algorithm, and thus it is expected to save money and time for space organizations that operate satellites and need to implement their own telemetry data analysis structures to analyse data.
 This work is being performed using open source software, open literature and aims to publish the satellite telemetry data used as a case study for others in the end.
-Furthermore, all analyses and experiments are designed to be reproducible.
+Furthermore, all analyses and experiments are designed to be reproducible via open source software repository.
 
 For the Frag-Cubing family of algorithms, this also shows that simpler strategies can be used to improve memory consumption and query response times, first by simple pre-processing of frequent queries and then by changing the inverted index compression strategy of the algorithm to drastically reduce memory usage.
 
@@ -100,9 +104,10 @@ The remainder of this documented is structured as follows:
 \begin{itemize}[noitemsep]
   \item{Chapter 2}: Presents the theoretical background on satellite operations, Data Warehouse, Big Data and Data Cube approaches necessary for the understanding of this work;
   \item{Chapter 3}: Related works in the literature will be presented and reviewed, as well as data cube concepts close to this one, and how other satellite operators are solving these problems with what technologies;
-  \item{Chapter 4}: Presents the Query Partitioning algorithm, the case study experimental setup with the SCD2 satellite, and the results of trying to filter the data by the query related dimensions;
-  \item{Chapter 5}: Presents the IntervalFrag algorithm and the experimental validation, with an analysis of replacing Frag-Cubing's inverted index architecture;
-  \item{Chapter 6}: Presents a critical analysis of the results, where each algorithm is better suited and where they excelled or had drawbacks;
-  \item{Chapter 7}: Concludes the thesis, summarizing the usefulness of the results and future work that can be discussed from them.
+  \item{Chapter 4}: Presents the method, the case study experimental setup with the SCD2 satellite and showcases the sample data warehouse-based architectural vision for this work and operation activities;
+  \item{Chapter 5}: Presents the Query Partitioning algorithm, the case study experimental setup with the SCD2 satellite, and the results of trying to filter the data by the query related dimensions;
+  \item{Chapter 6}: Presents the IntervalFrag algorithm and the experimental validation, with an analysis of replacing Frag-Cubing's inverted index architecture;
+  \item{Chapter 7}: Presents a critical analysis of the results, where each algorithm is better suited and where they excelled or had drawbacks;
+  \item{Chapter 8}: Concludes the thesis, summarizing the usefulness of the results and future work that can be discussed from them.
 \end{itemize}
 

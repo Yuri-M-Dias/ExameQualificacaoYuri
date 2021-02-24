@@ -48,6 +48,7 @@ portuguese,english %% para os documentos em Inglês com abstract.tex em Portugu�
 \usepackage{enumitem} % Setnoident
 \usepackage{multirow} % For easier comparisons
 \usepackage[ruled,vlined]{algorithm2e} % Algorithm package
+\usepackage{CJKutf8}
 
 \input{./configuracao} %% faça as modificações pertinentes no arquivo configuracao.tex
 
@@ -81,7 +82,7 @@ portuguese,english %% para os documentos em Inglês com abstract.tex em Portugu�
 \include{./chapters/01-introducao}
 \include{./chapters/02-fundamentacao}
 \include{./chapters/03-correlatos}
-%\include{./chapters/04-experiment} % Not needed, I guess
+\include{./chapters/04-proposta}
 \include{./chapters/05-query-partition}
 \include{./chapters/06-interval-index}
 \include{./chapters/07-results}
@@ -102,8 +103,8 @@ portuguese,english %% para os documentos em Inglês com abstract.tex em Portugu�
 %\include{./docs/apendice1} %% insira apendices tal qual capítulos acima
 \include{./chapters/anexo-b-interval-intersection}
 
-\inicioAnexo
-\include{./chapters/anexo-cronograma}
+%\inicioAnexo
+%\include{./chapters/anexo-cronograma}
 
 \inicioIndice
 \include{./docs/contracapa}
