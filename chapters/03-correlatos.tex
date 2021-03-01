@@ -32,7 +32,7 @@ These data are either available to the satellite, or to the satellite operators 
       \hline
     \end{tabular}
   \end{center}
-  \FONTE{Adapted from~\cite{zhangBigDataFramework2017}}
+  \FONTE{Adapted from~\citeonline{zhangBigDataFramework2017}}
 \end{table}
 
 For this work, only the data from the on-board sensors will be considered, as the other data in this table can considered for a larger data management effort by the operator organization, however they are out of scope.
@@ -50,7 +50,7 @@ This flow is split into five phase that go from the source of the data to their 
   \end{center}
   \vspace{2mm}
   \legenda{}
-  \FONTE{Adapted from~\cite{zhangBigDataFramework2017}}.
+  \FONTE{Adapted from~\citeonline{zhangBigDataFramework2017}}.
 \end{figure}
 
 \begin{itemize}[noitemsep]
@@ -68,7 +68,7 @@ This flow is split into five phase that go from the source of the data to their 
     These can range from simple graphs to complex reports, as well as the result of algorithms. Anything that reaches the decision makers.
 \end{itemize}
 
-The works of~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} and~\cite{boussoufBigDataBased2018} have this process the best well defined out of all presented articles.
+The works of~\citeonline{zhangBigDataFramework2017},~\citeonline{mateikUsingBigData2017} and~\citeonline{boussoufBigDataBased2018} have this process the best well defined out of all presented articles.
 
 \section{Data Analysis by Satellite Operators}\label{ch:corr:ops}
 
@@ -117,17 +117,17 @@ The works of~\cite{zhangBigDataFramework2017},~\cite{mateikUsingBigData2017} and
 The common objective in these is to ease the satellite operator activities by means of anomaly detection algorithms and telemetry bounds checking.
 Some operators in this list are responsible for constellations of complex satellites, like remote sensing and communications, which are only cost-effective with a certain degree of automation for continuous operations.
 
-These articles are filtered by only technologies that are used by the operators and not necessarily by the mission exploitation, as the housekeeping telemetry is on a different data ingestion pipeline than the payload data, as shown in~\cite{mateikUsingBigData2017} and~\cite{adamskiDataAnalyticsLarge2016}.
+These articles are filtered by only technologies that are used by the operators and not necessarily by the mission exploitation, as the housekeeping telemetry is on a different data ingestion pipeline than the payload data, as shown in~\citeonline{mateikUsingBigData2017} and~\citeonline{adamskiDataAnalyticsLarge2016}.
 
-Some of these do not shown complete infrastructure for the entire data flow, like~\cite{fernandezTelemetryAnomalyDetection2017} and~\cite{trollopeAnalysisAutomatedTechniques2018} that use \textit{ad-hoc} scripting, and focus on only one part of the data flow.
+Some of these do not shown complete infrastructure for the entire data flow, like~\citeonline{fernandezTelemetryAnomalyDetection2017} and~\citeonline{trollopeAnalysisAutomatedTechniques2018} that use \textit{ad-hoc} scripting, and focus on only one part of the data flow.
 
-In~\cite{yvernesCopernicusGroundSegment2018} the authors showcase some OLAP queries and the use of a data cube, having used dimensional modelling to aid the operation of a satellite constellation. However, this work only showcases at a very high level the used methodology, and mention that the work was performed only on at the modelling level to be integrated with other tools, not showcasing the rest of the infrastructure needed for this to work.
+In~\citeonline{yvernesCopernicusGroundSegment2018} the authors showcase some OLAP queries and the use of a data cube, having used dimensional modelling to aid the operation of a satellite constellation. However, this work only showcases at a very high level the used methodology, and mention that the work was performed only on at the modelling level to be integrated with other tools, not showcasing the rest of the infrastructure needed for this to work.
 
 \subsection{Data Analysis at INPE}\label{ch:corr:inpe}
 
-INPE already perform data analysis on satellite telemetry, and in fact in many departments other than satellite operations.
+INPE already performs data analysis on satellite telemetry, and in fact in many departments other than satellite operations.
 The satellite operators must monitor the telemetries, analyse the incoming data, and act based on engineering guidance in case a problem is identified~\cite{TominagaFerrAmbr:2017:CoSaTe}.
-An example is in~\cite{Magalhaes:2012:EsAvTe}, made about a fault on the CBERS-2 satellite, where the proposed model would enhance knowledge about a phenomenon known as thermal avalanche that can make a satellite inoperable and thus identify and be able to stop that from happening again.
+An example is in~\citeonline{Magalhaes:2012:EsAvTe}, made about a fault on the CBERS-2 satellite, where the proposed model would enhance knowledge about a phenomenon known as thermal avalanche that can make a satellite inoperable and thus identify and be able to stop that from happening again.
 Furthermore, as in line with~\autoref{table:bigdataoperators}, anomaly detection is a common area of study~\cite{AzevedoAmbrViei::EsSoTe}.
 
 Other departments will mostly use data from the payload or from external agents, like remote sensing data, which analysis is also not trivial and are definitely a Big Data problem.
@@ -137,27 +137,8 @@ Other departments will mostly use data from the payload or from external agents,
 
 The selective computation of data cubes has a rich history, due to the curse of dimensionality, most algorithms need a way to treat high dimensional data and deal with limited available memory~\cite{hanDataMiningConcepts2011}.
 
-The \textit{Frag-Cubing} algorithm~\cite{liHighdimensionalOLAPMinimal2004} uses \textit{cube shells}, where subcubes with few dimensions (generally from 2 to 5) will be computed using an inverted index, thus using the fragments as a compromise between used memory and how many dimensions can be answered with a multidimensional query.
-Frag-Cubing is one of the most efficient and popular data cube computation algorithms, and it's internal workings will be explored in the next section.
-
-Using distributed computing,~\cite{dokaBrownDwarfFullydistributed2011} shows the Brown Dwarf, a Peer-to-Peer system that allows for cells to be updated and to reduce the redundancy in distributed cubes.
-
-PopUp-Cubing is shown in~\cite{heinePopUpCubingAlgorithmEfficiently2017}, using icebergs to deal with streaming data, and having superior results to FTL and Star-Cubing.
-This work specially deals with streaming data, which is of interest for real time data analysis of telemetries, however that that is not an scenario explored by this work.
-
-Using MapReduce as a base, ~\cite{wangScalableDataCube2013} presents HaCube, seeking a balance between parallel cube computation between various MapReduce nodes, allowing updates and incremental computation of measures.
-Due to its own distributed nature, it needs some fault tolerance to work, and also the tests were limited to only 5 dimensions, with up to 2,4 billion tuples.
-Also using MapReduce \citeonline{yangHolisticAlgebraicData2017} demonstrates the computing of holistic measures by presenting Multi-RegionCube, however with less testing than the previous method.
-
-In~\cite{zhaoClosedFragShellsCubing2018} it is presented Closed Frag-Shells Cubing, which combines the C-Cubing approach~\cite{dongxinCCubingEfficientComputation2006} of creating closed cube cells that losslessly compress drill-down/roll-up semantics, with the Frag-Cubing approach of using shell fragments, adding their own bitmap-based indexing on top to enhance query response times.
-This work is probably the closest to this own thesis, however with much less implementation requirements.
-
-\textit{qCube}~\cite{silvaQCubeEfficientIntegration2013} extend the Frag-Cubing approach by adding value interval queries, allowing for other comparison operators besides equality to be used in queries.
-\textit{HFrag}~\cite{silvaHybridMemoryData2015} uses of external memory to aid in the computation of the inverted index, using a hybrid system to partition the cube in both main and secondary memory by keeping the most frequent used values in the main memory and the least used in the secondary memory.
-Hybrid Inverted Cubing (HIC)~\cite{silvaComputingBIGData2016} is an extension to the HFrag algorithm that uses a critical accumulated frequency parameter, which ends up having better results in practice.
-
-Of these works \textit{Frag-Cubing} keeps being a base robust algorithm to compute the cube, as the inverted index techniques are still relevant and the results are adequate.
-However, \citeonline{liHighdimensionalOLAPMinimal2004} show the exponential memory usage of the different cube computation schemes using only 12 dimensions, and there is a clear saturation when cubes with 20, 50, 100 or more dimensions are used to compute the cube~\cite{silva:2015:abordagensParaCubo}.
+The \textit{Frag-Cubing} algorithm uses \textit{cube shells}, where subcubes with few dimensions (generally from 2 to 5) will be computed using an inverted index, thus using the fragments as a compromise between used memory and how many dimensions can be answered with a multidimensional query~\cite{liHighdimensionalOLAPMinimal2004}.
+Frag-Cubing is one of the most efficient and popular data cube computation algorithms, and its internal workings will be explored in the next section.
 
 \subsection{\textit{Frag-Cubing}}\label{ch:corr:cube:frag}
 
@@ -206,4 +187,26 @@ If $\mathcal{F} = 3$, then the full cube would be precomputed, equating a fully 
   \legenda{}
   \FONTE{Author.}
 \end{figure}
+
+\subsection{Other Algorithms}\label{ch:corr:cube:others}
+
+There are of course, more algorithms than Frag-Cubing, and they need some review of how they are applicable.
+Using distributed computing,~\citeonline{dokaBrownDwarfFullydistributed2011} shows the Brown Dwarf, a Peer-to-Peer system that allows for cells to be updated and to reduce the redundancy in distributed cubes.
+
+PopUp-Cubing is shown in~\citeonline{heinePopUpCubingAlgorithmEfficiently2017}, using icebergs to deal with streaming data, and having superior results to FTL and Star-Cubing.
+This work specially deals with streaming data, which is of interest for real time data analysis of telemetries, however that that is not an scenario explored by this work.
+
+Using MapReduce as a base,~\citeonline{wangScalableDataCube2013} presents HaCube, seeking a balance between parallel cube computation between various MapReduce nodes, allowing updates and incremental computation of measures.
+Due to its own distributed nature, it needs some fault tolerance to work, and also the tests were limited to only 5 dimensions, with up to 2,4 billion tuples.
+Also using MapReduce \citeonline{yangHolisticAlgebraicData2017} demonstrates the computing of holistic measures by presenting Multi-RegionCube, however with less testing than the previous method.
+
+In~\citeonline{zhaoClosedFragShellsCubing2018} is presented Closed Frag-Shells Cubing, which combines the C-Cubing approach by~\citeonline{dongxinCCubingEfficientComputation2006} of creating closed cube cells that losslessly compress drill-down/roll-up semantics, with the Frag-Cubing approach of using shell fragments, adding their own bitmap-based indexing on top to enhance query response times.
+This work is probably the closest to this own thesis, however with much less implementation requirements.
+
+\textit{qCube} by~\citeonline{silvaQCubeEfficientIntegration2013} extend the Frag-Cubing approach by adding value interval queries, allowing for other comparison operators besides equality to be used in queries.
+\textit{HFrag} by~\citeonline{silvaHybridMemoryData2015} uses of external memory to aid in the computation of the inverted index, using a hybrid system to partition the cube in both main and secondary memory by keeping the most frequent used values in the main memory and the least used in the secondary memory.
+Hybrid Inverted Cubing (HIC) also by~\citeonline{silvaComputingBIGData2016} is an extension to the HFrag algorithm that uses a critical accumulated frequency parameter, which ends up having better results in practice.
+
+Of these works \textit{Frag-Cubing} keeps being a base robust algorithm to compute the cube, as the inverted index techniques are still relevant and the results are adequate.
+However, \citeonline{liHighdimensionalOLAPMinimal2004} show the exponential memory usage of the different cube computation schemes using only 12 dimensions, and there is a clear saturation when cubes with 20, 50, 100 or more dimensions are used to compute the cube~\cite{silva:2015:abordagensParaCubo}.
 

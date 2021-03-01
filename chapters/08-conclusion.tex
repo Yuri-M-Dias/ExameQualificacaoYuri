@@ -13,7 +13,7 @@ As for specific contributions, they are as follows:
 
 \begin{itemize}[noitemsep]
 \item A heuristic to discover related telemetries between satellite time series data and how to use this with the help of an operator to validate the relevant queries;
-\item Using the previous heuristic to enhance Frag-Cubing's query response time and memory by pre-partitioning the data;
+\item Using the heuristic to enhance Frag-Cubing's query response times and memory by pre-partitioning the data;
 \item Improving upon Frag-Cubing's Inverted Index memory model by saving only intervals instead of the entire values, creating IntervalFrag, and thus reducing memory and query response times for some queries;
 \end{itemize}
 
@@ -26,19 +26,19 @@ For the correlated works, this improves upon Frag-Cubing's original implementati
 This change would not be too hard to implement on other correlated works that aren't based on bitmaps.
 For other satellite operator organizations, this can be incorporated to their Big Data architecture, in replacement for similar Data cube computation schemes.
 
-Furthermore \autoref{tab:publications} shows the summary of the published, and currently expecting to be published articles that resulted either directly from this work or from the wider master's effort.
+Furthermore, \autoref{tab:publications} shows the summary of the published, and currently expecting to be published articles that resulted either directly from this work or from the wider master's effort.
 In this table, two main conference results are shown, as well as an article that has been submitted already, and another that is currently being written, containing the results of the IntervalFrag algorithm.
 
-\begin{table}[!ht]
+\begin{table}[!htb]
   \begin{center}
     \caption{Resulting published work}\label{tab:publications}
     \begin{tabular}{|C{2.3cm}|c|C{2.2cm}|C{2.4cm}|C{2.9cm}|}
       \hline
       \textbf{Name} &\bfseries QUALIS & \bfseries SCOPUS Percentile & \bfseries Source &\bfseries Status \\
       \hline
-      WETE 2018 & NA - Conference & - & \cite{PereiraFerrSilv:2018:StApOL} & Published \\
+      WETE 2018 & Conference & - & \cite{PereiraFerrSilv:2018:StApOL} & Published \\
       \hline
-      IAC 2019 & NA - Conference & - & \cite{pereiraLessonsLearnedSystems2019} & Published \\
+      IAC 2019 & Conference & - & \cite{pereiraLessonsLearnedSystems2019} & Published \\
       %\hline % My precious..
       %MDPI Information & B2 (A4) & 52\% & - & Accepted, later retracted \\
       \hline
@@ -57,20 +57,20 @@ On that note the use of bCubing~\cite{silva:2015:abordagensParaCubo} will be int
 
 The use of the gathered satellite data on other projects is also of interest, as there's no public reliable dataset of satellite telemetry data that contains all relevant data and not just a subset of a subsystem, and this work showcases a volume that has information enough for the training of Machine Learning and Artificial Intelligence projects.
 Only projects that release full telemetry data are relatively simple CubeSat projects, who do not generate a significant volume that is enough for the use of these algorithms.
-The author plans to release the dataset in a citable format for the use of the community in the near future.
+The author plans to release the dataset in a format for the use of the community in the near future pending liberation.
 
 This work also has the potential of improving query execution when dealing with multiple satellites, constellations and/or formations, it needing only the data to be gathered and the suitable cube format defined to be tested.
 
-The relationship algorithms mentioned in~\autoref{ch:querypart:heur} can be remade to use other different solutions, and combined with the shell-cubing method to generate only shells that have relationships above a certain strength.
+The relationship algorithms mentioned in~\autoref{ch:querypart:heur} can be remade to use different solutions, and combined with the shell-cubing method to generate only shells that have relationships above a certain strength.
 This was also one of the ideas to be developed during this work, which however had not enough time to be fully developed.
-This idea is best when paired with known "best available" techniques, like using the project ~\cite{LibrespacefoundationPolarisPolaris2021}.
+This idea is best when paired with known "best available" techniques, like using the project Polaris~\citeonline{LibrespacefoundationPolarisPolaris2021}.
 
-Furthermore the Set Intersection problem defined in chapter~\ref{ch:interval} can be further optimized with recent advances not only in computer architectures, but also with regards to complexity and the validation of the algorithms in real world datasets.
+The Set Intersection problem defined in chapter~\ref{ch:interval} can be further optimized with recent advances not only in computer architectures, but also in relation to complexity and the validation of the algorithms in real world datasets.
 A preliminary investigation was performed, as a simple but not rigorous overview of the results is detailed in Appendix~\ref{ap:a:problem}.
 
-\section{Final thoughts}\label{ch:concl:future}
+\section{Final thoughts}\label{ch:concl:final}
 
-This work was developed entirely with open source software, and they will be made available later at \url{https://github.com/Yuri-M-Dias/SCD2}.
+This work was developed entirely with open source software, and they will be made available at \url{https://github.com/Yuri-M-Dias/SCD2}.
 Furthermore, there is a lack of good datasets that deal with satellite telemetry data available, perhaps this work can further contribute by allowing the usage of the dataset by making it public.
-The volume available here is much bigger than what is currently used by Machine Learning competitions, and the publication can further enhance work in this area.
+The volume available here is much bigger than what is currently used by Machine Learning competitions and other competitions, and the publication can further enhance work in this area, like contributing to education and serving a benchmark for future implementations of projects like CubeDesign.
 

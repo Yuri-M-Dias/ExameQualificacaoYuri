@@ -11,12 +11,11 @@
 This is only a simple overview to show the importance of the problem and how different algorithms stack against each other.
 
 The problem can be stated as follows: given sets $S_1$ and $S_2$, find the elements that are present in both sets, their intersection, represented as $S_1 \cap S_2$.
-Furthermore, each element is ordered as unique, for they represented index positions and are thus always non-zero positive integers.
-Each list contains unique element, so they are never repeated, as per inverted index necessities.
+Furthermore, each element is ordered and unique (non-repeating), as they represented index positions and are thus always non-zero positive integers.
 
 \section{Algorithms}\label{ap:a:algos}
 
-This section details the compared algorithms, detailing the ones that deviate from literature further.
+This section details the compared algorithms, giving more information on the ones that deviate from literature further.
 
 The UnorderedSet algorithm is an implementation of the optimum complexity algorithm: iterate over all elements of one vector and use a hashing function to check for equality, adding the elements that are equal.
 This is an $\mathcal{O}(n+m)$ operation, with $n$ and $m$ the size of both lists.
@@ -46,10 +45,10 @@ It is detailed in Algorithm \ref{algo:intersect:scalar}, and works by creating t
    }
  }
  \KwRet{$L_c$}\;
- \caption{Scalar intersection algorithm, adapted from \cite{hwangSimpleAlgorithmMerging1972}}\label{algo:intersect:scalar}
+ \caption{Scalar intersection algorithm, adapted from \citeonline{hwangSimpleAlgorithmMerging1972}}\label{algo:intersect:scalar}
 \end{algorithm}
 
-Algorithm \ref{algo:intersect:scalar_branchless} is based on the Figure 2 algorithm by \cite{inoueFasterSetIntersection2014}, and consists on a branchless version of the scalar algorithm above.
+Algorithm \ref{algo:intersect:scalar_branchless} is based on the Figure 2 algorithm by \citeonline{inoueFasterSetIntersection2014}, and consists on a branchless version of the scalar algorithm above.
 Its only aim is to reduce the branch mispredictions during runtime, and removing the two separate ifs with a constant operation to decide which element to advance next.
 
 \begin{algorithm}[!htb]
@@ -70,7 +69,7 @@ Its only aim is to reduce the branch mispredictions during runtime, and removing
   }
  }
  \KwRet{$L_c$}\;
- \caption{ScalarBranchless, adapted from \cite{inoueFasterSetIntersection2014}}\label{algo:intersect:scalar_branchless}
+ \caption{ScalarBranchless, adapted from \citeonline{inoueFasterSetIntersection2014}}\label{algo:intersect:scalar_branchless}
 \end{algorithm}
 
 The algorithm called "Li" is based on the original Frag-Cubing implementation code \cite{liHighdimensionalOLAPMinimal2004}.
@@ -104,7 +103,7 @@ It is detailed in Algorithm \ref{algo:intersect:li}.
    }
  }
  \KwRet{$L_c$}\;
- \caption{"Li" intersection algorithm, adapted from \cite{liHighdimensionalOLAPMinimal2004}}\label{algo:intersect:li}
+ \caption{"Li" intersection algorithm, adapted from~\citeonline{liHighdimensionalOLAPMinimal2004}}\label{algo:intersect:li}
 \end{algorithm}
 
 The BinaryLi algorithm is just the same as the Li algorithm mentioned earlier, however using a binary-search based skip parameter instead of the fixed 10-elements heuristic.
@@ -115,7 +114,7 @@ This however requires that the data uses the \textit{vector} class and be in ite
 The SIMD implementation chosen here is based of the scalar implementation: one element is put into the first lane, and then four other integers are read on the other lane.
 The SIMD instruction used is less-than, and a mask is used to verify if all four elements on the second data lane are \textbf{-1}, meaning that they are lesser than the element on the first lane.
 If any of them are, then all four elements are iterated and then ones equal to the element in the first lane are added to the resulting vector.
-For brevity, this is loosely based on the algorithm used in \cite{inoueFasterSetIntersection2014}, without the adaptive parts.
+For brevity, this is loosely based on the algorithm used in~\citeonline{inoueFasterSetIntersection2014}, without the adaptive parts.
 
 \section{Experiments}\label{ap:a:results}
 
@@ -166,12 +165,12 @@ As the HashSet approach was the slowest approach, \autoref{fig:set_intersection_
 
 The SIMD approach is clearly the fastest, however it is also dependant on processor architecture and even though the used SIMD instructions (SS2) are available on almost all modern CPUs, other newer instruction sets might not be, or might have different implementations depending on the CPU vendor, which complicates widespread implementation.
 
-While these tests are interesting, there was not enough time to test some recent benchmarks that found the use of different algorithms and could improve the performance of each, as the use of compressed indexes in \cite{pibiriTechniquesInvertedIndex2019} show.
-Furthermore, the SIMD instruction set used here (SSE2) is limited even if it's support is widespread, with other instruction sets (SSE3, AVX, AVX512, etc) being available on modern CPUs and also available for use.
+While these tests are interesting, there was not enough time to test some recent benchmarks that found the use of different algorithms and could improve the performance of each, as the use of compressed indexes in \citeonline{pibiriTechniquesInvertedIndex2019} show.
+Furthermore, the SIMD instruction set used here (SSE2) is limited even if its support is widespread, with other instruction sets (SSE3, AVX, AVX512, etc) being available on modern CPUs and also available for use.
 
 Some recent results that have not been properly explored in the data cube context as of yet: Recursive Universe Partitioning, a technique that uses the possible search space to partition the sets and execute the intersection~\cite{pibiriFastCompactSet2021}; FESIA, which combines the use of previous techniques with different SIMD computation techniques and a bitmap to decide which algorithm is more suitable for use depending on the set size~\cite{zhangFESIAFastSIMDEfficient2020}, and the use of pre-processed dictionaries to greatly aid in the computation~\cite{dingFastSetIntersection2011a}.
-There's even an algorithm to compute the set intersection in $\mathcal{O}(1)$ by using a quantum computer~\cite{tianQuantumAlgorithmFinding2019}, however that approach is likely not implementable for any significant dataset in the near future.
+There's even an algorithm to compute the set intersection in $\Theta(1)$ by using a quantum computer and extending from the Bernstein-Vazirani algorithm~\cite{tianQuantumAlgorithmFinding2019}, however due to needing $\mathcal{O}(n)$ quantum storage space, that approach is likely not implementable for any significant dataset in the near future.
 
 Further testing is necessary when dealing with lists of varying sizes, that would showcase the improvements of certain algorithms over others, and the incorporation of these algorithms into a real-world dataset for accurate tests.
-Some of the cited documents make decisions of which algorithm to use based on the ratio between the sizes of the two input sets, and this should also be incorporated on future tested algorithms.
+Some of the cited documents make decisions of which algorithm to use based on the ratio between the sizes of the two input sets, and this should also be incorporated on future algorithms.
 

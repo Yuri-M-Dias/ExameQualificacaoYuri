@@ -3,7 +3,8 @@
 .RData
 .Ruserdata
 
-publicacao.pdf # Not sure about this, but let's keep it for now
+#publicacao.pdf # Not sure about this, but let's keep it for now
+Versions/Dissertacao_Yuri_Matheus_Dias_*
 
 # https://github.com/github/gitignore/blob/master/TeX.gitignore
 ## Core latex/pdflatex auxiliary files:

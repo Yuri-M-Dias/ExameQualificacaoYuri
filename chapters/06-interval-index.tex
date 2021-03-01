@@ -6,9 +6,9 @@ This section describes the IntervalFrag algorithm, and the proposed architecture
 
 \section{Using Intervals in Inverted Indexes}\label{ch:interval:problem}
 
-In chapter~\ref{ch:corr:cube:frag} the Frag-Cubing algorithm was explained, as per the original implementation by~\cite{liHighdimensionalOLAPMinimal2004}.
+In chapter~\ref{ch:corr:cube:frag} the Frag-Cubing algorithm was explained, as per the original implementation by~\citeonline{liHighdimensionalOLAPMinimal2004}.
 One of the key parts of the algorithm is the use of an inverted index to query directly into the attribute values and allow for the iceberg pruning of cells that fall below minimum support.
-The algorithm depends on the intersection of TID lists to work, as that is how it can known what tuples have that specific value and where to find them to compute the relevant measures.
+The algorithm depends on the intersection of TID lists to work, as that is how it can know what tuples have that specific value and where to find them to compute the relevant measures.
 This part of the algorithm is mentioned by the original work as being done naively, and the original authors suggest some ways of compressing the index and speeding up the intersection of the lists, as this will be one of the most frequent operations that the algorithms needs to do to answer queries, and a speedup on this part would greatly enhance performance.
 
 Furthermore, as most of the data is directly loaded into memory, using some form of compression on the inverted index would also reduce memory implementation requirements, and hopefully also query response times.
@@ -17,8 +17,8 @@ In general, for a list of numbers $\langle d_1, d_2 , \cdots, d_k \rangle$, the 
 The compression then would come from encoding the elements into a smaller number of bits, hopefully much less than the standard of 32 for an integer.
 This approach takes advantage of the ordered nature of the TID list, as it is encoded from the tuples as they read and thus are naturally sorted non-zero positive integers.
 
-This approach requires heavily changing the binary operations of the inverted index, however it is not the only one: since publication there are various different techniques to compress an inverted index, and they are an active branch of research to this day.
-More options, and a more complex implementation of the above method can be found into Elias-Fano encoding and the others mentioned in~\cite{pibiriTechniquesInvertedIndex2019}.
+This approach requires heavily changing the binary operations of the inverted index, however it is not the only one: since publication there are various different techniques to compress an inverted index, and they are an active branch of research.
+More options, and a more complex implementation of the above method can be found into Elias-Fano encoding and the others mentioned in~\citeonline{pibiriTechniquesInvertedIndex2019}.
 However, most of them require the use of dictionaries or heavy bit-encoding to achieve better results, which in general sacrifices the update operation.
 
 One much simpler technique that has not been explored is the use of intervals instead of raw numbers in the TID list.
@@ -27,8 +27,8 @@ For a list of numbers $\langle d_1, d_2 , \cdots, d_k \rangle$, the interval lis
 Example: for the TID list $\langle 1, 3, 4, 5, 7 \rangle$, the Interval List would be $\langle [1, 1], [3, 5], [7, 7] \rangle$, where we can represent $3$ and $7$ that have no difference between their intervals as the singles $\langle [1], [3-5], [7] \rangle$.
 
 This has implications only for the intersection of the lists, and is overall a much simpler implementation to execute.
-By previous experience with the data, it was found that a great of dimensions have attribute values that are repeated on long sequences of the same telemetry data points being repeated, and Frag-Cubing generates a long list of these repetitions for some dimensions.
-This thesis then seeks to answer the question: \textbf{Can the use of the Interval algorithm instead of the raw list reduce memory requirements and query response times for long sequences of real world satellite telemetry data?}
+By previous experience with the data, it was found that a great number of dimensions have attribute values that are repeated on long sequences of the same telemetry data points, and Frag-Cubing generates a long list of these repetitions for some dimensions.
+This work then seeks to answer the question: \textbf{Can the use of the Interval algorithm instead of the raw list reduce memory requirements and query response times for long sequences of real world satellite telemetry data?}
 
 Thus, in this chapter this implementation will be detailed, as well as an experiment to evaluate whether there is any advantage to using these intervals over the standard technique used by Frag-Cubing.
 
@@ -52,10 +52,9 @@ Supposed that we're inserting an element $b$ to the list.
 The insertion can be done by checking if the last element in the list is positive, if it is, then there is an interval and it is necessary to check the penultimate element in the list.
 If the last element is negative $c$, then we can check if $c * -1 + 1 = b$, and if it is we flip the signal of the position $c$ and insert $b$ to the list as it is.
 If the last element is not negative, then we check if the element $c$, is $c + 1 = b$ and update the position $c$ if it is true, else we flip the signal of $b$ and insert it at the end of the list.
-If none of these we can safely append $b$ to the end of the list after flipping the signal to negative.
-Thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interval_insertion}.
+Else none of these we can safely append $b$ to the end of the list after flipping the signal to negative, and thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interval_insertion}.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!htb]
 \SetAlgoLined
 \KwResult{Element inserted into the list}
  $b$ element to be inserted\;
@@ -84,12 +83,12 @@ Thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interv
 \subsection{IntervalIntersection}\label{ch:interval:algo:intersection}
 
 The problem of intersecting two sets of elements is a big one, and will not be fully explored by this work, however a simple exploration of some algorithms that was a byproduct of this work are available in Appendix~\ref{ap:a:problem}.
-However, due to the change in how the index uses the TID list, it is necessary to adapt the Frag-Cubing set intersection algorithm to still calculate the intersection between two intervals, and thus the IntervalIntersection algorithm is created.
+However, due to the change in how the index uses the TID list, it is necessary to adapt the Frag-Cubing set intersection algorithm to still calculate the intersection between two intervals, and so the IntervalIntersection algorithm is created.
 
-To check if two intervals intersect: assuming two intervals $I_a = \langle a_l, a_r \rangle$ and $I_b = \langle b_l, b_r \rangle$, where $a_l$ is the smallest element in the interval, and $a_r$ the biggest element in the interval.
+In order to check if two intervals intersect: assuming two intervals $I_a = \langle a_l, a_r \rangle$ and $I_b = \langle b_l, b_r \rangle$, where $a_l$ is the smallest element in the interval, and $a_r$ the biggest element in the interval.
 The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and the intersection $I_o = I_a \bigcap I_b$ can be computed by computing the biggest element between $a_r$ and $b_r$ (function $max$) and the smallest element between $a_l$ and $b_l$ (function $min$), or \autoref{algo:intersect_interval}.
 
-\begin{algorithm}[H]
+\begin{algorithm}[!htb]
 \SetAlgoLined
 \KwResult{The result intersection $I_o$, or $\emptyset$ in case there is no intersection}
  $I_a$ and $I_b$ two intervals\;
@@ -106,9 +105,9 @@ The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and 
 \autoref{fig:interval:sample} shows four examples of using this algorithm to select for intersections, including the empty case when there is no intersection.
 For the list interval intersection, it can be naively implemented using the scalar merge strategy: two pointers walk by each interval, check if there is an intersection between then and, if there is, create a new element in the result list with the intersection between these two intervals.
 The algorithm to perform this is shown below, and takes the same complexity of the parent algorithm of $\mathcal{O}(n + m)$, where $n$ and $m$ are the sizes of the interval lists being intersected.
-This resulting algorithm is based on the implementations by \cite{liHighdimensionalOLAPMinimal2004} and \cite{silva:2015:abordagensParaCubo}, shown in \autoref{algo:intersect_interval_lists}.
+This resulting algorithm is based on the implementations by \citeonline{liHighdimensionalOLAPMinimal2004} and \citeonline{silva:2015:abordagensParaCubo}, shown in \autoref{algo:intersect_interval_lists}.
 
-\begin{figure}[H]
+\begin{figure}[!htb]
   \caption{IntervalIntersection example}\label{fig:interval:sample}
   \vspace{6mm}
   \begin{center}
@@ -220,7 +219,7 @@ This resulting algorithm is based on the implementations by \cite{liHighdimensio
   \end{tabular}
 \end{table}
 
-To make the comparisons easier to understand, let's focus on only queries $Q1$ and $Q2$, that were the highest in number of dimensions and the highest in number of cardinalities respectively.
+In order to make the comparisons easier to understand, let's focus on only queries $Q1$ and $Q2$, that were the highest number of dimensions and the highest number of cardinalities respectively.
 \autoref{fig:interval:q1-2} shows those results, and it is clear that the memory usage is always much lower under IntervalFrag.
 $Q1$ has four dimensions with low cardinality and high sequentiality, and these are quickly answered by IntervalFrag, while Frag-Cubing takes a long time to answer the queries that involve those dimensions.
 
@@ -273,7 +272,7 @@ In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer que
 \end{figure}
 
 Additionally, we need to compare the time necessary to create the cube under each of the algorithms, here called Time to Cube.
-If one algorithm takes too long to transverse the cube structure and execute the minimum support prunning this would need to be counted against it, however as~\autoref{fig:interval:timetocube} shows, the difference between IntervalFrag and Frag-Cubing is not that big, with IntervalFrag being on average 10\% slower than Frag-Cubing.
+If one algorithm takes too long to transverse the cube structure and execute the minimum support pruning this would need to be counted against it, however as~\autoref{fig:interval:timetocube} shows, the difference between IntervalFrag and Frag-Cubing is not that big, with IntervalFrag being on average 10\% slower than Frag-Cubing.
 This however is just a simple comparison, as in that step each subcube of the fragments would be computed and for these tests that use $\mathcal{F} = 1$ they are almost exactly the same computation, needing higher fragment sizes to appreciate the difference.
 However, since this computation would involve list intersections at higher fragment sizes, the speed of the intersection algorithm would heavily influence this computation, being more comparable to the query response times compared above.
 
@@ -309,7 +308,7 @@ FragInterval was up to 3 times slower to answer queries on dimensions with low s
 On all queries FragInterval used only between 20\% and 24\% of the memory that Frag-Cubing used, being the biggest improvement that IntervalFrag brings.
 Furthermore, FragInterval also needed only on average 22\% of the memory that Frag-Cubing used to compute the baseline cube, before the queries can be answered, while being only 10\% slower to compute.
 
-Thus FragInterval shows to be preferred on environments with low available RAM, as long as the slower queries with higher cardinalities are acceptable.
+Thus, FragInterval shows to be preferred on environments with low available RAM, as long as the slower queries with higher cardinalities are acceptable.
 FragInterval achieves the objective of answering the queries with much less memory, however fails at having comparable response times than Frag-Cubing on high dimensionality queries.
 This slowness is due to the set intersection algorithm in IntervalFrag having to execute more comparisons in practice than Frag-Cubing's, and thus being slower when the sets have the same size and the data has low sequentiality to favor IntervalFrag's algorithm.
 

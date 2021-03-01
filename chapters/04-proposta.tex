@@ -4,17 +4,16 @@
 
 In this section, the objectives will be reviewed, the case study data will be presented and also the proposed architecture.
 
-
 \section{Objectives}\label{ch:prop:obj}
 
-To recall from \autoref{ch:intro:obj}, the main objective of this thesis is to "create a data cube base architecture to represent satellite telemetry data along a mission, using the distribution of the telemetry values to ease analysis and querying of the satellite's state by satellite engineers".
-To achieve that, and as specific goals, two different architectures will be proposed and implemented: one tries to reduce main memory consumption by pre-processing the data to be queried into high-dimensional and low-dimensional, and then filters the resulting data cubes by the dimensions related to each pre-defined query; the other uses an inverted index compression technique of changing the TID lists to hold interval lists instead of raw number lists, and tries to see how that affects query response time and memory consumption.
+Recalling from \autoref{ch:intro:obj}, the main objective of this thesis is to "create a data cube base architecture to represent satellite telemetry data along a mission, using the distribution of the telemetry values to ease analysis and querying of the satellite's state by satellite engineers".
+In order to achieve that, and as specific goals, two different architectures will be proposed and implemented: one tries to reduce main memory consumption by pre-processing the data to be queried into high-dimensional and low-dimensional, and then filters the resulting data cubes by the dimensions related to each pre-defined query; the other uses an inverted index compression technique of changing the TID lists to hold interval lists instead of raw number lists, and tries to see how that affects query response time and memory consumption.
 
 \section{Case Study: SCD2}\label{ch:prop:scd2}
 
 The case study used in this thesis will be the satellite SCD2 (Data Collection Satellite in Portuguese), which has over 20 years of continuous operations by the Satellite Control Center at INPE~\cite{OrlandoKuga:2007:SaSCSC}.
 It is one of the first satellites designed, tested and assembled in Brazil, the second in the SCD family of data collection satellites~\cite{Oliveira:1996:SC1Sa}.
-The mission is goal is to retransmit to assigned receiver stations (Cuiabá and Alcântara, for example), data obtained from a network of Automatic Environmental Data Collection Platforms (PCD), which are distributed throughout the Brazilian territory.
+The mission goal is to retransmit to assigned receiver stations (Cuiabá and Alcântara, for example), data obtained from a network of Automatic Environmental Data Collection Platforms (PCD), which are distributed throughout the Brazilian territory.
 \autoref{fig:scd2_mission} shows a commemorative mission patch for the satellite.
 
 Each PCD is composed of a transmitter in UHF band (about $400Mhz$) that collects environmental data and continuously transmits them back into space.
@@ -39,7 +38,7 @@ These data were obtained by exporting the telemetry database to CSV format via t
 
 \section{Proposed Architecture}\label{ch:prop:static}
 
-One of the necessities of using different data cube algorithms is in the number of dimensions that a certain cube can perform queries: queries with more than 15 dimensions are not generally (or practically) executed in some algorithms, as the work of~\cite{silvaComputingBIGData2016} demonstrates, however demonstrating some works that do execute queries with more dimensions than that.
+One of the using necessities of different data cube algorithms is in the number of dimensions that a certain cube can perform queries: queries with more than 15 dimensions are not generally (or practically) executed in some algorithms, as the work of~\citeonline{silvaComputingBIGData2016} demonstrates, however demonstrating some works that do execute queries with more dimensions than that.
 
 The telemetry data of interest has many more dimensions than the common limit for data cube with up to 60 dimensions: with over 135 telemetries for the SCD family satellites, and thousands for larger satellites like CBERS and Amazonia, running high-dimensional queries would typically be infeasible in traditional cube construction algorithms.
 
@@ -65,7 +64,7 @@ The users can then query into this structure via a Query Processor built-in.
 
 \subsection{Proposed changes}\label{ch:prop:static:dynamic}
 
-To achieve the objectives of this thesis, the following changes are then proposed, illustrated by~\autoref{fig:architecture_dynamic}: change the Frag-Cubing algorithm into the IntervalFrag algorithm by changing the inverted index step into an inverted index with intervals; add the Query Partition step in which the telemetry value distribution is used to filter out relationships between the telemetries with the help of a Satellite Engineer, and have those relationships influence what data is then input into IntervalFrag.
+In order to achieve the objectives of this thesis, the following changes are then proposed, illustrated by~\autoref{fig:architecture_dynamic}: change the Frag-Cubing algorithm into the IntervalFrag algorithm by changing the inverted index step into an inverted index with intervals; add the Query Partition step in which the telemetry value distribution is used to filter out relationships between the telemetries with the help of a Satellite Engineer, and have those relationships influence what data is then input into IntervalFrag.
 The overall objective is to show that only some changes are made into the Frag-Cubing algorihtm, and the Query Partition is an added optional step.
 The changes have been highlighted in red lettering.
 

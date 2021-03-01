@@ -36,7 +36,7 @@ The concept of Big Data is still evolving, and in this work the 5 Vs definition 
   \item \textbf{Veracity}: the data has no guarantees as to its quality, such as inconsistencies and lack of accuracy, but the analysis must be of high quality anyway.
 \end{itemize}
 
-These V's are related to the construction of a Data Warehouse, and can also be seen as requirements for the creation of one for a data set characterized as Big Data~\cite{zhangBigDataFramework2017}.
+These V's are related to the construction of a Data Warehouse, and can also be seen as requirements for the creation of one for a data set characterized by Big Data~\cite{zhangBigDataFramework2017}.
 In particular, there is a certain relationship with the idea of ``NoSQL'' (``Not only SQL''), where not only relational database systems are used, but also other paradigms are used, such as document oriented, key and value, etc~\cite{bimonteOpenIssuesBig2016}.
 
 \section{Data Warehouse}\label{ch:fun:dw}
@@ -44,7 +44,7 @@ In particular, there is a certain relationship with the idea of ``NoSQL'' (``Not
 A Data Warehouse (DW) is a subject oriented, integrated, time-varying or time partitioned, non-volatile data repository that assists the decision making process~\cite{inmonUsingDataWarehouse1994}.
 This definition can be divided into:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \textbf{Subject oriented}: the DW is used for the analysis of a specific area.
     For example, a DW for telemetry data might just be useful for the operators, but not specific enough for engineering.
   \item \textbf{Integrated}: the DW must integrate data from multiple sources in a structured way.
@@ -69,7 +69,7 @@ One of the dimensions is always temporal to allow the analysis of the subject ov
 
 An OLAP system allows the response of multi-dimensional queries using data stored in the Data Warehouse~\cite{kimballDataWarehouseToolkit2013}, and the main features are~\cite{bimonteOpenIssuesBig2016}:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \textbf{Online queries}: must be made \textit{Online}, that is, in time for the user.
   \item \textbf{Multidimensional queries}: They are defined using the dimensions and measures provided by the Data Warehouse, which expect high quality data.
   \item \textbf{Simple representation}: Query results must be represented using tables and graphs, because end users are usually decision makers who need visualizations that are relevant to the subject.
@@ -78,7 +78,7 @@ An OLAP system allows the response of multi-dimensional queries using data store
 
 Each OLAP tool must manipulate a new Abstract Data Type (ADT), called a data cube, using specific strategies due to the way the data is stored, being classified in~\cite{moreiraFullPartialData2012}:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \textbf{Relational OLAP (ROLAP)}: use relational Database Management Systems (Data base Management System - DBMS) for the management and storage of data cubes.
     ROLAP tools include optimizations for each DBMS, implementation of navigation logic in aggregations, services and additional tools;
   \item \textbf{Multidimensional OLAP (MOLAP)}: implement multidimensional data structures to store data cubes in main memory or in external memory.
@@ -175,11 +175,11 @@ This has the advantages of eliminating redundancies in the dimension tables, but
   \FONTE{Author}
 \end{figure}
 
-The Fact Constellation uses multiple fact tables, like multiple star schemas but sharing dimension tables, leading to it's name as a group of stars.
+The Fact Constellation uses multiple fact tables, like multiple star schemas but sharing dimension tables, leading to its name as a group of stars.
 \autoref{fig:factconstschema} shows an example of a fact constellation scheme.
 
 \begin{figure}[!htb]
-  \caption{Fact Constellatin scheme}\label{fig:factconstschema}
+  \caption{Fact Constellation scheme}\label{fig:factconstschema}
   \vspace{6mm}
   \begin{center}
     \resizebox{6cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
@@ -217,7 +217,7 @@ To perform queries in the Data Warehouse, it is necessary to use some operations
 These queries must also be able to go through the hierarchy of concepts of each dimension, as well as follow the dimensional model of the cube, in order to offer a user-friendly interface for interactive analysis~\cite{hanDataMiningConcepts2011}.
 Some operations are exemplified in \autoref{fig:olap}, but they usually are:
 
-\begin{itemize}
+\begin{itemize}[noitemsep]
   \item \textit{Roll-up}: performs aggregation in the data cube, either by navigating the concept hierarchy from a specific level concepts to a more generic one, or by reducing a dimension.
   \item \textit{Drill-down}: the inverse of the roll-up operation, navigates in the hierarchy of concepts from the most generic level to the most specific level, or adds dimensions to the current cube.
   \item \textit{Slice}: performs a selection in a cube dimension, resulting in a subcube focused on that dimension.
@@ -241,9 +241,9 @@ Depending on the OLAP system, it is possible to execute other operations, like d
 \subsection{Data Cube Computation}\label{ch:fun:cube:comp}
 
 Data cube computation is an essential task, as pre-computing all or part of a data cube can significantly increase DW performance.
-However, this task has exponential complexity in relation to the number of dimensions, being called materialization, with complete materialization requiring a large number of cells, and therefore a high memory consumption and time~\cite{hanDataMiningConcepts2011}.
+However, this task has exponential complexity in relation to the number of dimensions, being called materialization, with complete materialization requiring a large number of cells, and therefore a high consumption of memory and time~\cite{hanDataMiningConcepts2011}.
 
-The original calculation of the data cube computation was proposed by~\cite{grayDataCubeRelational1996}, being: given an input relation $R$ with tuples of size $n$, the number of subcubes that can be generated is $2^n$, where $n$ is the number of dimensions of the cube.
+The original calculation of the data cube computation was proposed by~\citeonline{grayDataCubeRelational1996}, being: given an input relation $R$ with tuples of size $n$, the number of subcubes that can be generated is $2^n$, where $n$ is the number of dimensions of the cube.
 For example, assuming a cube with three dimensions \textit{Satellite, Telemetry, Value}, we have $2^3 = 8$ possible subcubes: $\{(satellite, telemetry, value), (satellite, value), (satellite, telemetry),$ $(telemetry, value), (telemetry), (value), (satellite), \emptyset \}$, with $\emptyset$ denoting the empty grouping (base cell, dimensions are not grouped).
 % Weird latex thing here...
 
@@ -258,7 +258,7 @@ For a cube with $n$ dimensions with multiple concept hierarchies, the total numb
 Where $L_i$ is the number of concept levels of the $i$ dimension.
 It is necessary to add one to the equation~\ref{eq:conceptcuboids} to denote the virtual level \textit{ALL}.
 The size of each subcube also depends on the cardinality of each dimension, that is, the number of distinct values.
-While the number of dimensions, concept hierarchies, and cardinality of the cube increases, they also increase the space requirements exponentially, being known as the \textbf{Curse of Dimensionality} in cube computing.
+While the number of dimensions, concept hierarchies, and cardinality of the cube increases, they also increase the space requirements exponentially, being known as the \textbf{Curse of Dimensionality} in computing.
 
 To be able to answer the queries properly, it is necessary to choose a method for subcube computing: non-materialisation, complete materialisation and partial materialisation.
 

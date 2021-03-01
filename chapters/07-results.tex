@@ -17,15 +17,15 @@ On those cases, IntervalFrag is discouraged, as the algorithm will be slower tha
     \hline
     & \bfseries Low Sequentiality &\bfseries High Sequentiality &\bfseries High Dimensionality &\bfseries High Cardinality &\bfseries High Skew \\
     \hline
-    Computing the base cube & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag& IntervalFrag \\
+    \bfseries Computing the base cube & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag& IntervalFrag \\
     \hline
-    Subcube query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
+    \bfseries Subcube query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
     \hline
-    Point query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
+    \bfseries Point query & Frag-Cubing & IntervalFrag & IntervalFrag & Frag-Cubing$^1$ & FragCubing \\
     \hline
-    Low available RAM & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag \\
+    \bfseries Low available RAM & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag & IntervalFrag \\
     \hline
-    Fast Query Reponse & Frag-Cubing & IntervalFrag & Frag-Cubing$^1$ & Frag-Cubing$^1$ & Frag-Cubing \\
+    \bfseries Fast Query Reponse & Frag-Cubing & IntervalFrag & Frag-Cubing$^1$ & Frag-Cubing$^1$ & Frag-Cubing \\
     \hline
     \multicolumn{6}{l}{$^{1}$\footnotesize{If there's high sequentiality, prefer IntervalFrag}} \\
   \end{tabular}
@@ -34,7 +34,7 @@ On those cases, IntervalFrag is discouraged, as the algorithm will be slower tha
 
 In summary, in case the RAM available is low and the worst case query response times can be up to 4x slower than Frag-Cubing's, then IntervalFrag should be preferred as the main method of computing the data cube.
 In case the data have a very low sequentiality, and RAM is available, then using Frag-Cubing should still be preferred for the faster response times.
-IntervalFrag will excel at any dimension that has a high sequentiality, even if it also has a high cardinality, however dimensions that have a high cardinality will tend to have a low sequentiality in practice, and this usage might be rarer.
+IntervalFrag will excel at any dimension that has a high sequentiality, even if it also has a high cardinality, however dimensions that have a high cardinality will tend to have a low sequentiality in practice, and this usage might be uncommon.
 The Skew parameter can influence the algorithm both ways, as it does not necessarily mean that the dimension will have a higher or lower sequentiality and cardinalities.
 
 When the dimensions have a high degree of sequentiality, then IntervalFrag excels, as it can not only answer the same queries much faster, but also using only a fraction of the memory used by Frag-Cubing.
