@@ -37,7 +37,7 @@ Thus, in this chapter this implementation will be detailed, as well as an experi
 In practice, the algorithm cannot be implemented using two integers for each interval, as in the case where there is not a substantial interval (difference bigger than one) all elements will take the space of two integers when in Frag-Cubing they would take the place of only one integer.
 This would lead to the worst case for the Interval algorithm to be double the memory of Frag-Cubing, but this can be worked around in practice by encoding the elements without an interval in the negative range of the integer, which isn't used in the TID list as each element indicates a unique identifier that is positive.
 
-In case the identifier to be inserted would be close to zero, it is necessary to add one to each of the elements in the TID list as they are inserted into the IntervalIndex, as checking for a negative zero is not recommended and not guaranteed to work the same on every computer architecture \cite{ieeeIEEEStandardFloatingPoint2019}.
+In case the identifier to be inserted would be close to zero, it is necessary to add one to each of the elements in the TID list as they are inserted into the IntervalIndex, as checking for a negative zero is not recommended and not guaranteed to work the same on every computer architecture \cite{ieee7542019}.
 With this, the entire integer bit space is used, including the signal bit for the algorithm.
 For the scope of this work, and since the experiment does not require the update of cells, only the insertion and intersection algorithms will be detailed.
 
@@ -116,7 +116,7 @@ This resulting algorithm is based on the implementations by \citeonline{liHighdi
     \resizebox{9cm}{!}{\includegraphics{Figuras/IntervalIntersection-Cases.pdf}}
   \end{center}
   \vspace{2mm}
-  \legenda{IntervalIntersection example with four operations}
+  \legenda{IntervalIntersection example with four operations.}
   \FONTE{Author.}
 \end{figure}
 
@@ -236,7 +236,7 @@ This is due to the inherently slower set intersection algorithm used by Interval
   \end{center}
   \vspace{2mm}
   \legenda{
-    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$.
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$.
 }
   \FONTE{Author.}
@@ -253,7 +253,7 @@ In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer que
   \end{center}
   \vspace{2mm}
   \legenda{
-    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$.
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$.
 }
   \FONTE{Author.}
@@ -267,7 +267,7 @@ In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer que
   \end{center}
   \vspace{2mm}
   \legenda{
-    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$
+    (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$.
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$.
 }
   \FONTE{Author.}
@@ -300,7 +300,7 @@ This is important as it allows IntervalFrag to be implemented while requiring mu
     \resizebox{13cm}{!}{\includegraphics{Figuras/baseline-1.pdf}}
   \end{center}
   \vspace{2mm}
-  \legenda{Memory used by the baseline cube, when it can start to answer queries}
+  \legenda{Memory used by the baseline cube, when it can start to answer queries.}
   \FONTE{Author.}
 \end{figure}
 

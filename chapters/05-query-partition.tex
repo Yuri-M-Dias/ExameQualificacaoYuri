@@ -15,7 +15,7 @@ The algorithm is separated into two parts: the groups generation and the strengt
 \subsection{Aggregation generator}\label{ch:querypart:heur:agg}}
 
 The algorithm works by creating telemetry groups with all possible dimensional combinations, considering each telemetry as a dimension.
-The combination of a given set of \textbf{n} elements taken \textbf{k} at a time is given by formula \ref{eq:cardinalitygeneral}.
+The combination of a given set of \textbf{n} elements taken \textbf{k} at a time is given by Equation \ref{eq:cardinalitygeneral}.
 
 \begin{equation} \label{eq:cardinalitygeneral}
 C_k^n = \binom{n}{k}
@@ -23,7 +23,7 @@ C_k^n = \binom{n}{k}
 
 Since the number of telemetries is usually on the order of hundreds to thousands, it's best to limit the algorithm to combinations taken from 2 to 5 at a time.
 This is equivalent of computing all subcubes with those dimensions.
-That gives us the following number of combinations, with \textbf{kmax} being the biggest \emph{k} that we want, on formula \ref{eq:kmax}.
+That gives us the following number of combinations, with \textbf{kmax} being the biggest \emph{k} that we want, on Equation \ref{eq:kmax}.
 
 \begin{equation} \label{eq:kmax}
 \sum_{2\leq{k}\leq{n}}^{kmax}\binom nk = 2^{n-2}
@@ -75,31 +75,31 @@ If the number of groups is 1 it also means that no changes were observed in the 
 
 If that condition passes, then we compute some values to help with classifying the other cases:
 
-The biggest possible number of groups expected is the product of the sequence of cardinalities, called maxc is given by equation \ref{eq:maxc}.
+The biggest possible number of groups expected is the product of the sequence of cardinalities, called maxc is given by Equation \ref{eq:maxc}.
 
 \begin{equation} \label{eq:maxc}
     maxc = \prod_{t}C_t = C_1 * ... * C_t
 \end{equation}
 
-The biggest cardinality in the combination, to us the \emph{minimum} possible value for the number of groups, called \emph{minc} on equation \ref{eq:minc}.
+The biggest cardinality in the combination, to us the \emph{minimum} possible value for the number of groups, called \emph{minc} on Equation \ref{eq:minc}.
 
 \begin{equation} \label{eq:minc}
     minc = \max(C_1,...,C_t)
 \end{equation}
 
-The proportion of the number of groups by the maximum cardinality, called cratio on equation \ref{eq:cratio}.
+The proportion of the number of groups by the maximum cardinality, called cratio on Equation \ref{eq:cratio}.
 
 \begin{equation} \label{eq:cratio}
     cratio = \frac{numgroups}{maxc}
 \end{equation}
 
-The absolute cardinality difference, as it is more representative of the discrepancy between bigger cardinalities, called \emph{abscdiff} on equation \ref{eq:abscdiff}.
+The absolute cardinality difference, as it is more representative of the discrepancy between bigger cardinalities, called \emph{abscdiff} on Equation \ref{eq:abscdiff}.
 
 \begin{equation} \label{eq:abscdiff}
     abscdiff = cratio - \frac{minc}{maxc}
 \end{equation}
 
-The coefficient of variation, from the standard deviation \(\sigma\) and the mean \(\mu\), called \emph{CV}, is used to check the variability of the number of groups inside an aggregate on equation \ref{eq:cv}.
+The coefficient of variation, from the standard deviation \(\sigma\) and the mean \(\mu\), called \emph{CV}, is used to check the variability of the number of groups inside an aggregate on Equation \ref{eq:cv}.
 
 \begin{equation} \label{eq:cv}
     CV = \frac{\sigma}{\mu}
