@@ -4,7 +4,7 @@
 
 This chapter presents the theoretical background necessary to understand the concepts in this thesis, starting with satellite operations, the definitions of Big Data, Data Warehouse, OLAP and Data Cubes.
 
-\section{Satellite Operations}\label{ch:fun:operations}
+\section{Satellite operations}\label{ch:fun:operations}
 
 A satellite is divided into two modules: the service module and the payload.
 The service module is composed of everything necessary for the operation of the on-board equipment, such as the power supply system, the ground communication system, the on-board computer, etc.
@@ -20,7 +20,7 @@ Depending on the mission, other measurements can be classified as telemetry, e.g
 This data must be analyzed by satellite operators, who are responsible for monitoring and operating the satellite, on the ground after reception at the control center.
 This analysis aims to ensure that the satellite is performing the tasks as it should, and that its state of health allows the continuation of the mission.
 
-\section{Big Data}\label{ch:fun:bigdata}
+\section{Big data}\label{ch:fun:bigdata}
 
 The concept of Big Data is still evolving, and in this work the 5 Vs definition will be used: Volume, Variety, Velocity, Value and Veracity~\cite{kacfahemaniUnderstandableBigData2015}.
 
@@ -36,10 +36,10 @@ The concept of Big Data is still evolving, and in this work the 5 Vs definition 
   \item \textbf{Veracity}: the data has no guarantees as to its quality, such as inconsistencies and lack of accuracy, but the analysis must be of high quality anyway.
 \end{itemize}
 
-These V's are related to the construction of a Data Warehouse, and can also be seen as requirements for the creation of one for a data set characterized by Big Data~\cite{zhangBigDataFramework2017}.
-In particular, there is a certain relationship with the idea of ``NoSQL'' (``Not only SQL''), where not only relational database systems are used, but also other paradigms are used, such as document oriented, key and value, etc~\cite{bimonteOpenIssuesBig2016}.
+These V's are related to the construction of a Data Warehouse, and can also be seen as requirements for data set characterized by Big Data~\cite{zhangBigDataFramework2017}.
+There is also a relationship with the idea of ``NoSQL'' (``Not only SQL''), where not only relational database systems are considered, but also other paradigms are used, such as document oriented, key and value, etc~\cite{bimonteOpenIssuesBig2016}.
 
-\section{Data Warehouse}\label{ch:fun:dw}
+\section{Data warehouse}\label{ch:fun:dw}
 
 A Data Warehouse (DW) is a subject oriented, integrated, time-varying or time partitioned, non-volatile data repository that assists the decision making process~\cite{inmonUsingDataWarehouse1994}.
 This definition can be divided into:
@@ -90,7 +90,7 @@ It is important to highlight the difference between OLAP and Online Transaction 
 This covers the vast majority of day-to-day operations, such as stock control, banking operations, etc., serving various users of an organization.
 OLAP is used by decision makers and data analysts and is geared towards higher level decisions in the organization~\cite{hanDataMiningConcepts2011}.
 
-\section{Data Cube}\label{ch:fun:cube}
+\section{Data cube}\label{ch:fun:cube}
 
 The data cube was originally created as a relational operator that generates all the possible combinations of its attributes according to a measure~\cite{grayDataCubeRelational1996}.
 
@@ -107,32 +107,32 @@ A data cube is composed of cells and each cell has values for each dimension, in
 The value of a measure is computed for a given cell using lower aggregation levels to generate the values of the higher aggregation levels in the \textit{Top-down} strategy, with the inverse order used in \textit{Bottom-up}.
 
 \begin{figure}[!htb]
-  \caption{Data Cube example}\label{fig:cubeexample}
+  \caption{Data Cube example.}\label{fig:cubeexample}
   \vspace{2mm}
   \begin{center}
     \resizebox{9cm}{!}{\includegraphics{Figuras/CubeExample.pdf}}
   \end{center}
   \vspace{1mm}
   \legenda{}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
-\subsection{Data Cube Cells}\label{ch:fun:cube:cells}
+\subsection{Data cube cells}\label{ch:fun:cube:cells}
 
 A data cube is composed of several subcubes, which are all possible levels of aggregation in the specified dimensions.
-Subcubes are composed of base cells and aggregated cells, and an aggregated cell is a cell that uses the special value \textit{ALL} (``$*$'') to demonstrate that it is adding values in one or more dimensions.
+Subcubes are composed of base cells and aggregated cells, and an aggregated cell is a cell that uses the special value \textit{ALL} (``$*$'') to demonstrate that it is summarizing values in one or more dimensions.
 A base cell does not use the \textit{ALL} notation, being composed of the lowest level of aggregation~\cite{limaSEQUENTIALPARALLELAPPROACHES2009}.
 \autoref{fig:hasse} shows all levels of aggregation of a cube composed of dimensions A, B and C, from the most generic (\textit{apex}) to the most specific (base).
 
 \begin{figure}[!htb]
-  \caption{All subcubes for a three dimensional cube}\label{fig:hasse}
+  \caption{All subcubes for a three dimensional cube.}\label{fig:hasse}
   \vspace{2mm}
   \begin{center}
     \resizebox{5cm}{!}{\includegraphics{Figuras/Hasse.pdf}}
   \end{center}
   \vspace{1mm}
   \legenda{A Hasse Diagram of a data cube with three dimensions A, B and C.}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 Formally, assuming a $n$-dimensional data cube, a cell $a$ of any subcube is defined by $a = (a_1, a_2, a_3, \ldots, a_n, measures)$.
@@ -143,21 +143,21 @@ A descending-ancestral relationship can exist between cells.
 In a $n$-dimensional data cube, a cell $a = (a_1, a_2, a_3, \ldots, a_n, measures_a)$ with level $i$ is an ancestor of a cell $b = (b_1, b_2, b_3, \ldots, b_n, measures_b)$ of level $j$, and $b$ is a descendant of $a$, if and only if $i < j$ and $1 \leq m \leq n$, where $a_m = b_m$ whenever $a_m \neq *$.
 In particular, a $a$ cell is called the parent of a $b$ cell, and $b$ the child of $a$, if and only if $j = i+1$ and $b$ is a descendant of $a$~\cite{hanDataMiningConcepts2011}.
 
-\subsection{Dimensional Modelling}\label{ch:fun:cube:dimm}
+\subsection{Dimensional modelling}\label{ch:fun:cube:dimm}
 
 There are three main schemes for the dimensional modeling of a data cube: Star Schema, Snowflake Schema and Fact Constellation.
 The star schema is the most used, as it contains a central table called the fact table, where most of the data is located, with a smaller set of tables, called dimension tables, for the other dimensions.
 \autoref{fig:starschema} shows an example of a star scheme.
 
 \begin{figure}[!htb]
-  \caption{Star schema}\label{fig:starschema}
+  \caption{Star schema.}\label{fig:starschema}
   \vspace{6mm}
   \begin{center}
     \resizebox{4cm}{!}{\includegraphics{Figuras/starSchema.png}}
   \end{center}
   \vspace{1mm}
   \legenda{}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 The snowflake scheme is a variation of the star scheme, where some dimensions are normalized, dividing the data of the dimension tables into other tables.
@@ -165,31 +165,31 @@ This has the advantages of eliminating redundancies in the dimension tables, but
 \autoref{fig:snowflakeschema} shows an example of a snowflake scheme.
 
 \begin{figure}[!htb]
-  \caption{Snowflake schema}\label{fig:snowflakeschema}
+  \caption{Snowflake schema.}\label{fig:snowflakeschema}
   \vspace{2mm}
   \begin{center}
     \resizebox{6cm}{!}{\includegraphics{Figuras/snowflakeSchema.png}}
   \end{center}
   \vspace{1mm}
   \legenda{}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 The Fact Constellation uses multiple fact tables, like multiple star schemas but sharing dimension tables, leading to its name as a group of stars.
 \autoref{fig:factconstschema} shows an example of a fact constellation scheme.
 
 \begin{figure}[!htb]
-  \caption{Fact Constellation scheme}\label{fig:factconstschema}
+  \caption{Fact Constellation scheme.}\label{fig:factconstschema}
   \vspace{6mm}
   \begin{center}
     \resizebox{6cm}{!}{\includegraphics{Figuras/factConstellationSchema.png}}
   \end{center}
   \vspace{2mm}
   \legenda{}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
-\subsection{Concept Hierarchies}\label{ch:fun:cube:concept}
+\subsection{Concept hierarchies}\label{ch:fun:cube:concept}
 
 A concept hierarchy is used to define a mapping sequence between a set of low-level concepts and a set of high-level, more general concepts.
 It is a style of grouping and discretization, because it groups the values in order to reduce the cardinality of a dimension~\cite{hanDataMiningConcepts2011}.
@@ -211,7 +211,7 @@ A measure is holistic if there is no algebraic measure with $M$ arguments that p
 This means that computing cannot be partitioned, with exact values obtained only if the measure is applied to all data.
 Some examples are the measures of mode, standard deviation and median~\cite{hanDataMiningConcepts2011}.
 
-\subsection{OLAP Operations}\label{ch:fun:cube:olapops}
+\subsection{OLAP operations}\label{ch:fun:cube:olapops}
 
 To perform queries in the Data Warehouse, it is necessary to use some operations on the data cube to obtain the appropriate results.
 These queries must also be able to go through the hierarchy of concepts of each dimension, as well as follow the dimensional model of the cube, in order to offer a user-friendly interface for interactive analysis~\cite{hanDataMiningConcepts2011}.
@@ -226,19 +226,19 @@ Some operations are exemplified in \autoref{fig:olap}, but they usually are:
 \end{itemize}
 
 \begin{figure}[!htb]
-  \caption{OLAP operations in a Data Cube}\label{fig:olap}
+  \caption{OLAP operations in a Data Cube.}\label{fig:olap}
   \vspace{4mm}
   \begin{center}
     \resizebox{15cm}{!}{\includegraphics{Figuras/OLAP.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Common OLAP operations on a three-dimensional data cube with Satellite, Time and Telemetry dimensions}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 Depending on the OLAP system, it is possible to execute other operations, like drill-across between multiple fact tables, and drill-through where queries are executed directly on the low-level representation of the data~\cite{hanDataMiningConcepts2011}.
 
-\subsection{Data Cube Computation}\label{ch:fun:cube:comp}
+\subsection{Data cube computation}\label{ch:fun:cube:comp}
 
 Data cube computation is an essential task, as pre-computing all or part of a data cube can significantly increase DW performance.
 However, this task has exponential complexity in relation to the number of dimensions, being called materialization, with complete materialization requiring a large number of cells, and therefore a high consumption of memory and time~\cite{hanDataMiningConcepts2011}.
@@ -275,7 +275,7 @@ Another technique is to compute small cubes, usually between 3 and 5 dimensions,
 To answer queries with more dimensions, the combinations between the small subcubes are aggregated.
 This technique is called shell fragment, and the cube is called cube shell~\cite{liHighdimensionalOLAPMinimal2004}.
 
-A data cube where cells with identical measurements are encapsulated in a single abstraction, called a closed cell is called a closed cube~\cite{dongxinCCubingEfficientComputation2006}, or quotient cube~\cite{lakshmananQuotientCubeHow2002}.
+A data cube where cells with identical measurements are encapsulated in a single abstraction, called a closed cell is called a closed cube~\cite{dongCCubingEfficientComputation2006}, or quotient cube~\cite{lakshmananQuotientCubeHow2002}.
 
 The choice of partial materialization depends on the required balance between response time and storage space.
 However, full cube computation remains relevant, and advances in partial cube computation are generally adopted in full cube computation.
@@ -287,23 +287,23 @@ From a base cube, the data cube computation can use the Top-down or Bottom-up st
 ABCD being a base cube, the three dimension subcubes are: ABC, ABD, ACD and BCD; which can use the results of the base cube to be computed.
 
 \begin{figure}[!hbt]
-  \caption{Computing the data cube with the Top-Down strategy}\label{fig:topdown}
+  \caption{Computing the data cube with the Top-Down strategy.}\label{fig:topdown}
   \vspace{4mm}
   \begin{center}
     \resizebox{7cm}{!}{\includegraphics{Figuras/topdown.png}}
   \end{center}
   \vspace{2mm}
   \legenda{}
-  \FONTE{~\cite{silva:2015:abordagensParaCubo}.}
+  \FONTE{~\citeonline{silva:2015:abordagensParaCubo}.}
 \end{figure}
 
-Os resultados da computação do subcubo ACD podem ser utilizados para computar AD, que consequentemente podem ser utilizados para computar A.
-Essa computação compartilhada permite que a estratégia \textit{Top-down} compute agregações em múltiplas dimensões.
-Os valores agregados intermediários podem ser reutilizados para a computação de subcubos descendentes sucessivos.
+The results of computing the ACD subcube can be used to compute AD, which consequently can be used to compute A.
+This shared computation allows the \textit{Top-down} strategy to compute aggregations in multiple dimensions.
+The intermediate aggregate values can be reused for computing successive descendant subcubes.
 
-A Figura~\ref{fig:bottomup} mostra a geração de um cubo de dados de 4 dimensões por meio da estratégia \textit{Bottom-up}.
-Subcubos de poucas dimensões tornam-se pais de subcubos com mais dimensões.
-Infelizmente, a computação compartilhada, utilizada na estratégia \textit{Top-down}, não pode ser aplicada quando utilizada a estratégia \textit{Bottom-up}, então cada subcubo descendente necessita ser computado do início.
+Figure~\ref{fig:bottomup} shows the generation of a 4-dimensional data cube using the \textit{Bottom-up} strategy.
+Subcubes with few dimensions become parents of subcubes with more dimensions.
+Unfortunately, the shared computation used in the \textit{Top-down} strategy cannot be applied when using the \textit{Bottom-up} strategy, so each descending subcube needs to be computed from scratch.
 
 The results of the ACD subcube computation can be used to compute AD, which consequently can be used to compute A.
 This shared computing allows the Top-down strategy to compute aggregations in multiple dimensions.
@@ -314,13 +314,13 @@ Low dimensional subcubes become parents of more dimensioned subcubes.
 Unfortunately, the shared computing used in the Top-down strategy cannot be applied when using the Bottom-up strategy, so each descending subcube needs to be computed from the beginning.
 
 \begin{figure}[!htb]
-  \caption{Computing the data cube with the Bottom-Up strategy}\label{fig:bottomup}
+  \caption{Computing the data cube with the Bottom-Up strategy.}\label{fig:bottomup}
   \vspace{4mm}
   \begin{center}
     \resizebox{8cm}{!}{\includegraphics{Figuras/bottomup.png}}
   \end{center}
   \vspace{2mm}
   \legenda{}
-  \FONTE{~\cite{silva:2015:abordagensParaCubo}.}
+  \FONTE{~\citeonline{silva:2015:abordagensParaCubo}.}
 \end{figure}
 

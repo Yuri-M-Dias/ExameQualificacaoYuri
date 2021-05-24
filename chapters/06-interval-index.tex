@@ -4,7 +4,7 @@
 
 This section describes the IntervalFrag algorithm, and the proposed architecture needed to implement the enhancements to the Frag-Cubing's algorithm.
 
-\section{Using Intervals in Inverted Indexes}\label{ch:interval:problem}
+\section{Using intervals in inverted indexes}\label{ch:interval:problem}
 
 In chapter~\ref{ch:corr:cube:frag} the Frag-Cubing algorithm was explained, as per the original implementation by~\citeonline{liHighdimensionalOLAPMinimal2004}.
 One of the key parts of the algorithm is the use of an inverted index to query directly into the attribute values and allow for the iceberg pruning of cells that fall below minimum support.
@@ -54,7 +54,9 @@ If the last element is negative $c$, then we can check if $c * -1 + 1 = b$, and 
 If the last element is not negative, then we check if the element $c$, is $c + 1 = b$ and update the position $c$ if it is true, else we flip the signal of $b$ and insert it at the end of the list.
 Else none of these we can safely append $b$ to the end of the list after flipping the signal to negative, and thus this algorithm is implemented at $\Theta(1)$, shown in \autoref{algo:interval_insertion}.
 
-\begin{algorithm}[!htb]
+~ % need this to maintain the space
+
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{Element inserted into the list}
  $b$ element to be inserted\;
@@ -88,7 +90,7 @@ However, due to the change in how the index uses the TID list, it is necessary t
 In order to check if two intervals intersect: assuming two intervals $I_a = \langle a_l, a_r \rangle$ and $I_b = \langle b_l, b_r \rangle$, where $a_l$ is the smallest element in the interval, and $a_r$ the biggest element in the interval.
 The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and the intersection $I_o = I_a \bigcap I_b$ can be computed by computing the biggest element between $a_r$ and $b_r$ (function $max$) and the smallest element between $a_l$ and $b_l$ (function $min$), or \autoref{algo:intersect_interval}.
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The result intersection $I_o$, or $\emptyset$ in case there is no intersection}
  $I_a$ and $I_b$ two intervals\;
@@ -99,7 +101,7 @@ The output intersection can be defined as $I_o = \langle a_l, a_r \rangle$, and 
   $o_r$ = $min( a_r, b_r )$\;
   \KwRet $[o_l, o_r]$\;
   }
-  \caption{IntersectTwoIntervals, adapted from \cite{26260}}\label{algo:intersect_interval}
+  \caption{IntersectTwoIntervals, adapted from \citeonline{26260}}\label{algo:intersect_interval}
 \end{algorithm}
 
 \autoref{fig:interval:sample} shows four examples of using this algorithm to select for intersections, including the empty case when there is no intersection.
@@ -108,14 +110,14 @@ The algorithm to perform this is shown below, and takes the same complexity of t
 This resulting algorithm is based on the implementations by \citeonline{liHighdimensionalOLAPMinimal2004} and \citeonline{silva:2015:abordagensParaCubo}, shown in \autoref{algo:intersect_interval_lists}.
 
 \begin{figure}[!htb]
-  \caption{IntervalIntersection example}\label{fig:interval:sample}
+  \caption{IntervalIntersection example.}\label{fig:interval:sample}
   \vspace{6mm}
   \begin{center}
     \resizebox{9cm}{!}{\includegraphics{Figuras/IntervalIntersection-Cases.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{IntervalIntersection example with four operations}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 \begin{algorithm}[H]
@@ -147,7 +149,7 @@ This resulting algorithm is based on the implementations by \citeonline{liHighdi
 
 \begin{table}[!ht]
   \centering
-  \caption{IntervalFrag x Frag-Cubing, memory consumption in KiB}\label{tab:interval_memory}
+  \caption{IntervalFrag x Frag-Cubing, memory consumption in KiB.}\label{tab:interval_memory}
   \begin{tabular}{|c|c|c|c|c|c|c|c|}
     \hline
     & & \multicolumn{5}{c|}{\textbf{Tuples}} \\
@@ -184,7 +186,7 @@ This resulting algorithm is based on the implementations by \citeonline{liHighdi
 
 \begin{table}[!ht]
   \centering
-  \caption{IntervalFrag x Frag-Cubing, query response times in ms}\label{tab:interval_query}
+  \caption{IntervalFrag x Frag-Cubing, query response times in ms.}\label{tab:interval_query}
   \begin{tabular}{|c|c|c|c|c|c|c|c|}
     \hline
     & & \multicolumn{5}{c|}{\textbf{Tuples}} \\
@@ -227,7 +229,7 @@ However, in the case of $Q2$ where all dimensions have both cardinality and low 
 This is due to the inherently slower set intersection algorithm used by IntervalFrag, that needs to execute more comparisons than Frag-Cubing, even when the algorithms have the same complexity and are similar.
 
 \begin{figure}[H]
-  \caption{IntervalFrag for Q1 and Q2}\label{fig:interval:q1-2}
+  \caption{IntervalFrag for Q1 and Q2.}\label{fig:interval:q1-2}
   \vspace{6mm}
   \begin{center}
     \resizebox{13cm}{!}{\includegraphics{Figuras/q1q2-1.pdf}}
@@ -237,14 +239,14 @@ This is due to the inherently slower set intersection algorithm used by Interval
     (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q1$ and $Q2$ under the cube $C0$.
 }
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer queries $Q3$ and $Q4$, both that have a high cardinality and low sequentiality, but takes only about 53\% of the time to answer $Q5$, that also has a high cardinality but presents a high sequentiality.
 \autoref{fig:interval:q3-4} shows those results for $Q3$ and $Q4$, \autoref{fig:interval:q5} for $Q5$, and it is also clear that the memory usage is much lower with IntervalFrag than with Frag-Cubing.
 
 \begin{figure}[H]
-  \caption{IntervalFrag for Q3 and Q4}\label{fig:interval:q3-4}
+  \caption{IntervalFrag for Q3 and Q4.}\label{fig:interval:q3-4}
   \vspace{6mm}
   \begin{center}
     \resizebox{13cm}{!}{\includegraphics{Figuras/q3q4-1.pdf}}
@@ -254,11 +256,11 @@ In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer que
     (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q3$ and $Q4$ under the cube $C0$.
 }
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 \begin{figure}[H]
-  \caption{IntervalFrag for Q5}\label{fig:interval:q5}
+  \caption{IntervalFrag for Q5.}\label{fig:interval:q5}
   \vspace{6mm}
   \begin{center}
     \resizebox{13cm}{!}{\includegraphics{Figuras/q5-1.pdf}}
@@ -268,7 +270,7 @@ In the case of queries $Q3$, $Q4$ and $Q5$, IntervalFrag is slower to answer que
     (\textbf{A}) Query response times of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$
     (\textbf{B}) Memory consumption of IntervalFrag and Frag-Cubing for queries $Q5$ under the cube $C0$.
 }
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 Additionally, we need to compare the time necessary to create the cube under each of the algorithms, here called Time to Cube.
@@ -277,14 +279,14 @@ This however is just a simple comparison, as in that step each subcube of the fr
 However, since this computation would involve list intersections at higher fragment sizes, the speed of the intersection algorithm would heavily influence this computation, being more comparable to the query response times compared above.
 
 \begin{figure}[H]
-  \caption{Comparison: Time to Cube}\label{fig:interval:timetocube}
+  \caption{Comparison: Time to Cube.}\label{fig:interval:timetocube}
   \vspace{6mm}
   \begin{center}
     \resizebox{13cm}{!}{\includegraphics{Figuras/timetocube-1.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Time necessary to compute the cube after the data is read into memory.}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 Another important metric is the baseline memory used before queries can be performed on the data.
@@ -292,14 +294,14 @@ Another important metric is the baseline memory used before queries can be perfo
 This is important as it allows IntervalFrag to be implemented while requiring much less computational resources.
 
 \begin{figure}[H]
-  \caption{Comparison: Baseline memory}\label{fig:interval:baseline}
+  \caption{Comparison: Baseline memory.}\label{fig:interval:baseline}
   \vspace{6mm}
   \begin{center}
     \resizebox{13cm}{!}{\includegraphics{Figuras/baseline-1.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Memory used by the baseline cube, when it can start to answer queries}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
 
 \section{Summary}\label{ch:interval:summary}

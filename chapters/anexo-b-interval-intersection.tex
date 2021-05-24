@@ -24,7 +24,12 @@ For this work, the UnorderedSet functions from the C++ standard were used for br
 The Scalar algorithm, also called the naïve or the tape-merge algorithm, is the standard way of computing the intersection between two lists \cite{hwangSimpleAlgorithmMerging1972}.
 It is detailed in Algorithm \ref{algo:intersect:scalar}, and works by creating two pointers for each list, then incrementing only one of those until an matching element is found or it reaches the end of the list.
 
-\begin{algorithm}[!htb]
+Algorithm \ref{algo:intersect:scalar_branchless} is based on the Figure 2 algorithm by \citeonline{inoueFasterSetIntersection2014}, and consists on a branchless version of the scalar algorithm above.
+Its only aim is to reduce the branch mispredictions during runtime, and removing the two separate ifs with a constant operation to decide which element to advance next.
+
+~
+
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The intersection between two lists, or $\emptyset$ if there is no intersection}
  $L_a$ and $L_b$ two input lists\;
@@ -48,10 +53,7 @@ It is detailed in Algorithm \ref{algo:intersect:scalar}, and works by creating t
  \caption{Scalar intersection algorithm, adapted from \citeonline{hwangSimpleAlgorithmMerging1972}}\label{algo:intersect:scalar}
 \end{algorithm}
 
-Algorithm \ref{algo:intersect:scalar_branchless} is based on the Figure 2 algorithm by \citeonline{inoueFasterSetIntersection2014}, and consists on a branchless version of the scalar algorithm above.
-Its only aim is to reduce the branch mispredictions during runtime, and removing the two separate ifs with a constant operation to decide which element to advance next.
-
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The intersection between two lists, or $\emptyset$ if there is no intersection}
  $L_a$ and $L_b$ two input lists\;
@@ -76,7 +78,7 @@ The algorithm called "Li" is based on the original Frag-Cubing implementation co
 It is based off the scalar version, however it uses a look-ahead heuristic in which it verifies the next ten elements instead of just the next one, advancing ten spots if the present element is still smaller.
 It is detailed in Algorithm \ref{algo:intersect:li}.
 
-\begin{algorithm}[!htb]
+\begin{algorithm}[H]
 \SetAlgoLined
 \KwResult{The intersection between two lists, or $\emptyset$ if there is no intersection}
  $L_a$ and $L_b$ two input lists. For brevity, $L_a$ is assumed as the smaller of the two\;
@@ -125,9 +127,9 @@ This spread was intentional to mirror the worst cases in the Frag-Cubing algorit
 
 Table~\ref{tab:setresults} showcases a summary of the experiment's results, these results being the median time necessary to compute the intersection.
 
-\begin{table}[!ht]
+\begin{table}[!htb]
   \begin{center}
-    \caption{Set Intersection Results, in milliseconds}\label{tab:setresults}
+    \caption{Set Intersection Results, in milliseconds.}\label{tab:setresults}
     \begin{tabular}{|c|c|c|c|c|c|c|}
       \hline
       \textbf{Algorithm - N} & \bfseries $2\times10^6$ & \bfseries $4\times10^6$ & \bfseries $6\times10^6$ & \bfseries $8\times10^6$ & \bfseries $1\times10^7$\\
@@ -152,23 +154,23 @@ Table~\ref{tab:setresults} showcases a summary of the experiment's results, thes
 
 As the HashSet approach was the slowest approach, \autoref{fig:set_intersection_results} showcases the comparison between the other algorithms, that have comparable performances and are easier to visualize.
 
-\begin{figure}[ht]
-  \caption{Set Intersection Algorithm results}\label{fig:set_intersection_results}
+The SIMD approach is clearly the fastest, however it is also dependant on processor architecture and even though the used SIMD instructions (SS2) are available on almost all modern CPUs, other newer instruction sets might not be, or might have different implementations depending on the CPU vendor, which complicates widespread implementation.
+
+\begin{figure}[H]
+  \caption{Set Intersection Algorithm results.}\label{fig:set_intersection_results}
   \vspace{6mm}
   \begin{center}
     \resizebox{14cm}{!}{\includegraphics{Figuras/indexResultsPlot-1.pdf}}
   \end{center}
   \vspace{2mm}
   \legenda{Set intersection algorithms response times in milliseconds, ordered by the size of the input relation.}
-  \FONTE{Author}
+  \FONTE{Author.}
 \end{figure}
-
-The SIMD approach is clearly the fastest, however it is also dependant on processor architecture and even though the used SIMD instructions (SS2) are available on almost all modern CPUs, other newer instruction sets might not be, or might have different implementations depending on the CPU vendor, which complicates widespread implementation.
 
 While these tests are interesting, there was not enough time to test some recent benchmarks that found the use of different algorithms and could improve the performance of each, as the use of compressed indexes in \citeonline{pibiriTechniquesInvertedIndex2019} show.
 Furthermore, the SIMD instruction set used here (SSE2) is limited even if its support is widespread, with other instruction sets (SSE3, AVX, AVX512, etc) being available on modern CPUs and also available for use.
 
-Some recent results that have not been properly explored in the data cube context as of yet: Recursive Universe Partitioning, a technique that uses the possible search space to partition the sets and execute the intersection~\cite{pibiriFastCompactSet2021}; FESIA, which combines the use of previous techniques with different SIMD computation techniques and a bitmap to decide which algorithm is more suitable for use depending on the set size~\cite{zhangFESIAFastSIMDEfficient2020}, and the use of pre-processed dictionaries to greatly aid in the computation~\cite{dingFastSetIntersection2011a}.
+Some recent results that have not been properly explored in the data cube context as of yet: Recursive Universe Partitioning, a technique that uses the possible search space to partition the sets and execute the intersection~\cite{pibiriFastCompactSet2021}; FESIA, which combines the use of previous techniques with different SIMD computation techniques and a bitmap to decide which algorithm is more suitable for use depending on the set size~\cite{zhangFESIAFastSIMDEfficient2020}, and the use of pre-processed dictionaries to greatly aid in the computation~\cite{dingFastSetIntersection2011}.
 There's even an algorithm to compute the set intersection in $\Theta(1)$ by using a quantum computer and extending from the Bernstein-Vazirani algorithm~\cite{tianQuantumAlgorithmFinding2019}, however due to needing $\mathcal{O}(n)$ quantum storage space, that approach is likely not implementable for any significant dataset in the near future.
 
 Further testing is necessary when dealing with lists of varying sizes, that would showcase the improvements of certain algorithms over others, and the incorporation of these algorithms into a real-world dataset for accurate tests.
